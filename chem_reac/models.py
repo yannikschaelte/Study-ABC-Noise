@@ -4,7 +4,8 @@ import scipy as sp
 
 # VARIABLES
 
-noise = 0.04
+noise = 0.03
+noise_model = np.random.rand
 
 # MODEL
 
@@ -33,7 +34,12 @@ def model(p):
 
 
 def model_random(p):
-    y0 = y(p)[:, 1] + noise * np.random.rand(n_timepoints)
+    y0 = y(p)[:, 1] + noise * noise_model(n_timepoints)
+    return {'y0': y0}
+
+
+def model_random_unknownnoise(p):
+    y0 = y(p)[:, 1] + p['noise'] * noise_model(n_timepoints)
     return {'y0': y0}
 
 
@@ -78,11 +84,11 @@ data_true = model(th_true)
 def f_data_meas():
     data_meas = np.zeros(n_timepoints)
     for _ in range(1000):
-        data_meas += model(th_true)['y0'] + 0.01*np.random.rand(n_timepoints)
+        data_meas += model(th_true)['y0'] + 0.01*np.random.randn(n_timepoints)
     data_meas /= 1000
 
     return {'y0': data_meas}
 
 
-data_meas = {'y0': data_true['y0'] + noise * np.random.rand(n_timepoints)}
+data_meas = {'y0': data_true['y0'] + noise * noise_model(n_timepoints)}
 

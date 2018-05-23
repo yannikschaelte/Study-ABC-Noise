@@ -1,0 +1,4 @@
+### observations
+
+- noise = 0.01 - 0.05: not assuming noise leads to concentration around wrong value, no probability given to true parameters any more
+- noise = 0.1: not assuming noise does not even run through any more

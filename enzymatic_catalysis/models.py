@@ -28,6 +28,13 @@ variance = std_dev ** 2
 # prior
 prior_lb = -10
 prior_ub = 5
+prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
+                              for key in ['th0', 'th1', 'th2', 'th3']})
+
+# pyabc parameters
+pop_size = 50
+transition = pyabc.MultivariateNormalTransition()
+eps = pyabc.MedianEpsilon()
 
 # true parameters
 theta_true = {'th0': 1.1770, 'th1': -2.3714, 'th2': -0.4827, 'th3': -5.5387}
@@ -60,7 +67,7 @@ def get_y_meas():
 # MODEL
 
 
-def f(x, t, th0, th1, th2, th3):
+def f(t, x, th0, th1, th2, th3):
     x0, x1, x2, x3 = x
     dx0 = - th0*x0*x1 + th1*x2
     dx1 = - th0*x0*x1 + (th1+th2)*x2 - th3*x1*x3
@@ -75,7 +82,15 @@ def x(p):
     th1 = p['th1']
     th2 = p['th2']
     th3 = p['th3']
-    sol = sp.integrate.odeint(f, get_x0(), t, args=(th0, th1, th2, th3))
+
+    def cur_f(t, x):
+        return f(t, x, th0, th1, th2, th3)
+
+    sol = sp.integrate.solve_ivp(fun=cur_f, 
+                                 t_span=(min(t), max(t)),
+                                 y0=get_x0(),
+                                 method='Radau',
+                                 t_eval=t)        
     
     return sol
 

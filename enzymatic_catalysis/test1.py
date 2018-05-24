@@ -12,5 +12,6 @@ abc = pyabc.ABCSMC(models=model,
 
 abc.new(db_path, get_y_meas())
 
-h = abc.run(minimum_epsilon=0, max_nr_populations=5)
+h = abc.run(minimum_epsilon=0, max_nr_populations=10)
 
+visualize(h)

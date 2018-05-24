@@ -1,4 +1,6 @@
 import pyabc
+import pyabc.visualization
+import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
 import pickle
@@ -118,3 +120,16 @@ def distance(x, y):
                if key in x and key in y else 0
                for key in x),
            1/2)
+
+
+def visualize(history):
+    t = history.max_t
+
+    df, w = history.get_distribution(m=0, t=t)
+    pyabc.visualization.plot_kde_matrix(df, 
+                                        w, 
+                                        limits={key: (prior_lb, prior_ub)
+                                                for key in ['th0', 'th1', 'th2', 'th3']})
+    plt.savefig("kde_matrix_" + str(t))
+    plt.close()
+

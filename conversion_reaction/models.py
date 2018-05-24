@@ -24,22 +24,27 @@ def f(x, t0, th0, th1):
 def x(p):
     th0 = p['th0']
     th1 = p['th1']
-    sol = sp.integrate.odeint(f, x0, timepoints, args=(th0, th1))
-    return sol
+
+    def cur_f(t, x):
+        return f(x, t, th0, th1)
+    t = timepoints
+    sol = sp.integrate.solve_ivp(fun=cur_f, t_span=(min(t),max(t)), y0=x0, method='BDF', t_eval=t)
+    # sol = sp.integrate.odeint(f, x0, timepoints, args=(th0, th1))
+    return sol.y
 
 
 def model(p):
-    y = x(p)[:, 1]
+    y = x(p)[1, :]
     return {'y': y} 
 
 
 def model_random(p):
-    y = x(p)[:, 1] + noise * noise_model(n_timepoints)
+    y = x(p)[1, :] + noise * noise_model(n_timepoints)
     return {'y': y}
 
 
 def model_random_unknownnoise(p):
-    y = x(p)[:, 1] + p['noise'] * noise_model(n_timepoints)
+    y = x(p)[1, :] + p['noise'] * noise_model(n_timepoints)
     return {'y': y}
 
 

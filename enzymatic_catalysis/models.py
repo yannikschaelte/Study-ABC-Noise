@@ -89,16 +89,15 @@ def x(p):
     sol = sp.integrate.solve_ivp(fun=cur_f, 
                                  t_span=(min(t), max(t)),
                                  y0=get_x0(),
-                                 method='Radau',
                                  t_eval=t)        
     
-    return sol
+    return sol.y
 
 
 def model(p):
     y = x(p)
     
-    return {'y0': y[:, 0], 'y3': y[:, 3]}
+    return {'y0': y[0, :], 'y3': y[3, :]}
 
 
 def normalize_sum_stats(x):

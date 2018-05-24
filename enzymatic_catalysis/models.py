@@ -18,6 +18,7 @@ n_t = 50
 t = np.linspace(0, 5, n_t)
 
 # number of experiments (so far only 1 allowed)
+# for n_e > 1, some loops and squeezes would be required
 n_e = 1
 
 # standard deviation and variance
@@ -32,6 +33,7 @@ prior_ub = 5
 theta_true = {'th0': 1.1770, 'th1': -2.3714, 'th2': -0.4827, 'th3': -5.5387}
 
 # initial concentrations and measured data
+
 
 def get_x0():
     x0_file = "x0.dat"
@@ -64,6 +66,7 @@ def f(x, t, th0, th1, th2, th3):
     dx1 = - th0*x0*x1 + (th1+th2)*x2 - th3*x1*x3
     dx2 = th0*x0*x1 - (th1+th2)*x2 + th3*x1*x3
     dx3 = th2*x2 - th3*x1*x3
+    
     return dx0, dx1, dx2, dx3
 
 
@@ -73,11 +76,13 @@ def x(p):
     th2 = p['th2']
     th3 = p['th3']
     sol = sp.integrate.odeint(f, get_x0(), t, args=(th0, th1, th2, th3))
+    
     return sol
 
 
 def model(p):
     y = x(p)
+    
     return {'y0': y[:, 0], 'y3': y[:, 3]}
 
 
@@ -86,6 +91,7 @@ def normalize_sum_stats(x):
     for key, value in x.items():
         for j in range(len(value)):
             x_flat[(key, j)] = value[j]
+    
     return x_flat
 
 

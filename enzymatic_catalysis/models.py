@@ -8,6 +8,8 @@ import pickle
 
 # VARIABLES
 
+noise = 0.001
+noise_model = np.random.randn
 
 # number of states
 n_x = 4
@@ -30,8 +32,9 @@ variance = std_dev ** 2
 # prior
 prior_lb = -10
 prior_ub = 5
-prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
-                              for key in ['th0', 'th1', 'th2', 'th3']})
+prior = pyabc.Distribution(
+        **{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
+           for key in ['th0', 'th1', 'th2', 'th3']})
 
 # pyabc parameters
 pop_size = 50
@@ -39,7 +42,7 @@ transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
 
 # true parameters
-theta_true = {'th0': 1.1770, 'th1': -2.3714, 'th2': -0.4827, 'th3': -5.5387}
+th_true = {'th0': 1.1770, 'th1': -2.3714, 'th2': -0.4827, 'th3': -5.5387}
 
 # initial concentrations and measured data
 
@@ -60,7 +63,9 @@ def get_y_meas():
     try:
         y_meas = pickle.load(open(y_meas_file, 'rb'))
     except Exception:
-        y_meas = model(theta_true)
+        y_true = model(th_true)
+        y_meas = {'y0': y_true['y0'] + noise * noise_model(n_t),
+                  'y3': y_true['y3'] + noise * noise_model(n_t)}
         pickle.dump(y_meas, open(y_meas_file, 'wb'))
 
     return y_meas
@@ -102,6 +107,11 @@ def model(p):
     return {'y0': y[0, :], 'y3': y[3, :]}
 
 
+def model_random(p):
+    y = x(p)
+    return {'y0': y[0, :] + noise * noise_model(n_t),
+            'y3': y[3, :] + noise * noise_model(n_t)}
+
 def normalize_sum_stats(x):
     x_flat = {}
     for key, value in x.items():
@@ -123,14 +133,14 @@ def distance(x, y):
 
 # VISUALIZATION
 
-def visualize(history):
+def visualize(label, history):
     t = history.max_t
 
     df, w = history.get_distribution(m=0, t=t)
-    pyabc.visualization.plot_kde_matrix(df, 
-                                        w, 
-                                        limits={key: (prior_lb, prior_ub)
-                                                for key in ['th0', 'th1', 'th2', 'th3']})
-    plt.savefig("kde_matrix_" + str(t))
+    pyabc.visualization.plot_kde_matrix(
+            df, w, 
+            limits={key: (prior_lb, prior_ub)
+                    for key in ['th0', 'th1', 'th2', 'th3']})
+    plt.savefig(label + "_kde_matrix_" + str(t))
     plt.close()
 

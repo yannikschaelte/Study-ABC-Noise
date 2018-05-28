@@ -121,6 +121,7 @@ def distance(x, y):
                for key in x),
            1/2)
 
+# VISUALIZATION
 
 def visualize(history):
     t = history.max_t

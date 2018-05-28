@@ -1,11 +1,20 @@
 import pyabc
+import pyabc.visualization
+import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
+import pickle
 
 # VARIABLES
 
-noise = 0.03
-noise_model = np.random.rand
+noise = 0.2
+noise_model = np.random.randn
+
+# prior
+prior_lb = 0
+prior_ub = 1
+prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
+                              for key in ['th0', 'th1']})
 
 # MODEL
 
@@ -27,9 +36,12 @@ def x(p):
 
     def cur_f(t, x):
         return f(x, t, th0, th1)
-    t = timepoints
-    sol = sp.integrate.solve_ivp(fun=cur_f, t_span=(min(t),max(t)), y0=x0, method='BDF', t_eval=t)
-    # sol = sp.integrate.odeint(f, x0, timepoints, args=(th0, th1))
+    
+    sol = sp.integrate.solve_ivp(fun=cur_f, 
+                                 t_span=(min(timepoints), max(timepoints)), 
+                                 y0=x0, 
+                                 method='BDF', 
+                                 t_eval=timepoints)
     return sol.y
 
 
@@ -81,19 +93,43 @@ def normalize_sum_stat(x):
 
 th0_true, th1_true = sp.exp([-2.5, -2])
 th_true = {'th0': th0_true, 'th1': th1_true}
-data_true = model(th_true)
+y_true = model(th_true)
 
 # MEASURED DATA
 
 
-def f_data_meas():
-    data_meas = np.zeros(n_timepoints)
-    for _ in range(1000):
-        data_meas += model(th_true)['y'] + 0.01*np.random.randn(n_timepoints)
-    data_meas /= 1000
+def get_y_meas():
+    y_meas_file = "y_meas.dat"
+    try:
+        y_meas = pickle.load(open(y_meas_file, 'rb'))
+    except Exception:
+        y_meas = {'y': y_true['y'] + noise * noise_model(n_timepoints)}
+        pickle.dump(y_meas, open(y_meas_file, 'wb'))
 
-    return {'y': data_meas}
+    return y_meas
+
+# VISUALIZATION
+
+def visualize(label, history):
+    t = history.max_t
+
+    df, w = history.get_distribution(m=0, t=t)
+    ax = pyabc.visualization.plot_kde_2d(df, w,
+                                         'th0', 'th1',
+                                         xmin=prior_lb, xmax=prior_ub, numx=300,
+                                         ymin=prior_lb, ymax=prior_ub, numy=300)
+    ax.scatter([th0_true], [th1_true],
+               color='C1',
+               label='$\Theta$ true = {:.3f}, {:.3f}'.format(th0_true, th1_true))
+    ax.set_title("Posterior t={}".format(t))
+    ax.legend()
+    plt.savefig(label + "_kde_2d_" + str(t))
+    plt.close()
 
 
-data_meas = {'y': data_true['y'] + noise * noise_model(n_timepoints)}
-
+# pyabc parameters
+distance = ArrayPNormDistance()
+pop_size = 50
+transition = pyabc.MultivariateNormalTransition()
+eps = pyabc.MedianEpsilon()
+max_nr_populations = 10

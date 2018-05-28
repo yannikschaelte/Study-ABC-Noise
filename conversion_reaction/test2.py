@@ -13,14 +13,6 @@ db_path = "sqlite:///db2.db"
 
 # PERFORM ABC ANALYSIS
 
-prior = pyabc.Distribution(th0=pyabc.RV('uniform', 0, 1),
-                           th1=pyabc.RV('uniform', 0, 1))
-
-distance = ArrayPNormDistance()
-pop_size = 50
-transition = pyabc.LocalTransition(k_fraction=.3)
-eps = pyabc.MedianEpsilon(median_multiplier=.7)
-
 abc = pyabc.ABCSMC(models=model_random,
                    parameter_priors=prior,
                    distance_function=distance,
@@ -28,21 +20,10 @@ abc = pyabc.ABCSMC(models=model_random,
                    transitions=transition,
                    eps=eps)
 
-abc.new(db_path, data_meas)
+abc.new(db_path, get_y_meas())
 
-h = abc.run(minimum_epsilon=0, max_nr_populations=5)
+h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations)
 
 # PLOT
 
-t = h.max_t
-
-ax = plot_kde_2d(*h.get_distribution(m=0, t=t),
-                 'th0', 'th1',
-                 xmin=0, xmax=1, numx=300,
-                 ymin=0, ymax=1, numy=300)
-ax.scatter([th0_true], [th1_true],
-           color='C1',
-           label='$\Theta$ true = {:.3f}, {:.3f}'.format(th0_true, th1_true))
-ax.set_title("Posterior t={}".format(t))
-ax.legend()
-plt.savefig("test2")
+visualize('test2', h)

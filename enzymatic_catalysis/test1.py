@@ -8,7 +8,8 @@ abc = pyabc.ABCSMC(models=model,
                    distance_function=distance,
                    population_size=pop_size,
                    transitions=transition,
-                   eps=eps)
+                   eps=eps,
+                   sampler=sampler)
 
 abc.new(db_path, get_y_meas())
 

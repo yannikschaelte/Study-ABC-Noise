@@ -47,19 +47,31 @@ th_true = {'th0': 1.1770, 'th1': -2.3714, 'th2': -0.4827, 'th3': -5.5387}
 
 # initial concentrations and measured data
 
+_x0 = None
+_y_meas = None
+
 
 def get_x0():
+    global _x0
+    if _x0 is not None:
+        return _x0
+
     x0_file = "x0.dat"
     try:
         x0 = pickle.load(open(x0_file, 'rb'))
     except Exception:
         x0 = np.exp(np.random.normal(0, 0.5, n_x))
         pickle.dump(x0, open(x0_file, 'wb'))
-
+    
+    _x0 = x0
     return x0
 
 
 def get_y_meas():
+    global _y_meas
+    if _y_meas is not None:
+        return _y_meas
+
     y_meas_file = "y_meas.dat"
     try:
         y_meas = pickle.load(open(y_meas_file, 'rb'))
@@ -69,6 +81,7 @@ def get_y_meas():
                   'y3': y_true['y3'] + noise * noise_model(n_t)}
         pickle.dump(y_meas, open(y_meas_file, 'wb'))
 
+    _y_meas = y_meas
     return y_meas
 
 

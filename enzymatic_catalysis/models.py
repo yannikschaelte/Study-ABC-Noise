@@ -8,7 +8,7 @@ import pickle
 
 # VARIABLES
 
-noise = 0
+noise = 1
 noise_model = np.random.randn
 
 # number of states
@@ -40,6 +40,7 @@ prior = pyabc.Distribution(
 pop_size = 50
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
+max_nr_populations = 20
 
 # true parameters
 th_true = {'th0': 1.1770, 'th1': -2.3714, 'th2': -0.4827, 'th3': -5.5387}
@@ -109,6 +110,7 @@ def model(p):
 
 def model_random(p):
     y = x(p)
+
     return {'y0': y[0, :] + noise * noise_model(n_t),
             'y3': y[3, :] + noise * noise_model(n_t)}
 

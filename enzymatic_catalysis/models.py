@@ -8,7 +8,7 @@ import pickle
 
 # VARIABLES
 
-noise = 0.001
+noise = 0
 noise_model = np.random.randn
 
 # number of states
@@ -85,18 +85,18 @@ def f(t, x, th0, th1, th2, th3):
 
 
 def x(p):
-    th0 = p['th0']
-    th1 = p['th1']
-    th2 = p['th2']
-    th3 = p['th3']
+    th = np.exp([p['th0'], p['th1'], p['th2'], p['th3']])
 
     def cur_f(t, x):
-        return f(t, x, th0, th1, th2, th3)
+        return f(t, x, th[0], th[1], th[2], th[3])
 
     sol = sp.integrate.solve_ivp(fun=cur_f, 
                                  t_span=(min(t), max(t)),
                                  y0=get_x0(),
-                                 t_eval=t)        
+                                 method='BDF',
+                                 t_eval=t,
+                                 rtol=1e-5,
+                                 atol=1e-10)        
     
     return sol.y
 

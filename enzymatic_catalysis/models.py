@@ -8,7 +8,7 @@ import pickle
 
 # VARIABLES
 
-noise = 1
+noise = 0.5
 noise_model = np.random.randn
 
 # number of states

@@ -1,3 +1,7 @@
+"""
+This is for testing noisy data with a noise-less model.
+"""
+
 import pyabc
 from pyabc.visualization import plot_kde_2d
 import matplotlib.pyplot as plt

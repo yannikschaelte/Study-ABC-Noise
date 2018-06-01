@@ -41,7 +41,8 @@ pop_size = 50
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
 max_nr_populations = 20
-sampler = pyabc.RedisEvalParallelSampler(host="wastl", port=8765)
+# sampler = pyabc.sampler.RedisEvalParallelSampler(host="wastl", port=8765)
+sampler = pyabc.sampler.SingleCoreSampler()
 
 # true parameters
 th_true = {'th0': 1.1770, 'th1': -2.3714, 'th2': -0.4827, 'th3': -5.5387}

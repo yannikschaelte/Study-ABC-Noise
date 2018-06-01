@@ -29,7 +29,7 @@ def model(p):
 
 
 def model_random(p):
-    return {'y0': p['th0'} + noise * noise_model()}
+    return {'y0': p['th0'] + noise * noise_model()}
 
 
 # TRUE VARIABLES
@@ -69,5 +69,18 @@ distance = pyabc.PNormDistance(p=2)
 pop_size = 50
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 20
+max_nr_populations = 8
 sampler = pyabc.sampler.SingleCoreSampler()
+
+# VISUALIZATION
+
+def visualize(label, history):
+    t = history.max_t
+
+    df, w = history.get_distribution(m=0, t=t)
+    ax = pyabc.visualization.plot_kde_1d(df, w,
+                                          'th0',
+                                          xmin=prior_lb, xmax=prior_ub, numx=300)
+    ax.axvline(th0_true, color='k', linestyle='dashed')
+    plt.savefig(label + "_kde_1d_" + str(t))
+    plt.close()

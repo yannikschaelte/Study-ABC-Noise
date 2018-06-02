@@ -120,8 +120,8 @@ def visualize(label, history):
     df, w = history.get_distribution(m=0, t=t)
     ax = pyabc.visualization.plot_kde_1d(df, w,
                                           'th0',
-                                          xmin=prior_lb, xmax=prior_ub, numx=300)
-    ax.axvline(th0_true, color='k', linestyle='dashed')
+                                          xmin=prior_lb, xmax=prior_ub, 
+                                          numx=300, refval=th_true)
     plt.savefig(label + "_kde_1d_" + str(t))
     plt.close()
 
@@ -132,6 +132,6 @@ def visualize_uvar(label, history):
     df, w = history.get_distribution(m=0, t=t)
     ax = pyabc.visualization.plot_kde_matrix(df, w,
             limits={key: (prior_lb, prior_ub)
-                    for key in ['th0', 'th1']})
+                    for key in ['th0', 'th1']}, refval=th_true_uvar)
     plt.savefig(label + "_kde_2d_" + str(t))
     plt.close()

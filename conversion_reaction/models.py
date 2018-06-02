@@ -114,15 +114,11 @@ def visualize(label, history):
     t = history.max_t
 
     df, w = history.get_distribution(m=0, t=t)
-    ax = pyabc.visualization.plot_kde_2d(df, w,
-                                         'th0', 'th1',
-                                         xmin=prior_lb, xmax=prior_ub, numx=300,
-                                         ymin=prior_lb, ymax=prior_ub, numy=300)
-    ax.scatter([th0_true], [th1_true],
-               color='C1',
-               label='$\Theta$ true = {:.3f}, {:.3f}'.format(th0_true, th1_true))
-    ax.set_title("Posterior t={}".format(t))
-    ax.legend()
+    ax = pyabc.visualization.plot_kde_matrix(
+            df, w,
+            limits={key: (prior_lb, prior_ub)
+                    for key in ['th0', 'th1']},
+            refval=th_true)
     plt.savefig(label + "_kde_2d_" + str(t))
     plt.close()
 

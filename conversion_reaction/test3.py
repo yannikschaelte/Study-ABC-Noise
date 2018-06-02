@@ -24,7 +24,7 @@ max_nr_populations = max_nr_populations - 1
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior,
                    distance_function=distance,
-                   populations_size=pop_size,
+                   population_size=pop_size,
                    transitions=transition,
                    eps=eps,
                    acceptor=acceptor,

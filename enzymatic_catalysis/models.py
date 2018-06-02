@@ -40,7 +40,7 @@ prior = pyabc.Distribution(
 pop_size = 50
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 20
+max_nr_populations = 10
 # sampler = pyabc.sampler.RedisEvalParallelSampler(host="wastl", port=8765)
 sampler = pyabc.sampler.SingleCoreSampler()
 
@@ -157,7 +157,8 @@ def visualize(label, history):
     pyabc.visualization.plot_kde_matrix(
             df, w, 
             limits={key: (prior_lb, prior_ub)
-                    for key in ['th0', 'th1', 'th2', 'th3']})
+                    for key in ['th0', 'th1', 'th2', 'th3']},
+            refval=th_true)
     plt.savefig(label + "_kde_matrix_" + str(t))
     plt.close()
 

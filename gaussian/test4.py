@@ -1,3 +1,8 @@
+"""
+This is for testing model_random_uvar (variance from p),
+estimating mean and variance.
+"""
+
 import pyabc
 from models import *
 

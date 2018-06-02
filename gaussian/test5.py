@@ -1,5 +1,12 @@
+"""
+This is for testing the model2 (mean+variance), estimating
+mean and variance.
+"""
+
+
 import pyabc
 from models import *
+
 
 # VARIABLEs
 

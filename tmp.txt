@@ -1,0 +1,21 @@
+p(d|s)^(beta=1/tau)
+beta = x^4
+x uniform 0,1
+
+mrna protein synthesis
+birth death process stochastic
+output variance in protein meass
+markov jump process
+<> mrna 
+mrna > mrna > p
+p > {}
+
+inv beta
+binomila
+poisson
+
+daten mit hoher glukose, hoher o2 conc (von 4)
+
+paper wo kein noise draufaddiert wurde
+
+anwendung auf tumor2d, andrei (sampling für ode mit komplizierter kostenfunktion: unstetig etc., noise model unbekannt -> hinreichend kompliziertes noise model, so dass klassische ansätze nicht möglich sind)

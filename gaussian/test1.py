@@ -1,3 +1,7 @@
+"""
+This is for testing the non-random model.
+"""
+
 import pyabc
 from models import *
 

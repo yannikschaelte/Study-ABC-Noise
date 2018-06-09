@@ -20,4 +20,4 @@ h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations)
 
 # PLOT
 
-visualize("test2", h)
+visualize("test2", h, True)

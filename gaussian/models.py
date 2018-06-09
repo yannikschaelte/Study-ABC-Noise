@@ -8,7 +8,8 @@ import pickle
 import pyabc
 import pyabc.visualization
 import matplotlib.pyplot as plt
-
+import scipy.stats as stats
+import scipy.integrate as integrate
 
 # VARIABLES
 
@@ -95,7 +96,7 @@ def get_y_meas2():
 
     y_meas_file = "y_meas2.dat"
     try:
-        y_meas = picle.load(open(y_meas_file, 'rb'))
+        y_meas = pickle.load(open(y_meas_file, 'rb'))
     except Exception:
         y_meas = model2_random(th_true)
         pickle.dump(y_meas, open(y_meas_file, 'wb'))
@@ -112,9 +113,34 @@ eps = pyabc.MedianEpsilon()
 max_nr_populations = 8
 sampler = pyabc.sampler.SingleCoreSampler()
 
+
+def true_distr():
+    df = []
+    priors = np.random.uniform(prior_lb, prior_ub - prior_lb, pop_size)
+    def likelihood(th):
+        y_obs = get_y_meas()['y0']
+        pdf = spstats.norm.pdf(y_obs, loc=th, scale=noise)
+        return pdf
+    posterior_samples
+
+
+def true_pdf(th):
+    
+    def uniform_dty(th):
+        if th < prior_lb or th > prior_ub:
+            return 0
+        else:
+            return 1 / (prior_ub - prior_lb)
+    
+    def normal_dty(d, th):
+        return 1 / np.sqrt(2*np.pi*noise**2) * np.exp(-((d-th)/noise)**2 / 2)
+
+    return normal_dty(get_y_meas()['y0'], th) * uniform_dty(th)
+
+
 # VISUALIZATION
 
-def visualize(label, history):
+def visualize(label, history, show_true=False):
     t = history.max_t
 
     df, w = history.get_distribution(m=0, t=t)
@@ -122,6 +148,19 @@ def visualize(label, history):
                                           'th0',
                                           xmin=prior_lb, xmax=prior_ub, 
                                           numx=300, refval=th_true)
+
+    if show_true:
+        integral = integrate.quad(true_dty, prior_lb, prior_ub)
+
+        def dty(x):
+            return true_dty(x) / integral
+
+        x = np.linspace(prior_lb, prior_ub, 300)
+        y = []
+        for i in range(len(x))
+            y.append(dty(x[i]))
+        plt.plot(x, y, '-', color='C2')
+
     plt.savefig(label + "_kde_1d_" + str(t))
     plt.close()
 

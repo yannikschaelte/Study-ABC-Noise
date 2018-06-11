@@ -2,6 +2,8 @@ from gillespie import gillespie
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
+import pyabc
+import pickle
 
 
 # CONSTANTS
@@ -16,6 +18,7 @@ def noise_model(high, size):
 
 
 class Model1:
+    __name__ = 'Model1'
     x0 = sp.array([40, 3])
     pre = sp.array([[1, 1]], dtype=int)
     post = sp.array([0, 2])
@@ -41,11 +44,11 @@ class Model1:
         if self._obs is not None:
             return self._obs
 
-        obs_file = self.__class__.__name__ + ".dat"
+        obs_file = self.__name__ + ".dat"
         try:
             obs = pickle.load(open(obs_file, 'rb'))
         except Exception:
-            obs = self(self.extract_rates(self.true_rate))
+            obs = self(self.true_rate)
             pickle.dump(obs, open(obs_file, 'wb'))
 
         self._obs = obs
@@ -58,7 +61,9 @@ class Model1:
         ax.set_ylabel("Concentration")
         plt.show()
 
+
 class Model2(Model1):
+    __name__ = 'Model2'
     pre = sp.array([[1, 0]], dtype=int)
     post = sp.array([[0, 1]])
 
@@ -104,3 +109,8 @@ def distance1(x, y):
              / t_test_times.size)
     return error
 
+# ABC STUFF
+
+prior1 = pyabc.Distribution(r0=pyabc.RV('uniform', 0, 100))
+pop_size = 100
+max_nr_populations = 8

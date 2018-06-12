@@ -3,6 +3,7 @@ import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
 import pyabc
+import pyabc.visualization
 import pickle
 
 
@@ -44,7 +45,7 @@ class Model1:
         if self._obs is not None:
             return self._obs
 
-        obs_file = self.__name__ + ".dat"
+        obs_file = self.__name__ + "_" + str(self.noise_range) + ".dat"
         try:
             obs = pickle.load(open(obs_file, 'rb'))
         except Exception:
@@ -60,6 +61,18 @@ class Model1:
         ax.set_xlabel("Time")
         ax.set_ylabel("Concentration")
         plt.show()
+
+    def visualize(self, label, history):
+        t = history.max_t
+
+        df, w = history.get_distribution(m=0, t=t)
+        ax = pyabc.visualization.plot_kde_1d(df, w,
+                                             'r0',
+                                             xmin=0, xmax=10,
+                                             numx=300, refval=self.true_rate)
+
+        plt.savefig(label + "_kde_1d_" + str(t))
+        plt.close()
 
 
 class Model2(Model1):
@@ -99,6 +112,7 @@ class BirthDeathModel(Model1):
 
 # DISTANCES
 
+
 def distance1(x, y):
     t_test_times = sp.linspace(0, Model1.max_t, N_TEST_TIMES)
 
@@ -109,8 +123,10 @@ def distance1(x, y):
              / t_test_times.size)
     return error
 
+
 # ABC STUFF
 
-prior1 = pyabc.Distribution(r0=pyabc.RV('uniform', 0, 100))
+
+prior1 = pyabc.Distribution(r0=pyabc.RV('uniform', 0, 10))
 pop_size = 100
-max_nr_populations = 8
+max_nr_populations = 15

@@ -1,3 +1,7 @@
+"""
+This is for testing non-noise data with a non-noise model.
+"""
+
 import models
 import pyabc
 
@@ -12,4 +16,6 @@ abc = pyabc.ABCSMC(models=models.Model1(noise_range=1),
 
 abc.new(db_file, obs)
 
-abc.run(minimum_epsilon=0, max_nr_populations=models.max_nr_populations)
+h = abc.run(minimum_epsilon=0, max_nr_populations=models.max_nr_populations)
+
+models.Model1().visualize("test1", h)

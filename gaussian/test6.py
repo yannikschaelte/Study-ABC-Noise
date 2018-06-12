@@ -12,7 +12,8 @@ from scipy import stats
 
 db_path = "sqlite:///db6.db"
 distr = stats.multivariate_normal([0], [noise**2])
-acceptor = pyabc.StochasticAcceptor(distr=distr)
+nr_pops = 10
+acceptor = pyabc.StochasticAcceptor(distribution=distr, nr_populations=nr_pops)
 
 # PERFORM ABC ANALYSIS
 
@@ -26,7 +27,7 @@ abc = pyabc.ABCSMC(models=model,
 
 abc.new(db_path, get_y_meas())
 
-h = abc.run(minimum_epsilon=0, max_nr_populations=1)
+h = abc.run(minimum_epsilon=0, max_nr_populations=nr_pops)
 
 # PLOT
 

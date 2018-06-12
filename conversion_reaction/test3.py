@@ -15,11 +15,11 @@ db_path = "sqlite:///db3.db"
 # ACCEPTOR
 
 distr = stats.multivariate_normal(np.zeros(n_timepoints), noise**2 * np.eye(n_timepoints))
-acceptor = pyabc.StochasticAcceptor(distr=distr)
-
+nr_pops = 20
+acceptor = pyabc.StochasticAcceptor(distribution=distr, nr_populations=nr_pops)
+acceptor.exp = 4
+acceptor.max_temp = 10
 # PERFORM ABC ANALYSIS WITH 0,1-THRESHOLD AS PREPARATION
-
-max_nr_populations = max_nr_populations - 1
 
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior,
@@ -30,22 +30,24 @@ abc = pyabc.ABCSMC(models=model,
                    acceptor=acceptor,
                    sampler=sampler)
 
-abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations)
+abc.new(db_path, get_y_meas())
+
+h = abc.run(minimum_epsilon=0, max_nr_populations=nr_pops)
 
 # PERFORM ABC ANALYSIS WITH STOCHASTIC ACCEPTOR
 
-abc = pyabc.ABCSMC(models=model,
-                   parameter_priors=prior,
-                   distance_function=pyabc.distance_functions.NoDistance(),
-                   population_size=pop_size,
-                   transitions=transition,
-                   eps=pyabc.epsilon.NoEpsilon(),
-                   acceptor=acceptor,
-                   sampler=sampler)
+#abc = pyabc.ABCSMC(models=model,
+#                   parameter_priors=prior,
+#                   distance_function=pyabc.distance_functions.NoDistance(),
+#                   population_size=pop_size,
+#                   transitions=transition,
+#                   eps=pyabc.epsilon.NoEpsilon(),
+#                   acceptor=acceptor,
+#                   sampler=sampler)
 
-abc.load(db_path)
+#abc.load(db_path)
 
-h = abc.run(minimum_epsilon=0, max_nr_populations=1)
+#h = abc.run(minimum_epsilon=0, max_nr_populations=nr_pops)
 
 # PLOT
 

@@ -21,3 +21,4 @@ h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations)
 # PLOT
 
 visualize_uvar("test3", h)
+visualize_uvar_animated("test3", h)

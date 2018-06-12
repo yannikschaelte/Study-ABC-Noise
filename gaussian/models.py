@@ -10,7 +10,10 @@ import pyabc.visualization
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 import scipy.integrate as integrate
-
+import os
+import tempfile
+import subprocess
+tempdir = tempfile.mkdtemp()
 # VARIABLES
 
 noise = 1
@@ -164,3 +167,12 @@ def visualize_uvar(label, history):
                     for key in ['th0', 'th1']}, refval=th_true_uvar)
     plt.savefig(label + "_kde_2d_" + str(t))
     plt.close()
+
+def visualize_uvar_animated(label, history):
+    for t in range(history.n_populations):
+        df, w = history.get_distribution(m=0, t=t)
+        pyabc.visualization.plot_kde_matrix(df, w,
+                limits={key: (prior_lb, prior_ub)
+                        for key in ['th0', 'th1']}, refval=th_true_uvar)
+        plt.savefig(os.path.join(tempdir, f"{t:0>2}.png"))
+    subprocess.call("convert -delay 50 " + os.path.join(tempdir, "*.png") + " " + label + ".gif", shell=True)

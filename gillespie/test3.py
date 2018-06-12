@@ -19,3 +19,4 @@ abc.new(db_file, obs)
 h = abc.run(minimum_epsilon=0, max_nr_populations=models.max_nr_populations)
 
 models.Model1().visualize("test3", h)
+models.Model1().visualize_animated("test3", h)

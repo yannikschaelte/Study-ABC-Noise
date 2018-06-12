@@ -27,6 +27,7 @@ class Model1:
     pre = sp.array([[1, 1]], dtype=int)
     post = sp.array([0, 2])
     true_rate = {'r0': 2.3}
+    limits = {'r0': (0, 10)}
     max_t = 0.1
     _obs = None
 
@@ -69,19 +70,28 @@ class Model1:
         t = history.max_t
 
         df, w = history.get_distribution(m=0, t=t)
-        ax = pyabc.visualization.plot_kde_1d(df, w,
-                                             'r0',
-                                             xmin=0, xmax=10,
-                                             numx=300, refval=self.true_rate)
+        keys = list(self.true_rate.keys())
+        if len(keys) == 1:
+            ax = pyabc.visualization.plot_kde_1d(df, w,
+                                                 keys[0],
+                                                 xmin=0, xmax=10,
+                                                 numx=300, refval=self.true_rate)
+        else:
+            ax = pyabc.visualization.plot_kde_matrix(df, w, keys, limits=self.limits, refval=self.true_rate)
 
-        plt.savefig(label + "_kde_1d_" + str(t))
+        plt.savefig(label + "_kde_" + str(t))
         plt.close()
 
     def visualize_animated(self, label, history):
         for t in range(history.n_populations):
             df, w = history.get_distribution(m=0, t=t)
-            pyabc.visualization.plot_kde_1d(df, w, 'r0', xmin=0, xmax=10,
-                                            numx=300, refval=self.true_rate)
+            keys = list(self.true_rate.keys())
+            if len(keys) == 1:
+                pyabc.visualization.plot_kde_1d(df, w, keys[0], xmin=0, xmax=10,
+                                                numx=300, refval=self.true_rate)
+            else:
+                pyabc.visualization.plot_kde_matrix(df, w, keys, limits=self.limits, refval=self.true_rate)
+
             plt.title("Iteration " + str(t))
             plt.savefig(os.path.join(tempdir, f"{t:0>2}.png"))
             plt.close()
@@ -106,10 +116,12 @@ class MRNAModel(Model1):
     2. mRNA decay:         mRNA     -->  0
     3. protein decay:      protein  -->  0
     """
+    __name__ = "MRNAModel"
     x0 = sp.array([0, 0])
     pre = sp.array([[0, 0], [1, 0], [1, 0], [0, 1]], dtype=int)
     post = sp.array([[1, 0], [1, 1], [0, 0], [0, 0]], dtype=int)
     true_rate = {'r0': 0.1, 'r1': 0.1, 'r2': 0.1, 'r3': 0.002}
+    limits = {key: (0, 1) for key in true_rate}
     max_t = 1000
 
     def extract_rates(self, par):
@@ -140,6 +152,7 @@ def distance1(x, y):
 # ABC STUFF
 
 
-prior1 = pyabc.Distribution(r0=pyabc.RV('uniform', 0, 10))
+prior1 = pyabc.Distribution(**{key: pyabc.RV('uniform', a, b-a) for key, (a, b) in Model1.limits.items()})
+prior_mrna = pyabc.Distribution(**{key: pyabc.RV('uniform', a, b-a) for key, (a, b) in MRNAModel.limits.items()})
 pop_size = 100
 max_nr_populations = 15

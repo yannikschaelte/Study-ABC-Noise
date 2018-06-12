@@ -1,0 +1,3 @@
+test6: noise of 0.01, then stochastic acceptor
+(1 iter)  ~ 90000 samples
+(10 iter) ~ 30000 samples (16000 + 9*1000)

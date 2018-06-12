@@ -155,7 +155,7 @@ def distance_mrna(x, y):
     xt_ind = sp.searchsorted(x['t'], t_test_times) - 1
     yt_ind = sp.searchsorted(y['t'], t_test_times) - 1
     error = (sp.absolute(x['X'][:, 1][xt_ind]
-                       - y['X'[[:, 1][yt_ind]).sum()
+                       - y['X'][:, 1][yt_ind]).sum()
              / t_test_times.size)
     return error
 
@@ -167,4 +167,4 @@ prior1 = pyabc.Distribution(**{key: pyabc.RV('uniform', a, b-a) for key, (a, b) 
 prior_mrna = pyabc.Distribution(**{key: pyabc.RV('uniform', a, b-a) for key, (a, b) in MRNAModel.limits.items()})
 pop_size = 100
 max_nr_populations = 15
-max_nr_populations_mrna = 8
+max_nr_populations_mrna = 15

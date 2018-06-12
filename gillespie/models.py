@@ -121,7 +121,7 @@ class MRNAModel(Model1):
     pre = sp.array([[0, 0], [1, 0], [1, 0], [0, 1]], dtype=int)
     post = sp.array([[1, 0], [1, 1], [0, 0], [0, 0]], dtype=int)
     true_rate = {'r0': 0.1, 'r1': 0.1, 'r2': 0.1, 'r3': 0.002}
-    limits = {key: (0, 0.2) for key in true_rate}
+    limits = {key: (0, 2*rate) for key, rate in true_rate.items()}
     max_t = 1000
 
     def extract_rates(self, par):

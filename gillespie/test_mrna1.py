@@ -11,7 +11,7 @@ obs = models.MRNAModel(noise_range=1).obs()
 
 abc = pyabc.ABCSMC(models=models.MRNAModel(noise_range=1),
                    parameter_priors=models.prior_mrna,
-                   distance_function=models.distance1,
+                   distance_function=models.distance_mrna,
                    population_size=models.pop_size)
 
 abc.new(db_file, obs)

@@ -121,7 +121,7 @@ class MRNAModel(Model1):
     pre = sp.array([[0, 0], [1, 0], [1, 0], [0, 1]], dtype=int)
     post = sp.array([[1, 0], [1, 1], [0, 0], [0, 0]], dtype=int)
     true_rate = {'r0': 0.1, 'r1': 0.1, 'r2': 0.1, 'r3': 0.002}
-    limits = {key: (0, 1) for key in true_rate}
+    limits = {key: (0, 0.2) for key in true_rate}
     max_t = 1000
 
     def extract_rates(self, par):
@@ -145,6 +145,17 @@ def distance1(x, y):
     yt_ind = sp.searchsorted(y['t'], t_test_times) - 1
     error = (sp.absolute(x['X'][:, 1][xt_ind]
                        - y['X'][:, 1][yt_ind]).sum()
+             / t_test_times.size)
+    return error
+
+
+def distance_mrna(x, y):
+    t_test_times = sp.linspace(0, MRNAModel.max_t, N_TEST_TIMES)
+
+    xt_ind = sp.searchsorted(x['t'], t_test_times) - 1
+    yt_ind = sp.searchsorted(y['t'], t_test_times) - 1
+    error = (sp.absolute(x['X'][:, 1][xt_ind]
+                       - y['X'[[:, 1][yt_ind]).sum()
              / t_test_times.size)
     return error
 

@@ -80,10 +80,11 @@ class Model1:
     def visualize_animated(self, label, history):
         for t in range(history.n_populations):
             df, w = history.get_distribution(m=0, t=t)
-            pyabc.visualization.plt_kde_1d(df, w, 'r0', xmin=0, xmax=10,
-                                           numx=300, refval=self.true_rate)
+            pyabc.visualization.plot_kde_1d(df, w, 'r0', xmin=0, xmax=10,
+                                            numx=300, refval=self.true_rate)
             plt.title("Iteration " + str(t))
             plt.savefig(os.path.join(tempdir, f"{t:0>2}.png"))
+            plt.close()
         subprocess.call("convert -delay 50 " + os.path.join(tempdir, "*.png") + " " + label + ".gif", shell=True)
 
 

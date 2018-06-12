@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 import pyabc
 import pyabc.visualization
 import pickle
-
+import os
+import tempfile
+import subprocess
+tempdir = tempfile.mkdtemp()
 
 # CONSTANTS
 
@@ -73,6 +76,15 @@ class Model1:
 
         plt.savefig(label + "_kde_1d_" + str(t))
         plt.close()
+
+    def visualize_animated(self, label, history):
+        for t in range(history.n_populations):
+            df, w = history.get_distribution(m=0, t=t)
+            pyabc.visualization.plt_kde_1d(df, w, 'r0', xmin=0, xmax=10,
+                                           numx=300, refval=self.true_rate)
+            plt.title("Iteration " + str(t))
+            plt.savefig(os.path.join(tempdir, f"{t:0>2}.png"))
+        subprocess.call("convert -delay 50 " + os.path.join(tempdir, "*.png") + " " + label + ".gif", shell=True)
 
 
 class Model2(Model1):

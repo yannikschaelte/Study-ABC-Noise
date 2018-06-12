@@ -16,7 +16,7 @@ abc = pyabc.ABCSMC(models=models.MRNAModel(noise_range=1),
 
 abc.new(db_file, obs)
 
-h = abc.run(minimum_epsilon=0, max_nr_populations=models.max_nr_populations)
+h = abc.run(minimum_epsilon=0, max_nr_populations=models.max_nr_populations_mrna)
 
 models.MRNAModel().visualize("test_mrna1", h)
 models.MRNAModel().visualize_animated("test_mrna1", h)

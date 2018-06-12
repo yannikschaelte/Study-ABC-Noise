@@ -77,7 +77,7 @@ class Model1:
                                                  xmin=0, xmax=10,
                                                  numx=300, refval=self.true_rate)
         else:
-            ax = pyabc.visualization.plot_kde_matrix(df, w, keys, limits=self.limits, refval=self.true_rate)
+            ax = pyabc.visualization.plot_kde_matrix(df, w, limits=self.limits, refval=self.true_rate)
 
         plt.savefig(label + "_kde_" + str(t))
         plt.close()
@@ -90,7 +90,7 @@ class Model1:
                 pyabc.visualization.plot_kde_1d(df, w, keys[0], xmin=0, xmax=10,
                                                 numx=300, refval=self.true_rate)
             else:
-                pyabc.visualization.plot_kde_matrix(df, w, keys, limits=self.limits, refval=self.true_rate)
+                pyabc.visualization.plot_kde_matrix(df, w, limits=self.limits, refval=self.true_rate)
 
             plt.title("Iteration " + str(t))
             plt.savefig(os.path.join(tempdir, f"{t:0>2}.png"))
@@ -156,3 +156,4 @@ prior1 = pyabc.Distribution(**{key: pyabc.RV('uniform', a, b-a) for key, (a, b) 
 prior_mrna = pyabc.Distribution(**{key: pyabc.RV('uniform', a, b-a) for key, (a, b) in MRNAModel.limits.items()})
 pop_size = 100
 max_nr_populations = 15
+max_nr_populations_mrna = 8

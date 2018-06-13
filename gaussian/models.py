@@ -75,12 +75,12 @@ th_true_uvar = {'th0': th0_true, 'th1': th1_true}
 _y_meas = None
 
 
-def get_y_meas():
+def get_y_meas(noise=noise):
     global _y_meas
     if _y_meas is not None:
         return _y_meas
 
-    y_meas_file = "y_meas.dat"
+    y_meas_file = "y_meas_" + str(noise) + ".dat"
     try:
         y_meas = pickle.load(open(y_meas_file, 'rb'))
     except Exception:

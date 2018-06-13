@@ -16,7 +16,7 @@ import subprocess
 tempdir = tempfile.mkdtemp()
 # VARIABLES
 
-noise = 0.5
+noise = 0.01
 noise_model = np.random.randn
 
 # prior
@@ -110,7 +110,7 @@ def get_y_meas2():
 
 # PYABC PARAMETERS
 distance = pyabc.PNormDistance(p=2)
-pop_size = 100
+pop_size = 200
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
 max_nr_populations = 8

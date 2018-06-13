@@ -1,1 +1,2 @@
 gillespie/*.db
+*/__pycache__/

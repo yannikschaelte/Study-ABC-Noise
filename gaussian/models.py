@@ -75,17 +75,17 @@ th_true_uvar = {'th0': th0_true, 'th1': th1_true}
 _y_meas = None
 
 
-def get_y_meas(noise=noise):
+def get_y_meas(noise_par=noise):
     global _y_meas
     if _y_meas is not None:
         return _y_meas
 
-    y_meas_file = "y_meas_" + str(noise) + ".dat"
+    y_meas_file = "y_meas_" + str(noise_par) + ".dat"
     try:
         y_meas = pickle.load(open(y_meas_file, 'rb'))
     except Exception:
         y_true = model(th_true)
-        y_meas = {'y0': y_true['y0'] + noise * noise_model()}
+        y_meas = {'y0': y_true['y0'] + noise_par * noise_model()}
         pickle.dump(y_meas, open(y_meas_file, 'wb'))
 
     _y_meas = y_meas

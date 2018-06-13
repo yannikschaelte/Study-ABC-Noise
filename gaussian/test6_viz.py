@@ -1,7 +1,10 @@
 import matplotlib.pyplot as plt
 import pyabc
 import numpy as np
+import matplotlib
 
+matplotlib.rcParams.update({'font.size': 14})
+        
 h = pyabc.History("sqlite:///db6.db")
 h.id = 1
 s2 = np.asarray(h.get_all_populations()['samples'][1:])

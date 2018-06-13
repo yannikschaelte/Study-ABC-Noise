@@ -125,7 +125,7 @@ def visualize(label, history):
 
 # pyabc parameters
 distance = ArrayPNormDistance()
-pop_size = 50
+pop_size = 200
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
 max_nr_populations = 10

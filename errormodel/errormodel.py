@@ -1,6 +1,9 @@
+import matplotlib
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 import numpy as np
+
+matplotlib.rcParams.update({'font.size': 22})
 
 plt.figure()
 x_axis = np.arange(-5, 5, 0.01)

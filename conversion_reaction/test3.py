@@ -15,10 +15,10 @@ db_path = "sqlite:///db3.db"
 # ACCEPTOR
 
 distr = stats.multivariate_normal(np.zeros(n_timepoints), noise**2 * np.eye(n_timepoints))
-nr_pops = 20
+nr_pops = 10
 acceptor = pyabc.StochasticAcceptor(distribution=distr, nr_populations=nr_pops)
-acceptor.exp = 4
-acceptor.max_temp = 10
+acceptor.max_temp = 100
+
 # PERFORM ABC ANALYSIS WITH 0,1-THRESHOLD AS PREPARATION
 
 abc = pyabc.ABCSMC(models=model,

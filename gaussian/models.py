@@ -16,7 +16,7 @@ import subprocess
 tempdir = tempfile.mkdtemp()
 # VARIABLES
 
-noise = 1
+noise = 0.5
 noise_model = np.random.randn
 
 # prior
@@ -110,7 +110,7 @@ def get_y_meas2():
 
 # PYABC PARAMETERS
 distance = pyabc.PNormDistance(p=2)
-pop_size = 50
+pop_size = 100
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
 max_nr_populations = 8
@@ -140,7 +140,7 @@ def visualize(label, history, show_true=True):
     ax = pyabc.visualization.plot_kde_1d(df, w,
                                           'th0',
                                           xmin=prior_lb, xmax=prior_ub, 
-                                          numx=300, refval=th_true)
+                                          numx=1000, refval=th_true)
 
     if show_true:
         integral = integrate.quad(true_pdf, prior_lb, prior_ub)[0]
@@ -153,7 +153,8 @@ def visualize(label, history, show_true=True):
         for i in range(len(x)):
             y.append(pdf(x[i]))
         ax.plot(x, y, '-', color='C2')
-
+    
+    plt.title("Iteration " + str(t))
     plt.savefig(label + "_kde_1d_" + str(t))
     plt.close()
 
@@ -165,8 +166,30 @@ def visualize_uvar(label, history):
     ax = pyabc.visualization.plot_kde_matrix(df, w,
             limits={key: (prior_lb, prior_ub)
                     for key in ['th0', 'th1']}, refval=th_true_uvar)
+    plt.suptitle("Iteration " + str(t))
     plt.savefig(label + "_kde_2d_" + str(t))
     plt.close()
+
+def visualize_animated(label, history, show_true=True):
+    for t in range(history.n_populations):
+        df, w = history.get_distribution(m=0, t=t)
+        ax = pyabc.visualization.plot_kde_1d(df, w, 'th0', xmin=prior_lb, xmax=prior_ub,
+                                        numx=1000, refval=th_true)
+
+        if show_true:
+            integral = integrate.quad(true_pdf, prior_lb, prior_ub)[0]
+
+            def pdf(x):
+                return true_pdf(x) / integral
+
+            x = np.linspace(prior_lb, prior_ub, 300)
+            y = []
+            for i in range(len(x)):
+                y.append(pdf(x[i]))
+            ax.plot(x, y, '-', color='C2')
+        plt.title("Iteration " + str(t))
+        plt.savefig(os.path.join(tempdir, f"{t:0>2}.png"))
+    subprocess.call("convert -delay 50 " + os.path.join(tempdir, "*.png") + " " + label + ".gif", shell=True)
 
 def visualize_uvar_animated(label, history):
     for t in range(history.n_populations):
@@ -174,5 +197,6 @@ def visualize_uvar_animated(label, history):
         pyabc.visualization.plot_kde_matrix(df, w,
                 limits={key: (prior_lb, prior_ub)
                         for key in ['th0', 'th1']}, refval=th_true_uvar)
+        plt.suptitle("Iteration " + str(t))
         plt.savefig(os.path.join(tempdir, f"{t:0>2}.png"))
     subprocess.call("convert -delay 50 " + os.path.join(tempdir, "*.png") + " " + label + ".gif", shell=True)

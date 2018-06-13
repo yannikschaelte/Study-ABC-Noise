@@ -24,12 +24,12 @@ acceptor.max_temp = 100
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior_uvar,
                    distance_function=distance,
-                   population_size=500,
+                   population_size=100,
                    transitions=transition,
                    eps=eps,
                    acceptor=acceptor)
 
-abc.new(db_path, get_y_meas(noise_par=0.01))
+abc.new(db_path, get_y_meas())
 
 h = abc.run(minimum_epsilon=0, max_nr_populations=nr_pops)
 

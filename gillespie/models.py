@@ -64,7 +64,8 @@ class Model1:
         ax.step(obs['t'], obs['X'])
         ax.set_xlabel("Time")
         ax.set_ylabel("Concentration")
-        plt.show()
+        plt.savefig(self.__name__ + "_obs.png")
+        plt.close()
 
     def visualize(self, label, history):
         t = history.max_t
@@ -122,7 +123,7 @@ class MRNAModel(Model1):
     post = sp.array([[1, 0], [1, 1], [0, 0], [0, 0]], dtype=int)
     true_rate = {'r0': 0.1, 'r1': 0.1, 'r2': 0.1, 'r3': 0.002}
     limits = {key: (0, 2*rate) for key, rate in true_rate.items()}
-    max_t = 1000
+    max_t = 10000
 
     def extract_rates(self, par):
         return sp.array([par['r0'], par['r1'], par['r2'], par['r3']])

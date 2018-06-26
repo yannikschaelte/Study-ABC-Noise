@@ -9,6 +9,7 @@ markov jump process
 <> mrna 
 mrna > mrna > p
 p > {}
+as gillespie model?
 
 inv beta
 binomila

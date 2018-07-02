@@ -17,6 +17,9 @@ for j in range(l):
     plt.bar(np.arange(2),(s1[j], s2[j]),
             bottom=(sum(s1[k] for k in range(j)), sum(s2[k] for k in range(j))))
 plt.xticks(np.arange(2),("Rejection ABC", "ABC-SMC"))
+plt.title("Total required samples")
 plt.ylabel("Samples")
 plt.xlabel("Method")
+plt.subplots_adjust(bottom=.15, left=.15)
+plt.show()
 plt.savefig("test6_bar")

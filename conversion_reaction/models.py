@@ -64,6 +64,15 @@ def distance(x, y):
     return sp.absolute(x['y'] - y['y']).sum()
 
 
+def true_pdf(theta):
+    prior_val = prior.pdf(theta)
+
+    likelihood_num = np.sqrt(2*np.pi*noise**2) * np.sqrt(2*np.pi*noise**2)
+    likelihood_val = 
+
+    return likelihood_val * prior_val
+
+
 class ArrayPNormDistance(pyabc.PNormDistance):
 
     def __init__(self):

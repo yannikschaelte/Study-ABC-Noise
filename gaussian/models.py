@@ -118,6 +118,21 @@ sampler = pyabc.sampler.SingleCoreSampler()
 
 
 def true_pdf(th):
+    """
+    Non-normalized posterior density function.
+
+    Parameters
+    ----------
+
+    th: float
+        1-dim theta parameter.
+
+    Returns
+    -------
+
+    pdfv: float
+        The posterior density value at th.
+    """
     
     def uniform_dty(th):
         if th < prior_lb or th > prior_ub:

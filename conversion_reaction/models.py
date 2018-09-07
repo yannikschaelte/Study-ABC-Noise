@@ -64,15 +64,6 @@ def distance(x, y):
     return sp.absolute(x['y'] - y['y']).sum()
 
 
-def true_pdf(theta):
-    prior_val = prior.pdf(theta)
-
-    likelihood_num = np.sqrt(2*np.pi*noise**2) * np.sqrt(2*np.pi*noise**2)
-    likelihood_val = 
-
-    return likelihood_val * prior_val
-
-
 class ArrayPNormDistance(pyabc.PNormDistance):
 
     def __init__(self):
@@ -104,8 +95,8 @@ th0_true, th1_true = sp.exp([-2.5, -2])
 th_true = {'th0': th0_true, 'th1': th1_true}
 y_true = model(th_true)
 
-# MEASURED DATA
 
+# MEASURED DATA
 
 def get_y_meas():
     y_meas_file = "y_meas.dat"
@@ -117,9 +108,41 @@ def get_y_meas():
 
     return y_meas
 
+
+def normal_dty_1d(y_bar, y, sigma):
+    dty = 1/np.sqrt(2*np.pi*sigma**2) * np.exp(-((y_bar-y)/sigma)**2/2)
+    return dty
+
+def normal_dty(y_bar, y, sigma):
+    """
+    y_bar: point at which to evaluate
+    y, sigma: N(y, sigma)
+    """
+    dim = len(y_bar)
+    dties = np.zeros(dim)
+    for j in range(dim):
+        dties[j] = normal_dty_1d(y_bar[j], y[j], sigma[j])
+    dty = np.prod(dties)
+    return dty
+
+
+def true_pdf_unscaled(theta):
+    prior_val = prior.pdf(theta)
+
+    y_bar = get_y_meas()['y'].flatten()
+    y = model(theta)['y'].flatten()
+    dim = len(y)
+    sigma = noise * np.ones(dim)
+    likelihood_val = normal_dty(y_bar, y, sigma)
+
+    unscaled_posterior = likelihood_val * prior_val
+
+    return unscaled_posterior
+
+
 # VISUALIZATION
 
-def visualize(label, history):
+def visualize(label, history, show_true=True):
     t = history.max_t
 
     df, w = history.get_distribution(m=0, t=t)
@@ -128,6 +151,11 @@ def visualize(label, history):
             limits={key: (prior_lb, prior_ub)
                     for key in ['th0', 'th1']},
             refval=th_true)
+
+    print(ax)
+    if show_true:
+        pass
+
     plt.savefig(label + "_kde_2d_" + str(t))
     plt.close()
 

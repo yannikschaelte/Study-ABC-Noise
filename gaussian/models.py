@@ -16,7 +16,7 @@ import subprocess
 tempdir = tempfile.mkdtemp()
 # VARIABLES
 
-noise = 0.01
+noise = 0.5
 noise_model = np.random.randn
 
 # prior
@@ -148,14 +148,10 @@ def true_pdf(th):
 
 # VISUALIZATION
 
-def visualize(label, history, show_true=True):
+def visualize(label, history, show_true=True, legend=True):
     t = history.max_t
-
-    df, w = history.get_distribution(m=0, t=t)
-    ax = pyabc.visualization.plot_kde_1d(df, w,
-                                          'th0',
-                                          xmin=prior_lb, xmax=prior_ub, 
-                                          numx=1000, refval=th_true)
+    
+    fig, ax = plt.subplots(figsize=(4,4))
 
     if show_true:
         integral = integrate.quad(true_pdf, prior_lb, prior_ub)[0]
@@ -167,9 +163,22 @@ def visualize(label, history, show_true=True):
         y = []
         for i in range(len(x)):
             y.append(pdf(x[i]))
-        ax.plot(x, y, '-', color='C2')
-    
-    plt.title("Iteration " + str(t))
+        ax.plot(x, y, '-', color="k", alpha=0.75)
+ 
+    df, w = history.get_distribution(m=0, t=t)
+    ax = pyabc.visualization.plot_kde_1d(df, w,
+                                          'th0',
+                                          xmin=prior_lb, xmax=prior_ub, 
+                                          numx=1000, refval=th_true, ax=ax)
+   
+    ax.set_xlabel("theta")
+
+    if legend:
+        if show_true:
+            ax.legend(['true posterior', 'ABC posterior', 'true parameter'])
+        else:
+            ax.legend(['ABC posterior', 'true parameter'])
+
     plt.savefig(label + "_kde_1d_" + str(t))
     plt.close()
 

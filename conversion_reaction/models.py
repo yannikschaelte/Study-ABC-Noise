@@ -4,10 +4,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
 import pickle
+import scipy.integrate as integrate
+
 
 # VARIABLES
 
-noise = 0.05
+# noise variance
+noise = 0.1
+# gaussian error model
 noise_model = np.random.randn
 
 # prior
@@ -16,21 +20,32 @@ prior_ub = 1
 prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
                               for key in ['th0', 'th1']})
 
+
 # MODEL
 
-n_timepoints = 11
-timepoints = sp.arange(n_timepoints)
-x0 = sp.array([1, 0])
+# timepoints
+n_timepoints = 20
+timepoints = np.arange(n_timepoints)
+
+# initial concentrations (normalized to 1) 
+x0 = np.array([1, 0])
 
 
 def f(x, t0, th0, th1):
+    """
+    Differential equation.
+    """
     x0, x1 = x
     dx0 = - th0 * x0 + th1 * x1
     dx1 = th0 * x0 - th1 * x1
     return dx0, dx1
 
 
-def x(p):
+def x_numeric(p):
+    """
+    States.
+    Solve ODE numerically.
+    """
     th0 = p['th0']
     th1 = p['th1']
 
@@ -45,78 +60,100 @@ def x(p):
     return sol.y
 
 
+def x(p):
+    """
+    States.
+    Use analytic solution of ODE.
+    Returns array of shape n_x * n_t.
+    """
+    th0 = p['th0']
+    th1 = p['th1']
+    sol = np.zeros((2, n_timepoints))
+    x0 = np.array([[1], [0]])
+    for ix, t in enumerate(timepoints):
+        e = np.exp( - (th0 + th1) * t)
+        A = 1 / (- th0 - th1) * np.array([[- th1 - th0 * e, - th1 + th1 * e],
+                                          [- th0 + th0 * e, - th0 - th1 * e]])
+
+        sol[:, ix] = np.dot(A, x0).flatten()
+    return sol
+
+
+
 def model(p):
+    """
+    Observations. Do not account for noise.
+    Assume only species 1 is observable.
+    """
+    # y = x(p)[1, :]
     y = x(p)[1, :]
-    return {'y': y} 
+    return {'y': y.flatten()} 
 
 
 def model_random(p):
-    y = x(p)[1, :] + noise * noise_model(n_timepoints)
-    return {'y': y}
+    """
+    Observations. Account for noise.
+    """
+    #y = x(p)[1, :] + noise * noise_model(n_timepoints)
+    y = x(p)[1, :] + noise * noise_model(1, n_timepoints)
+    return {'y': y.flatten()}
 
 
 def model_random_unknownnoise(p):
-    y = x(p)[1, :] + p['noise'] * noise_model(n_timepoints)
+    """
+    Observations when also noise std is a parameter.
+    """
+    #y = x(p)[1, :] + p['noise'] * noise_model(n_timepoints)
+    y = x(p)[1, :] + p['noise'] * noise_model(1, n_timepoints)
     return {'y': y}
 
 
-def distance(x, y):
-    return sp.absolute(x['y'] - y['y']).sum()
-
-
-class ArrayPNormDistance(pyabc.PNormDistance):
-
-    def __init__(self):
-        super().__init__(p=1)
-
-    def initialize(self, t, sample_from_prior):
-        sum_stats = []
-        for sum_stat in sample_from_prior:
-            sum_stats.append(normalize_sum_stat(sum_stat))
-        super().initialize(t, sum_stats)
-
-    def __call__(self, t, x, y):
-        x = normalize_sum_stat(x)
-        y = normalize_sum_stat(y)
-        return super().__call__(t, x, y)
-
-
-def normalize_sum_stat(x):
-    x_flat = {}
-    for key, value in x.items():
-        for j in range(len(value)):
-            x_flat[(key, j)] = value[j]
-    return x_flat
+def distance_l2(x, y):
+    """
+    Simple l2 distance.
+    """
+    return np.power( (x['y'] - y['y']) / noise, 2 ).sum()
 
 
 # TRUE VALUES
 
-th0_true, th1_true = sp.exp([-2.5, -2])
+th0_true, th1_true = np.exp([-2.5, -2])
 th_true = {'th0': th0_true, 'th1': th1_true}
 y_true = model(th_true)
 
 
-# MEASURED DATA
+# OBSERVED DATA
+_y_obs = None
 
-def get_y_meas():
-    y_meas_file = "y_meas.dat"
-    try:
-        y_meas = pickle.load(open(y_meas_file, 'rb'))
-    except Exception:
-        y_meas = {'y': y_true['y'] + noise * noise_model(n_timepoints)}
-        pickle.dump(y_meas, open(y_meas_file, 'wb'))
 
-    return y_meas
+def get_y_obs():
+    global _y_obs
+    if _y_obs is None:
+        y_obs_file = "y_obs.dat"
+        try:
+            y_obs = pickle.load(open(y_obs_file, 'rb'))
+        except Exception:
+            y_obs = model_random(th_true)
+            pickle.dump(y_obs, open(y_obs_file, 'wb'))
+        _y_obs = y_obs
+    return _y_obs
+
+
+y_obs = get_y_obs()
 
 
 def normal_dty_1d(y_bar, y, sigma):
-    dty = 1/np.sqrt(2*np.pi*sigma**2) * np.exp(-((y_bar-y)/sigma)**2/2)
+    dty = ( 1 / np.sqrt( 2 * np.pi * sigma**2 ) 
+            * np.exp( - ( (y_bar - y) / sigma)**2 / 2) )
     return dty
+
 
 def normal_dty(y_bar, y, sigma):
     """
-    y_bar: point at which to evaluate
-    y, sigma: N(y, sigma)
+    y_bar: size dim
+        point at which to evaluate the density
+    y, sigma: size dim
+        For N(y, sigma).
     """
     dim = len(y_bar)
     dties = np.zeros(dim)
@@ -126,15 +163,28 @@ def normal_dty(y_bar, y, sigma):
     return dty
 
 
-def true_pdf_unscaled(theta):
-    prior_val = prior.pdf(theta)
+def pdf_true(p):
+    """
+    Unscaled posterior density.
+    """
+    if type(p) is list:
+        p = {'th0': p[0], 'th1': p[1]}
+    
+    # prior value
+    prior_val = prior.pdf(p)
+    
+    # observed data
+    y_bar = y_obs['y'].flatten()
 
-    y_bar = get_y_meas()['y'].flatten()
-    y = model(theta)['y'].flatten()
+    # data for p
+    y = model(p)['y'].flatten()
+
+    # likelihood value
     dim = len(y)
     sigma = noise * np.ones(dim)
     likelihood_val = normal_dty(y_bar, y, sigma)
 
+    # posterior value
     unscaled_posterior = likelihood_val * prior_val
 
     return unscaled_posterior
@@ -143,27 +193,61 @@ def true_pdf_unscaled(theta):
 # VISUALIZATION
 
 def visualize(label, history, show_true=True):
-    t = history.max_t
+    # compute true posterior
+    
+    n_mesh = 200
+    # th0
+    def marginal_0(th0):
+        return integrate.quad(lambda th1: pdf_true({'th0': th0, 'th1': th1}),
+                              prior_lb, prior_ub)[0]
+    integral_0 = integrate.quad(marginal_0, prior_lb, prior_ub)[0]
+    xs_0 = np.linspace(prior_lb, prior_ub, n_mesh)
+    ys_0 = []
+    for x in xs_0:
+        ys_0.append(marginal_0(x) / integral_0)
+    
+    # th1
+    def marginal_1(th1):
+        return integrate.quad(lambda th0: pdf_true({'th0': th0, 'th1': th1}),
+                              prior_lb, prior_ub)[0]
+    integral_1 = integrate.quad(marginal_1, prior_lb, prior_ub)[0]
+    xs_1 = np.linspace(prior_lb, prior_ub, n_mesh)
+    ys_1 = []
+    for x in xs_1:
+        ys_1.append(marginal_1(x) / integral_1)
 
-    df, w = history.get_distribution(m=0, t=t)
-    ax = pyabc.visualization.plot_kde_matrix(
+    # th0, th1
+    zs = np.zeros(n_mesh, n_mesh)
+    for i0, v0 in enumerate(xs_0):
+        for i1, v1 in enumerate(xs_1): 
+            zs[i0, i1] = pdf_true({'th0': v0, 'th1': v1})
+
+    # plot abc posteriors
+    for t in range(history.max_t, history.max_t + 1):
+        df, w = history.get_distribution(m=0, t=t)
+        axes = pyabc.visualization.plot_kde_matrix(
             df, w,
             limits={key: (prior_lb, prior_ub)
                     for key in ['th0', 'th1']},
             refval=th_true)
+    
+        axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
+        axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
+        axes[0, 1].contour(xs_0, xs_1, zs)
+        plt.savefig(label + "_kde_2d_" + str(t))
+        plt.close()
 
-    print(ax)
-    if show_true:
-        pass
 
-    plt.savefig(label + "_kde_2d_" + str(t))
-    plt.close()
+def visualize_data(x):
+    _, ax = plt.subplots()
+    ax.plot(timepoints, x.transpose(), 'x-')
+    plt.savefig("visualize_data.png")
 
 
 # pyabc parameters
-distance = ArrayPNormDistance()
-pop_size = 200
+distance = distance_l2
+pop_size = 200  # 500
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 10
-sampler = pyabc.sampler.SingleCoreSampler()
+max_nr_populations = 2  # 20
+sampler = pyabc.sampler.MulticoreEvalParallelSampler(n_procs=10)

@@ -10,13 +10,13 @@ import scipy.integrate as integrate
 # VARIABLES
 
 # noise variance
-noise = 0.1
+noise = 0.2
 # gaussian error model
 noise_model = np.random.randn
 
 # prior
 prior_lb = 0
-prior_ub = 1
+prior_ub = 0.5
 prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
                               for key in ['th0', 'th1']})
 
@@ -192,35 +192,47 @@ def pdf_true(p):
 
 # VISUALIZATION
 
+def for_plot_pdf_true():
+    for_plot_pdf_true_file = "for_plot_pdf_true.dat"
+    try:
+        xs_0, ys_0, xs_1, ys_1, zs = pickle.load(open(for_plot_pdf_true_file, 'rb'))
+    except Exception as e:
+        print(e)
+        n_mesh = 200
+        # th0
+        def marginal_0(th0):
+            return integrate.quad(lambda th1: pdf_true({'th0': th0, 'th1': th1}),
+                                  prior_lb, prior_ub)[0]
+        integral_0 = integrate.quad(marginal_0, prior_lb, prior_ub)[0]
+        xs_0 = np.linspace(prior_lb, prior_ub, n_mesh)
+        ys_0 = []
+        for x in xs_0:
+            ys_0.append(marginal_0(x) / integral_0)
+    
+        # th1
+        def marginal_1(th1):
+            return integrate.quad(lambda th0: pdf_true({'th0': th0, 'th1': th1}),
+                                  prior_lb, prior_ub)[0]
+        integral_1 = integrate.quad(marginal_1, prior_lb, prior_ub)[0]
+        xs_1 = np.linspace(prior_lb, prior_ub, n_mesh)
+        ys_1 = []
+        for x in xs_1:
+            ys_1.append(marginal_1(x) / integral_1)
+
+        # th0, th1
+        zs = np.zeros((n_mesh, n_mesh))
+        for i0, v0 in enumerate(xs_0):
+            for i1, v1 in enumerate(xs_1):
+                zs[i0, i1] = pdf_true({'th0': v0, 'th1': v1})
+
+        pickle.dump((xs_0, ys_0, xs_1, ys_1, zs), open(for_plot_pdf_true_file, 'wb'))
+
+    return xs_0, ys_0, xs_1, ys_1, zs
+
+
 def visualize(label, history, show_true=True):
     # compute true posterior
-    
-    n_mesh = 200
-    # th0
-    def marginal_0(th0):
-        return integrate.quad(lambda th1: pdf_true({'th0': th0, 'th1': th1}),
-                              prior_lb, prior_ub)[0]
-    integral_0 = integrate.quad(marginal_0, prior_lb, prior_ub)[0]
-    xs_0 = np.linspace(prior_lb, prior_ub, n_mesh)
-    ys_0 = []
-    for x in xs_0:
-        ys_0.append(marginal_0(x) / integral_0)
-    
-    # th1
-    def marginal_1(th1):
-        return integrate.quad(lambda th0: pdf_true({'th0': th0, 'th1': th1}),
-                              prior_lb, prior_ub)[0]
-    integral_1 = integrate.quad(marginal_1, prior_lb, prior_ub)[0]
-    xs_1 = np.linspace(prior_lb, prior_ub, n_mesh)
-    ys_1 = []
-    for x in xs_1:
-        ys_1.append(marginal_1(x) / integral_1)
-
-    # th0, th1
-    zs = np.zeros(n_mesh, n_mesh)
-    for i0, v0 in enumerate(xs_0):
-        for i1, v1 in enumerate(xs_1): 
-            zs[i0, i1] = pdf_true({'th0': v0, 'th1': v1})
+    xs_0, ys_0, xs_1, ys_1, zs = for_plot_pdf_true()
 
     # plot abc posteriors
     for t in range(history.max_t, history.max_t + 1):
@@ -233,7 +245,7 @@ def visualize(label, history, show_true=True):
     
         axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
         axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
-        axes[0, 1].contour(xs_0, xs_1, zs)
+        axes[1, 0].contour(xs_0, xs_1, zs.transpose(), colors='k')
         plt.savefig(label + "_kde_2d_" + str(t))
         plt.close()
 
@@ -249,5 +261,5 @@ distance = distance_l2
 pop_size = 200  # 500
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 2  # 20
+max_nr_populations = 10  # 20
 sampler = pyabc.sampler.MulticoreEvalParallelSampler(n_procs=10)

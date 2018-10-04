@@ -10,7 +10,7 @@ import scipy.integrate as integrate
 # VARIABLES
 
 # noise variance
-noise = 0.2
+noise = 0.1
 # gaussian error model
 noise_model = np.random.randn
 
@@ -193,7 +193,7 @@ def pdf_true(p):
 # VISUALIZATION
 
 def for_plot_pdf_true():
-    for_plot_pdf_true_file = "for_plot_pdf_true.dat"
+    for_plot_pdf_true_file = "for_plot_pdf_true" + str(noise) + ".dat"
     try:
         xs_0, ys_0, xs_1, ys_1, zs = pickle.load(open(for_plot_pdf_true_file, 'rb'))
     except Exception as e:
@@ -238,14 +238,14 @@ def visualize(label, history, show_true=True):
     for t in range(history.max_t, history.max_t + 1):
         df, w = history.get_distribution(m=0, t=t)
         axes = pyabc.visualization.plot_kde_matrix(
-            df, w,
+            df, w, numx=1000, numy=1000,
             limits={key: (prior_lb, prior_ub)
                     for key in ['th0', 'th1']},
             refval=th_true)
     
         axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
         axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
-        axes[1, 0].contour(xs_0, xs_1, zs.transpose(), colors='k')
+        axes[1, 0].contour(xs_0, xs_1, zs.transpose())#, colors='k')
         plt.savefig(label + "_kde_2d_" + str(t))
         plt.close()
 
@@ -261,5 +261,5 @@ distance = distance_l2
 pop_size = 200  # 500
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 10  # 20
-sampler = pyabc.sampler.MulticoreEvalParallelSampler(n_procs=10)
+max_nr_populations = 20  # 20
+sampler = pyabc.sampler.MulticoreEvalParallelSampler()#n_procs=10)

@@ -24,9 +24,8 @@ abc = pyabc.ABCSMC(models=model,
                    transitions=transition,
                    eps=eps)
 
-abc.new(db_path, y_obs)
-
-h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations)
+#abc.new(db_path, y_obs)
+#h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations)
 h = pyabc.History(db_path)
 # PLOT
 

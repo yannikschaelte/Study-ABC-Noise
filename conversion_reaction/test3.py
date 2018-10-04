@@ -15,7 +15,7 @@ db_path = "sqlite:///db3.db"
 # ACCEPTOR
 
 distr = stats.multivariate_normal(np.zeros(n_timepoints), noise**2 * np.eye(n_timepoints))
-nr_pops = 20
+nr_pops = 25
 acceptor = pyabc.StochasticAcceptor(distribution=distr, nr_populations=nr_pops)
 acceptor.max_temp = 100
 
@@ -31,7 +31,7 @@ abc = pyabc.ABCSMC(models=model,
                    sampler=sampler)
 
 #abc.new(db_path, y_obs)
-#h = abc.run(minimum_epsilon=0, max_nr_populations=20)
+#h = abc.run(minimum_epsilon=0, max_nr_populations=25)
 h = pyabc.History(db_path)
 
 # PERFORM ABC ANALYSIS WITH STOCHASTIC ACCEPTOR

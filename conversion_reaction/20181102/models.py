@@ -16,7 +16,7 @@ noise_model = np.random.randn
 
 # prior
 prior_lb = 0
-prior_ub = 0.4
+prior_ub = 0.2
 prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
                               for key in ['th0', 'th1']})
 
@@ -24,8 +24,8 @@ prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prio
 # MODEL
 
 # timepoints
-n_timepoints = 20
-timepoints = np.linspace(0, 50, n_timepoints)
+n_timepoints = 50
+timepoints = np.arange(n_timepoints)
 
 # initial concentrations (normalized to 1) 
 x0 = np.array([1, 0])

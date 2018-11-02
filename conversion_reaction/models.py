@@ -5,6 +5,7 @@ import numpy as np
 import scipy as sp
 import pickle
 import scipy.integrate as integrate
+import os
 
 
 # VARIABLES
@@ -236,6 +237,10 @@ def viz(label, history, show_true=True):
 
     # plot abc posteriors
     for t in range(1, history.max_t + 1):
+        filename = label + "_kde_2d_" + str(t) + ".png"
+        print(filename)
+        if os.path.isfile(filename):
+            continue
         df, w = history.get_distribution(m=0, t=t)
         axes = pyabc.visualization.plot_kde_matrix(
             df, w, numx=1000, numy=1000,
@@ -246,7 +251,7 @@ def viz(label, history, show_true=True):
         axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
         axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
         axes[1, 0].contour(xs_0, xs_1, zs.transpose(), cmap='Greys')
-        plt.savefig(label + "_kde_2d_" + str(t))
+        plt.savefig(filename)
         plt.close()
 
 

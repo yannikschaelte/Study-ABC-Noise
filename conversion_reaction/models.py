@@ -10,7 +10,7 @@ import scipy.integrate as integrate
 # VARIABLES
 
 # noise variance
-noise = 0.1
+noise = 0.05
 # gaussian error model
 noise_model = np.random.randn
 
@@ -24,7 +24,7 @@ prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prio
 # MODEL
 
 # timepoints
-n_timepoints = 20
+n_timepoints = 50
 timepoints = np.arange(n_timepoints)
 
 # initial concentrations (normalized to 1) 
@@ -117,7 +117,7 @@ def distance_l2(x, y):
 
 # TRUE VALUES
 
-th0_true, th1_true = np.exp([-2.5, -2])
+th0_true, th1_true = [0.06, 0.08]
 th_true = {'th0': th0_true, 'th1': th1_true}
 y_true = model(th_true)
 
@@ -193,7 +193,7 @@ def pdf_true(p):
 # VISUALIZATION
 
 def for_plot_pdf_true():
-    for_plot_pdf_true_file = "for_plot_pdf_true" + str(noise) + ".dat"
+    for_plot_pdf_true_file = "for_plot_pdf_true.dat"
     try:
         xs_0, ys_0, xs_1, ys_1, zs = pickle.load(open(for_plot_pdf_true_file, 'rb'))
     except Exception as e:
@@ -250,16 +250,22 @@ def visualize(label, history, show_true=True):
         plt.close()
 
 
-def visualize_data(x):
+def viz_system(x):
     _, ax = plt.subplots()
     ax.plot(timepoints, x.transpose(), 'x-')
-    plt.savefig("visualize_data.png")
+    plt.savefig("viz_system.png")
 
+
+def viz_data(y, label):
+    _, ax = plt.subplots()
+    ax.plot(timepoints, y['y'], 'x-')
+    plt.savefig("viz_data_" + label + ".png")
 
 # pyabc parameters
 distance = distance_l2
-pop_size = 200  # 500
+pop_size = 500  # 500
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 20  # 20
-sampler = pyabc.sampler.MulticoreEvalParallelSampler()#n_procs=10)
+max_nr_populations = 50  # 20
+min_acceptance_rate = 1e-6
+sampler = pyabc.sampler.MulticoreEvalParallelSampler(n_procs=16)

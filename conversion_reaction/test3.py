@@ -30,8 +30,8 @@ abc = pyabc.ABCSMC(models=model,
                    acceptor=acceptor,
                    sampler=sampler)
 
-#abc.new(db_path, y_obs)
-#h = abc.run(minimum_epsilon=0, max_nr_populations=25)
+abc.new(db_path, y_obs)
+h = abc.run(minimum_epsilon=0, max_nr_populations=nr_pops, min_acceptance_rate=min_acceptance_rate)
 h = pyabc.History(db_path)
 
 # PERFORM ABC ANALYSIS WITH STOCHASTIC ACCEPTOR

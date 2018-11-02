@@ -252,13 +252,19 @@ def viz(label, history, show_true=True):
 
 def viz_system(x):
     _, ax = plt.subplots()
-    ax.plot(timepoints, x.transpose(), 'x-')
+    ax.plot(timepoints, x[0, :], 'x-', color='C1', label="A")
+    ax.plot(timepoints, x[1, :], 'x-', color='C2', label="B")
+    plt.xlabel("Time [au]")
+    plt.ylabel("Concentration [au]")
+    plt.legend()
     plt.savefig("viz_system.png")
-
 
 def viz_data(y, label):
     _, ax = plt.subplots()
-    ax.plot(timepoints, y['y'], 'x-')
+    ax.plot(timepoints, y['y'], 'x-', color='C2', label="B")
+    plt.xlabel("Time [au]")
+    plt.ylabel("Concentration [au]")
+    plt.legend()
     plt.savefig("viz_data_" + label + ".png")
 
 # pyabc parameters

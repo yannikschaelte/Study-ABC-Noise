@@ -171,7 +171,7 @@ def visualize_y_raw(y_raw):
 
 
 def visualize_y(y):
-    fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+    fig, axes = plt.subplots(2, 1, figsize=(4, 8))
     ax = axes[0]
     for j in range(0, n_r):
         ax.plot(y['t'], y['xs'][j, :, 0], color='b', alpha=0.2)

@@ -22,6 +22,7 @@ abc = pyabc.ABCSMC(models=model,
                    distance_function=distance_l2,
                    population_size=pop_size,
                    transitions=transition,
+                   sampler=sampler,
                    eps=eps)
 
 abc.new(db_path, y_obs)

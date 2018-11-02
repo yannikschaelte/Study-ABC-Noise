@@ -289,6 +289,29 @@ def viz_fit(df, label):
     plt.ylabel("Concentration [au]")
     plt.savefig("viz_fit_" + label + ".png")
 
+def viz_eps(list_h, list_label):
+    list_eps = []
+    for h in list_h:
+        list_eps.append(np.array(h.get_all_populations()['epsilon']))
+    _, ax = plt.subplots()
+    for ix, eps_schedule in enumerate(list_eps):
+        ax.plot(np.log(eps_schedule[1:]), 'x-', label=list_label[ix])
+    plt.xlabel("Population index")
+    plt.ylabel("Log(Epsilon)")
+    plt.savefig("viz_eps.png")
+
+
+def viz_samples(list_h, list_label):
+    list_samples = []
+    for h in list_h:
+        list_samples.append(np.array(h.get_all_populations()['samples']))
+    _, ax = plt.subplots()
+    for ix, sample_schedule in enumerate(list_samples):
+        ax.plot(np.log(sample_schedule[1:]), 'x-', label=list_label[ix])
+    plt.xlabel("Population index")
+    plt.ylabel("Log(#Samples)")
+    plt.savefig("viz_samples.png")
+
 
 # pyabc parameters
 distance = distance_l2

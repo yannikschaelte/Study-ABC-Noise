@@ -245,7 +245,7 @@ def viz(label, history, show_true=True):
     
         axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
         axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
-        axes[1, 0].contour(xs_0, xs_1, zs.transpose(), colors='k')
+        axes[1, 0].contour(xs_0, xs_1, zs.transpose(), cmap='Greys')
         plt.savefig(label + "_kde_2d_" + str(t))
         plt.close()
 

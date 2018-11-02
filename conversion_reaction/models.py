@@ -16,7 +16,7 @@ noise_model = np.random.randn
 
 # prior
 prior_lb = 0
-prior_ub = 0.5
+prior_ub = 0.2
 prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
                               for key in ['th0', 'th1']})
 
@@ -230,7 +230,7 @@ def for_plot_pdf_true():
     return xs_0, ys_0, xs_1, ys_1, zs
 
 
-def visualize(label, history, show_true=True):
+def viz(label, history, show_true=True):
     # compute true posterior
     xs_0, ys_0, xs_1, ys_1, zs = for_plot_pdf_true()
 
@@ -266,6 +266,6 @@ distance = distance_l2
 pop_size = 500  # 500
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 50  # 20
+max_nr_populations = 40  # 20
 min_acceptance_rate = 1e-6
 sampler = pyabc.sampler.MulticoreEvalParallelSampler(n_procs=16)

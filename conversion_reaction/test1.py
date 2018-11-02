@@ -29,5 +29,4 @@ h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations, min_accept
 h = pyabc.History(db_path)
 
 # PLOT
-
-viz("test1", h)
+#viz("test1", h)

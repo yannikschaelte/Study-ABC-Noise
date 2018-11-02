@@ -235,7 +235,7 @@ def viz(label, history, show_true=True):
     xs_0, ys_0, xs_1, ys_1, zs = for_plot_pdf_true()
 
     # plot abc posteriors
-    for t in range(history.max_t, history.max_t + 1):
+    for t in range(1, history.max_t + 1):
         df, w = history.get_distribution(m=0, t=t)
         axes = pyabc.visualization.plot_kde_matrix(
             df, w, numx=1000, numy=1000,
@@ -245,7 +245,7 @@ def viz(label, history, show_true=True):
     
         axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
         axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
-        axes[1, 0].contour(xs_0, xs_1, zs.transpose())#, colors='k')
+        axes[1, 0].contour(xs_0, xs_1, zs.transpose(), colors='k')
         plt.savefig(label + "_kde_2d_" + str(t))
         plt.close()
 

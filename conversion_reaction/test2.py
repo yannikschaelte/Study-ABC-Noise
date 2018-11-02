@@ -27,7 +27,7 @@ abc = pyabc.ABCSMC(models=model,
 abc.new(db_path, y_obs)
 h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations, min_acceptance_rate=min_acceptance_rate)
 h = pyabc.History(db_path)
-# PLOT
 
-viz("test2", h)
+# PLOT
+#viz("test2", h)
 

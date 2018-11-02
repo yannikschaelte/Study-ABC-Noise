@@ -32,4 +32,5 @@ abc.new(db_path, y_obs)
 h = abc.run(minimum_epsilon=0, max_nr_populations=nr_pops, min_acceptance_rate=min_acceptance_rate)
 h = pyabc.History(db_path)
 
-viz("test3", h)
+# PLOT
+#viz("test3", h)

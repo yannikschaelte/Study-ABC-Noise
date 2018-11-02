@@ -267,6 +267,29 @@ def viz_data(y, label):
     plt.legend()
     plt.savefig("viz_data_" + label + ".png")
 
+
+def viz_fit(df, label):
+    _, ax = plt.subplots()
+    ax.plot(timepoints, y_true['y'], 'x-', color='C0', label="Noise-free data")
+    ax.plot(timepoints, y_obs['y'], 'x-', color='C2', label="Observation")
+    n_particles = len(df)
+    sumstats = df['sumstat_y']
+    #for j in range(0, n_particles):
+    #    sumstat = sumstats.iloc[j]
+    #    ax.plot(timepoints, sumstat, 'x-', color='C3', alpha=0.2)
+    mean = np.mean(np.array(sumstats), axis=0)
+    std = np.sqrt(np.var(np.array(sumstats), axis=0))
+    #ax.fill_between(timepoints, mean - std, mean + std, color='C3', alpha=0.1)
+    err = [std, std]
+    print(err)
+    ax.errorbar(timepoints, mean, yerr=np.array(err), capsize=5, color='C3', label="ABC posterior")
+    #ax.plot(timepoints, mean, 'x-', color='C4')
+    plt.legend()
+    plt.xlabel("Time [au]")
+    plt.ylabel("Concentration [au]")
+    plt.savefig("viz_fit_" + label + ".png")
+
+
 # pyabc parameters
 distance = distance_l2
 pop_size = 500  # 500

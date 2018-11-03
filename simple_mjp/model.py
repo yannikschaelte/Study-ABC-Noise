@@ -25,6 +25,8 @@ post = sp.array([[1], [0]], dtype=int)
 # initial state
 x0 = sp.array([0])
 
+noise_success_probability = 0.90
+
 
 def model_raw(p):
     """
@@ -60,6 +62,17 @@ def _for_timepoints(y_raw):
 def model(p):
     y_raw = model_raw(p)
     return _for_timepoints(y_raw)
+
+
+def model_random(p):
+    y = model(p)
+    for ir in range(0, n_r):
+        for it in range(0, n_timepoints):
+            n_mrna = y['xs'][ir, it]
+            if n_mrna > 0:
+                failures = np.random.negative_binomial(n_mrna, noise_success_probability)
+                y['xs'][ir, it] = n_mrna - failures
+    return y
 
 
 def sumstat_p(y):

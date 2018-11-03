@@ -27,7 +27,7 @@ post = sp.array([[1], [0]], dtype=int)
 # initial state
 x0 = sp.array([0])
 
-noise_success_probability = 0.90
+noise_success_probability = 0.80
 
 
 def model_raw(p):

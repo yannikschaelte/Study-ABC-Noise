@@ -26,7 +26,7 @@ prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prio
 
 # timepoints
 n_timepoints = 20
-t_max = 40
+t_max = 10
 timepoints = np.linspace(0, t_max, n_timepoints)
 
 # initial concentrations (normalized to 1) 
@@ -44,8 +44,7 @@ def x(p):
     sol = np.zeros(n_timepoints)
     x0 = 1
     for ix, t in enumerate(timepoints):
-        # sol[ix] = (x0 - th0 / th1) * np.exp(- th1 * t) + th0 / th1
-        sol[ix] = np.exp( (th0 - th1) * t ) * x0
+        sol[ix] = (x0 - th0 / th1) * np.exp(- th1 * t) + th0 / th1
     return sol
 
 

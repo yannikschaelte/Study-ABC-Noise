@@ -7,6 +7,8 @@ import pyabc
 import pyabc.visualization
 import pickle
 import os
+import copy
+
 
 # number of replicates
 n_r = 10
@@ -24,6 +26,8 @@ pre = sp.array([[0], [1]], dtype=int)
 post = sp.array([[1], [0]], dtype=int)
 # initial state
 x0 = sp.array([0])
+
+noise_success_probability = 0.80
 
 
 def model_raw(p):
@@ -62,6 +66,22 @@ def model(p):
     return _for_timepoints(y_raw)
 
 
+def model_random(p):
+    y = model(p)
+    y = noisy(y)
+    return y
+
+
+def noisy(y):
+    for ir in range(0, n_r):
+        for it in range(0, n_timepoints):
+            n_mrna = y['xs'][ir, it]
+            if n_mrna > 0:
+                failures = np.random.negative_binomial(n_mrna, noise_success_probability)
+                y['xs'][ir, it] = n_mrna - failures
+    return y
+
+
 def sumstat_p(y):
     """
     Assume only protein counts can be observed.
@@ -78,36 +98,54 @@ def sumstat_p(y):
 
 
 # observed data
-_y_raw_obs = None
+_y_raw_true = None
+_y_true = None
 _y_obs = None
 
 
-def get_y_raw_obs():
-    global _y_raw_obs
-    if _y_raw_obs is not None:
-        return _y_raw_obs
-    y_raw_file = "y_raw_" + str(n_r) + ".dat"
+def get_y_raw_true():
+    global _y_raw_true
+    if _y_raw_true is not None:
+        return _y_raw_true
+    y_raw_file = "y_raw_true_" + str(n_r) + ".dat"
     try:
-        y_raw_obs = pickle.load(open(y_raw_file, 'rb'))
+        y_raw_true = pickle.load(open(y_raw_file, 'rb'))
     except Exception:
-        y_raw_obs = model_raw(p_true)
-        pickle.dump(y_raw_obs, open(y_raw_file, 'wb'))
-    _y_raw_obs = y_raw_obs
-    return _y_raw_obs
+        y_raw_true = model_raw(p_true)
+        pickle.dump(y_raw_true, open(y_raw_file, 'wb'))
+    _y_raw_true = y_raw_true
+    return _y_raw_true
 
 
-y_raw_obs = get_y_raw_obs()
+y_raw_true = get_y_raw_true()
+
+
+def get_y_true():
+    global _y_true
+    if _y_true is not None:
+        return _y_true
+    y_file = "y_true_" + str(n_r) + ".dat"
+    try:
+        y_true = pickle.load(open(y_file, 'rb'))
+    except Exception:
+        y_true = _for_timepoints(y_raw_true)
+        pickle.dump(y_true, open(y_file, 'wb'))
+    _y_true = y_true
+    return _y_true
+
+
+y_true = get_y_true()
 
 
 def get_y_obs():
     global _y_obs
     if _y_obs is not None:
         return _y_obs
-    y_file = "y_" + str(n_r) + ".dat"
+    y_file = "y_obs_" + str(n_r) + ".dat"
     try:
         y_obs = pickle.load(open(y_file, 'rb'))
     except Exception:
-        y_obs = _for_timepoints(y_raw_obs)
+        y_obs = noisy(copy.deepcopy(y_true))
         pickle.dump(y_obs, open(y_file, 'wb'))
     _y_obs = y_obs
     return _y_obs
@@ -115,9 +153,6 @@ def get_y_obs():
 
 y_obs = get_y_obs()
 
-
-# observed sumstats
-sumstat_p_obs = sumstat_p(y_obs)
 
 # prior
 limits = {'transcription': (0, 50),
@@ -146,10 +181,10 @@ def visualize_y_raw(y_raw):
 
     ax.set_xlabel("Time [au]")
     ax.set_ylabel("Molecules")
-    plt.savefig("obs_raw.png")
+    plt.savefig("y_raw.png")
 
 
-def visualize_y(y):
+def visualize_y(y, label):
     fig, ax = plt.subplots(1, 1, figsize=(8, 4))
     for j in range(0, n_r):
         ax.plot(y['t'], y['xs'][j, :, 0], color='b', alpha=0.2)
@@ -162,7 +197,7 @@ def visualize_y(y):
 
     fig.tight_layout()
 
-    plt.savefig("obs.png")
+    plt.savefig(label + ".png")
 
 
 def visualize(label, history):

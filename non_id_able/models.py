@@ -203,11 +203,12 @@ def viz(label, history, show_true=True):
         if os.path.isfile(filename):
             continue
         df, w = history.get_distribution(m=0, t=t)
+        kde = pyabc.MultivariateNormalTransition()
         axes = pyabc.visualization.plot_kde_matrix(
             df, w, numx=1000, numy=1000,
             limits={key: (prior_lb, prior_ub)
                     for key in ['th0', 'th1']},
-            refval=th_true)
+            refval=th_true, kde=kde)
         
         if show_true:
             axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)

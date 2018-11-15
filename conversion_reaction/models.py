@@ -290,6 +290,7 @@ def viz_eps(list_h, list_label):
         ax.plot(np.log(eps_schedule[1:]), 'x-', label=list_label[ix])
     plt.xlabel("Population index")
     plt.ylabel("Log(Epsilon)")
+    plt.legend()
     plt.savefig("viz_eps.png")
 
 
@@ -302,6 +303,7 @@ def viz_samples(list_h, list_label):
         ax.plot(np.log(sample_schedule[1:]), 'x-', label=list_label[ix])
     plt.xlabel("Population index")
     plt.ylabel("Log(#Samples)")
+    plt.legend()
     plt.savefig("viz_samples.png")
 
 

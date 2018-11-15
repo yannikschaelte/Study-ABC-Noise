@@ -16,10 +16,10 @@ noise = 0.05
 noise_model = np.random.randn
 
 # prior
-prior_lb = 0
-prior_ub = 0.4
-prior = pyabc.Distribution(**{key: pyabc.RV('uniform', prior_lb, prior_ub - prior_lb)
-                              for key in ['th0', 'th1']})
+limits = {'th0': (0, 0.4), 'th1': (0, 0.4)}
+
+prior = pyabc.Distribution(**{key: pyabc.RV('uniform', bounds[0], bounds[1])
+                              for key, bounds in limits.items()})
 
 
 # MODEL
@@ -80,13 +80,11 @@ def x(p):
     return sol
 
 
-
 def model(p):
     """
     Observations. Do not account for noise.
     Assume only species 1 is observable.
     """
-    # y = x(p)[1, :]
     y = x(p)[1, :]
     return {'y': y.flatten()} 
 
@@ -95,18 +93,8 @@ def model_random(p):
     """
     Observations. Account for noise.
     """
-    #y = x(p)[1, :] + noise * noise_model(n_timepoints)
     y = x(p)[1, :] + noise * noise_model(1, n_timepoints)
     return {'y': y.flatten()}
-
-
-def model_random_unknownnoise(p):
-    """
-    Observations when also noise std is a parameter.
-    """
-    #y = x(p)[1, :] + p['noise'] * noise_model(n_timepoints)
-    y = x(p)[1, :] + p['noise'] * noise_model(1, n_timepoints)
-    return {'y': y}
 
 
 def distance_l2(x, y):
@@ -203,9 +191,9 @@ def for_plot_pdf_true():
         # th0
         def marginal_0(th0):
             return integrate.quad(lambda th1: pdf_true({'th0': th0, 'th1': th1}),
-                                  prior_lb, prior_ub)[0]
-        integral_0 = integrate.quad(marginal_0, prior_lb, prior_ub)[0]
-        xs_0 = np.linspace(prior_lb, prior_ub, n_mesh)
+                                  limits['th1'][0], limits['th1'][1])[0]
+        integral_0 = integrate.quad(marginal_0, limits['th0'][0], limits['th0'][1])[0]
+        xs_0 = np.linspace(limist['th0'][0], limits['th0'][1], n_mesh)
         ys_0 = []
         for x in xs_0:
             ys_0.append(marginal_0(x) / integral_0)
@@ -213,9 +201,9 @@ def for_plot_pdf_true():
         # th1
         def marginal_1(th1):
             return integrate.quad(lambda th0: pdf_true({'th0': th0, 'th1': th1}),
-                                  prior_lb, prior_ub)[0]
-        integral_1 = integrate.quad(marginal_1, prior_lb, prior_ub)[0]
-        xs_1 = np.linspace(prior_lb, prior_ub, n_mesh)
+                                  limits['th0'][0], limits['th0'][1])[0]
+        integral_1 = integrate.quad(marginal_1, limits['th1'][0], limits['th1'][1])[0]
+        xs_1 = np.linspace(limist['th1'][0], limits['th1'][1], n_mesh)
         ys_1 = []
         for x in xs_1:
             ys_1.append(marginal_1(x) / integral_1)
@@ -244,8 +232,7 @@ def viz(label, history, show_true=True):
         df, w = history.get_distribution(m=0, t=t)
         axes = pyabc.visualization.plot_kde_matrix(
             df, w, numx=1000, numy=1000,
-            limits={key: (prior_lb, prior_ub)
-                    for key in ['th0', 'th1']},
+            limits=limits,
             refval=th_true)
     
         axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)

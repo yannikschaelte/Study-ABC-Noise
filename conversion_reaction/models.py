@@ -193,7 +193,7 @@ def for_plot_pdf_true():
             return integrate.quad(lambda th1: pdf_true({'th0': th0, 'th1': th1}),
                                   limits['th1'][0], limits['th1'][1])[0]
         integral_0 = integrate.quad(marginal_0, limits['th0'][0], limits['th0'][1])[0]
-        xs_0 = np.linspace(limist['th0'][0], limits['th0'][1], n_mesh)
+        xs_0 = np.linspace(limits['th0'][0], limits['th0'][1], n_mesh)
         ys_0 = []
         for x in xs_0:
             ys_0.append(marginal_0(x) / integral_0)
@@ -203,7 +203,7 @@ def for_plot_pdf_true():
             return integrate.quad(lambda th0: pdf_true({'th0': th0, 'th1': th1}),
                                   limits['th0'][0], limits['th0'][1])[0]
         integral_1 = integrate.quad(marginal_1, limits['th1'][0], limits['th1'][1])[0]
-        xs_1 = np.linspace(limist['th1'][0], limits['th1'][1], n_mesh)
+        xs_1 = np.linspace(limits['th1'][0], limits['th1'][1], n_mesh)
         ys_1 = []
         for x in xs_1:
             ys_1.append(marginal_1(x) / integral_1)

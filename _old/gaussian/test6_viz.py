@@ -6,11 +6,11 @@ import matplotlib
 matplotlib.rcParams.update({'font.size': 14})
         
 h = pyabc.History("sqlite:///db6.db")
-h.id = 1
+h.id = 2
 s2 = np.asarray(h.get_all_populations()['samples'][1:])
 s1 = np.zeros_like(s2)
 
-h.id = 2
+h.id = 1
 s1[0] = h.get_all_populations()['samples'][1]
 
 h = pyabc.History("sqlite:///db7.db")

@@ -312,6 +312,6 @@ distance = distance_l2
 pop_size = 500  # 500
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 40  # 20
+max_nr_populations = 20  # 20
 min_acceptance_rate = 1e-6
-sampler = pyabc.sampler.MulticoreEvalParallelSampler(n_procs=16)
+sampler = pyabc.sampler.MulticoreEvalParallelSampler(n_procs=40)

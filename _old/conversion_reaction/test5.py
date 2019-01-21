@@ -20,8 +20,8 @@ def pdf(x_0, x):
     mean = np.zeros(n_timepoints)
     cov = noise**2 * np.eye(n_timepoints)
     return stats.multivariate_normal.pdf(v_0 - v, mean=mean, cov=cov)
-nr_pops = 40
-acceptor = pyabc.StochasticAcceptor(pdf=pdf)
+
+acceptor = pyabc.StochasticAcceptor(pdf=pdf, temp_decay_exp=4, target_acceptance_rate=0.5)
 
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior,
@@ -33,7 +33,7 @@ abc = pyabc.ABCSMC(models=model,
                    sampler=sampler)
 
 abc.new(db_path, y_obs)
-h = abc.run(minimum_epsilon=1, max_nr_populations=nr_pops, min_acceptance_rate=min_acceptance_rate)
+h = abc.run(minimum_epsilon=1, max_nr_populations=max_nr_populations, min_acceptance_rate=min_acceptance_rate)
 h = pyabc.History(db_path)
 
 # PLOT

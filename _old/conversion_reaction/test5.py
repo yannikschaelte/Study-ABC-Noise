@@ -21,20 +21,23 @@ def pdf(x_0, x):
     cov = noise**2 * np.eye(n_timepoints)
     return stats.multivariate_normal.pdf(v_0 - v, mean=mean, cov=cov)
 
-acceptor = pyabc.StochasticAcceptor(pdf=pdf, temp_decay_exp=4, target_acceptance_rate=0.5)
+for acceptor, label in [
+        (pyabc.StochasticAcceptor(pdf=pdf), "adaptive"),
+        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_decay), "decay"),
+        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_exponential_decay), "exp_decay"),
+        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_daly), "daly")]:
+    abc = pyabc.ABCSMC(models=model,
+                       parameter_priors=prior,
+                       distance_function=pyabc.NoDistance(),
+                       population_size=pop_size,
+                       transitions=transition,
+                       eps=pyabc.NoEpsilon(),
+                       acceptor=acceptor,
+                       sampler=sampler)
 
-abc = pyabc.ABCSMC(models=model,
-                   parameter_priors=prior,
-                   distance_function=pyabc.NoDistance(),
-                   population_size=pop_size,
-                   transitions=transition,
-                   eps=pyabc.NoEpsilon(),
-                   acceptor=acceptor,
-                   sampler=sampler)
+    abc.new(db_path, y_obs)
+    h = abc.run(minimum_epsilon=1, max_nr_populations=max_nr_populations, min_acceptance_rate=min_acceptance_rate)
+    h = pyabc.History(db_path)
 
-abc.new(db_path, y_obs)
-h = abc.run(minimum_epsilon=1, max_nr_populations=max_nr_populations, min_acceptance_rate=min_acceptance_rate)
-h = pyabc.History(db_path)
-
-# PLOT
-viz("test5", h)
+    # PLOT
+    viz("test5_" + label, h)

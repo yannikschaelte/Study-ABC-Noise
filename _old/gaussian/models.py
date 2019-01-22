@@ -113,7 +113,7 @@ distance = pyabc.PNormDistance(p=2)
 pop_size = 200
 transition = pyabc.MultivariateNormalTransition()
 eps = pyabc.MedianEpsilon()
-max_nr_populations = 8
+max_nr_populations = 20
 sampler = pyabc.sampler.SingleCoreSampler()
 
 
@@ -149,38 +149,37 @@ def true_pdf(th):
 # VISUALIZATION
 
 def visualize(label, history, show_true=True, legend=True):
-    t = history.max_t
-    
-    fig, ax = plt.subplots(figsize=(4,4))
+    for t in range(0, history.max_t + 1):
+        fig, ax = plt.subplots(figsize=(4,4))
 
-    if show_true:
-        integral = integrate.quad(true_pdf, prior_lb, prior_ub)[0]
-
-        def pdf(x):
-            return true_pdf(x) / integral
-
-        x = np.linspace(prior_lb, prior_ub, 300)
-        y = []
-        for i in range(len(x)):
-            y.append(pdf(x[i]))
-        ax.plot(x, y, '-', color="k", alpha=0.75)
- 
-    df, w = history.get_distribution(m=0, t=t)
-    ax = pyabc.visualization.plot_kde_1d(df, w,
-                                          'th0',
-                                          xmin=prior_lb, xmax=prior_ub, 
-                                          numx=1000, refval=th_true, ax=ax)
-   
-    ax.set_xlabel("theta")
-
-    if legend:
         if show_true:
-            ax.legend(['true posterior', 'ABC posterior', 'true parameter'])
-        else:
-            ax.legend(['ABC posterior', 'true parameter'])
+            integral = integrate.quad(true_pdf, prior_lb, prior_ub)[0]
 
-    plt.savefig(label + "_kde_1d_" + str(t))
-    plt.close()
+            def pdf(x):
+                return true_pdf(x) / integral
+
+            x = np.linspace(prior_lb, prior_ub, 300)
+            y = []
+            for i in range(len(x)):
+                y.append(pdf(x[i]))
+            ax.plot(x, y, '-', color="k", alpha=0.75)
+ 
+        df, w = history.get_distribution(m=0, t=t)
+        ax = pyabc.visualization.plot_kde_1d(df, w,
+                                             'th0',
+                                             xmin=prior_lb, xmax=prior_ub, 
+                                             numx=1000, refval=th_true, ax=ax)
+   
+        ax.set_xlabel("theta")
+
+        if legend:
+            if show_true:
+                ax.legend(['true posterior', 'ABC posterior', 'true parameter'])
+            else:
+                ax.legend(['ABC posterior', 'true parameter'])
+
+        plt.savefig(label + "_kde_1d_" + str(t))
+        plt.close()
 
 
 def visualize_uvar(label, history):

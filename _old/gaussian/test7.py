@@ -10,6 +10,10 @@ import pyabc
 from models import *
 from scipy import stats
 
+import logging
+logger = logging.getLogger("Acceptor")
+logger.setLevel(logging.DEBUG)
+
 # VARIABLEs
 
 db_path = "sqlite:///db7.db"

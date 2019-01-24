@@ -13,7 +13,7 @@ from scipy import stats
 db_path = "sqlite:///db5.db"
 
 # ACCEPTOR
-max_nr_populations = 40
+#max_nr_populations = 40
 
 def pdf(x_0, x):
     v_0 = np.array(list(x_0.values()))
@@ -41,4 +41,4 @@ for acceptor, label in [
     h = pyabc.History(db_path)
 
     # PLOT
-    viz("test5_" + label, h)
+    #viz("test5_" + label, h)

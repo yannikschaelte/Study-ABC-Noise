@@ -23,10 +23,11 @@ def pdf(x_0, x):
     return stats.multivariate_normal.pdf(v_0 - v, mean=mean, cov=cov)
 
 for acceptor, label in [
-        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = [pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_exponential_decay]), "adaptive"),
+        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = [pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_decay]), "adaptive"),
         (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_decay), "decay"),
         (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_exponential_decay), "exp_decay"),
-        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_daly), "daly")]:
+        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_daly), "daly"),
+        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = [pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_exponential_decay, pyabc.acceptor.scheme_decay, pyabc.acceptor.scheme_daly]), "all")]:
     abc = pyabc.ABCSMC(models=model,
                        parameter_priors=prior,
                        distance_function=pyabc.NoDistance(),

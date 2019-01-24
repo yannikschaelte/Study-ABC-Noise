@@ -11,7 +11,7 @@ import os
 # VARIABLES
 
 # noise variance
-noise = 0.05
+noise = 0.02
 # gaussian error model
 noise_model = np.random.randn
 
@@ -25,8 +25,8 @@ prior = pyabc.Distribution(**{key: pyabc.RV('uniform', bounds[0], bounds[1])
 # MODEL
 
 # timepoints
-n_timepoints = 20
-timepoints = np.linspace(0, 50, n_timepoints)
+n_timepoints = 10
+timepoints = np.linspace(0, 30, n_timepoints)
 
 # initial concentrations (normalized to 1) 
 x0 = np.array([1, 0])
@@ -259,6 +259,12 @@ def viz_data(y, label):
     plt.legend()
     plt.savefig("viz_data_" + label + ".png")
 
+def viz_both(y_true, y_obs, label):
+    _, ax = plt.subplots()
+    ax.plot(timepoints, y_true['y'], 'x-', color='C0', label = "ODE solution")
+    ax.plot(timepoints, y_obs['y'], 'x', color='C2', label = "measured data")
+    plt.legend()
+    plt.savefig("viz_data_" + label + ".png")
 
 def viz_fit(df, label):
     _, ax = plt.subplots()

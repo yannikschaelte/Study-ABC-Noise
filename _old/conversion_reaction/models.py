@@ -6,7 +6,10 @@ import scipy as sp
 import pickle
 import scipy.integrate as integrate
 import os
+import logging
 
+logger = logging.getLogger("Acceptor")
+logger.setLevel(logging.DEBUG)
 
 # VARIABLES
 

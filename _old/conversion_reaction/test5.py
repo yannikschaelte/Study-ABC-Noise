@@ -13,6 +13,7 @@ from scipy import stats
 db_path = "sqlite:///db5.db"
 
 # ACCEPTOR
+max_nr_populations = 40
 
 def pdf(x_0, x):
     v_0 = np.array(list(x_0.values()))
@@ -22,7 +23,7 @@ def pdf(x_0, x):
     return stats.multivariate_normal.pdf(v_0 - v, mean=mean, cov=cov)
 
 for acceptor, label in [
-        (pyabc.StochasticAcceptor(pdf=pdf), "adaptive"),
+        (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = [pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_exponential_decay]), "adaptive"),
         (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_decay), "decay"),
         (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_exponential_decay), "exp_decay"),
         (pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = pyabc.acceptor.scheme_daly), "daly")]:

@@ -14,7 +14,7 @@ logger.setLevel(logging.DEBUG)
 # VARIABLES
 
 # noise variance
-noise = 0.05
+noise = 0.02
 # gaussian error model
 noise_model = np.random.randn
 
@@ -28,8 +28,8 @@ prior = pyabc.Distribution(**{key: pyabc.RV('uniform', bounds[0], bounds[1])
 # MODEL
 
 # timepoints
-n_timepoints = 20
-timepoints = np.linspace(0, 50, n_timepoints)
+n_timepoints = 10
+timepoints = np.linspace(0, 30, n_timepoints)
 
 # initial concentrations (normalized to 1) 
 x0 = np.array([1, 0])
@@ -121,7 +121,7 @@ _y_obs = None
 def get_y_obs():
     global _y_obs
     if _y_obs is None:
-        y_obs_file = "y_obs.dat"
+        y_obs_file = "y_obs_" + str(noise) + ".dat"
         try:
             y_obs = pickle.load(open(y_obs_file, 'rb'))
         except Exception:
@@ -185,7 +185,7 @@ def pdf_true(p):
 # VISUALIZATION
 
 def for_plot_pdf_true():
-    for_plot_pdf_true_file = "for_plot_pdf_true.dat"
+    for_plot_pdf_true_file = "for_plot_pdf_true_" + st(noise) + ".dat"
     try:
         xs_0, ys_0, xs_1, ys_1, zs = pickle.load(open(for_plot_pdf_true_file, 'rb'))
     except Exception as e:
@@ -262,6 +262,12 @@ def viz_data(y, label):
     plt.legend()
     plt.savefig("viz_data_" + label + ".png")
 
+def viz_both(y_true, y_obs, label):
+    _, ax = plt.subplots()
+    ax.plot(timepoints, y_true['y'], 'x-', color='C0', label = "ODE solution")
+    ax.plot(timepoints, y_obs['y'], 'x', color='C2', label = "measured data")
+    plt.legend()
+    plt.savefig("viz_data_" + label + ".png")
 
 def viz_fit(df, label):
     _, ax = plt.subplots()

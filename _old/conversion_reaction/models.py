@@ -121,7 +121,7 @@ _y_obs = None
 def get_y_obs():
     global _y_obs
     if _y_obs is None:
-        y_obs_file = "y_obs_" + str(noise) + ".dat"
+        y_obs_file = "y_obs_" + str(noise) + "_" + str(n_timepoints) + ".dat"
         try:
             y_obs = pickle.load(open(y_obs_file, 'rb'))
         except Exception:
@@ -185,7 +185,7 @@ def pdf_true(p):
 # VISUALIZATION
 
 def for_plot_pdf_true():
-    for_plot_pdf_true_file = "for_plot_pdf_true_" + str(noise) + ".dat"
+    for_plot_pdf_true_file = "for_plot_pdf_true_" + str(noise) + "_" + str(n_timepoints) + ".dat"
     try:
         xs_0, ys_0, xs_1, ys_1, zs = pickle.load(open(for_plot_pdf_true_file, 'rb'))
     except Exception as e:

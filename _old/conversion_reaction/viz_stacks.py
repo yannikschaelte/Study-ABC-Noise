@@ -13,13 +13,13 @@ for _ in range(n_tests):
     ss.append(np.zeros(max_nr_populations))
 
 h = pyabc.History("sqlite:///db5.db")
-for i in range(n_tests / 2):
+for i in range(int(n_tests / 2)):
     h.id = i + 1
     s = np.asarray(h.get_all_populations()['samples'][1:])
     ss[i][:len(s)] = s
 
 h = pyabc.History("sqlite:///db6.db")
-for i in range(n_tests / 2):
+for i in range(int(n_tests / 2)):
     h.id = i + 1
     s = np.asarray(h.get_all_populations()['samples'][1:])
     ss[int(n_tests / 2 + i)][:len(s)] = s
@@ -34,4 +34,5 @@ plt.title("Total required samples")
 plt.ylabel("Samples")
 plt.xlabel("Method")
 plt.ylabel("Samples")
+plt.gcf().tight_layout()
 plt.savefig("total_samples.png")

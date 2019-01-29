@@ -5,21 +5,24 @@ import matplotlib
 from models import *
 
 ss = []
-n_tests = 6
-labels = ["acc-dec", "dec", "exp", "daly", "all", "all-bestc"]
+n_tests = 10
+labels = ["acc-dec", "dec", "exp", "daly", "all",
+          "acc-dec-c-opt", "dec-c-opt", "exp-c-opt", "daly-c-opt", "all-c-opt"]
 
 for _ in range(n_tests):
     ss.append(np.zeros(max_nr_populations))
 
 h = pyabc.History("sqlite:///db5.db")
-for i in range(n_tests - 1):
-    h.id=i + 1
+for i in range(n_tests / 2):
+    h.id = i + 1
     s = np.asarray(h.get_all_populations()['samples'][1:])
     ss[i][:len(s)] = s
 
 h = pyabc.History("sqlite:///db6.db")
-s = np.asarray(h.get_all_populations()['samples'][1:])
-ss[5][:len(s)] = s
+for i in range(n_tests / 2):
+    h.id = i + 1
+    s = np.asarray(h.get_all_populations()['samples'][1:])
+    ss[int(n_tests / 2 + i)][:len(s)] = s
 
 print(ss)
 

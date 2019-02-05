@@ -17,17 +17,16 @@ logger.setLevel(logging.DEBUG)
 # VARIABLEs
 
 db_path = "sqlite:///db7.db"
-distr = stats.multivariate_normal([0], [noise**2])
-nr_pops = 8
-def pdf(x_0, x):
-    return stats.multivariate_normal.pdf(np.array(list(x_0.values())) - np.array(list(x.values())), mean=[0], cov=[noise**2])
-acceptor = pyabc.StochasticAcceptor(pdf=pdf)
+n_pops = 8
+
+acceptor = pyabc.StochasticAcceptor()
+distance = pyabc.distance_functions.NormalKernel(mean=[0], cov=[noise**2])
 
 # PERFORM ABC ANALYSIS
 
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior_uvar,
-                   distance_function=pyabc.NoDistance(),
+                   distance_function=distance,
                    population_size=100,
                    transitions=transition,
                    eps=pyabc.NoEpsilon(),
@@ -35,7 +34,7 @@ abc = pyabc.ABCSMC(models=model,
 
 abc.new(db_path, get_y_meas())
 
-h = abc.run(minimum_epsilon=1, max_nr_populations=nr_pops)
+h = abc.run(minimum_epsilon=1, max_nr_populations=n_pops)
 
 # PLOT
 

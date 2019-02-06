@@ -24,12 +24,14 @@ def pdf(x_0, x):
 
 c = pickle.load(open("best_found_pdf_" + str(noise) + "_" + str(n_timepoints) + ".dat", "rb"))
 
+distance = pyabc.distance.IndependentNormalKernel(mean=np.zeros(n_timepoints), var = noise**2 * np.ones(n_timepoints), pdf_max = c)
+
 for acceptor, label in [
-        (pyabc.StochasticAcceptor(pdf=pdf, c=c, temp_schemes = [pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_decay]), "adaptive"),
-        (pyabc.StochasticAcceptor(pdf=pdf, c=c, temp_schemes = [pyabc.acceptor.scheme_decay]), "decay"),
-        (pyabc.StochasticAcceptor(pdf=pdf, c=c, temp_schemes = [pyabc.acceptor.scheme_exponential_decay]), "exp_decay"),
-        (pyabc.StochasticAcceptor(pdf=pdf, c=c, temp_schemes = [pyabc.acceptor.scheme_daly]), "daly"),
-        (pyabc.StochasticAcceptor(pdf=pdf, c=c, temp_schemes = [pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_exponential_decay, pyabc.acceptor.scheme_decay, pyabc.acceptor.scheme_daly]), "all")]:
+        (pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_decay]), "adaptive"),
+        (pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_decay]), "decay"),
+        (pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_exponential_decay]), "exp_decay"),
+        (pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_daly]), "daly"),
+        (pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_exponential_decay, pyabc.acceptor.scheme_decay, pyabc.acceptor.scheme_daly]), "all")]:
     abc = pyabc.ABCSMC(models=model,
                        parameter_priors=prior,
                        distance_function=pyabc.NoDistance(),

@@ -16,7 +16,7 @@ import subprocess
 tempdir = tempfile.mkdtemp()
 # VARIABLES
 
-noise = 0.01
+noise = 0.05
 noise_model = np.random.randn
 
 # prior

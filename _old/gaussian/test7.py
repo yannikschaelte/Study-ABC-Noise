@@ -20,7 +20,8 @@ db_path = "sqlite:///db7.db"
 n_pops = 8
 
 acceptor = pyabc.StochasticAcceptor()
-distance = pyabc.distance.NormalKernel(mean=[0], cov=[noise**2])
+distance = pyabc.distance.IndependentNormalKernel(mean=[0], var=[noise**2])
+#distance = pyabc.distance.NormalKernel(mean=[0], cov=[noise**2], ret_scale="RET_SCALE_LOG")
 
 # PERFORM ABC ANALYSIS
 

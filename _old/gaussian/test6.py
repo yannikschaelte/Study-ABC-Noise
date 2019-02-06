@@ -17,17 +17,15 @@ logger.setLevel(logging.DEBUG)
 
 # VARIABLEs
 db_path = "sqlite:///db6.db"
-distr = stats.multivariate_normal([0], [noise**2])
 nr_pops = 8
-def pdf(x_0, x):
-    return stats.multivariate_normal.pdf(np.array(list(x_0.values())) - np.array(list(x.values())), mean=[0], cov=[noise**2])
-acceptor = pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = [pyabc.acceptor.scheme_decay])
+distance = pyabc.distance.NormalKernel(mean=[0.0], cov=[noise**2])
+acceptor = pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_decay])
 
 # PERFORM ABC ANALYSIS
 
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior_uvar,
-                   distance_function=pyabc.NoDistance(),
+                   distance_function=distance,
                    population_size=pop_size,
                    transitions=transition,
                    eps=pyabc.NoEpsilon(),
@@ -41,14 +39,14 @@ print(h.get_all_populations())
 
 visualize("test6_0", h)
 
-
-acceptor = pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = [pyabc.acceptor.scheme_decay])
+distance = pyabc.distance.NormalKernel(mean=[0], cov=[noise**2])
+acceptor = pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_decay])
 
 # PERFORM ABC ANALYSIS
 
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior_uvar,
-                   distance_function=pyabc.NoDistance(),
+                   distance_function=distance,
                    population_size=pop_size,
                    transitions=transition,
                    eps=pyabc.NoEpsilon(),
@@ -62,14 +60,14 @@ print(h.get_all_populations())
 
 visualize("test6_1", h)
 
-
-acceptor = pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = [pyabc.acceptor.scheme_daly])
+distance = pyabc.distance.NormalKernel(mean=[0], cov=[noise**2])
+acceptor = pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_daly])
 
 # PERFORM ABC ANALYSIS
 
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior_uvar,
-                   distance_function=pyabc.NoDistance(),
+                   distance_function=distance,
                    population_size=pop_size,
                    transitions=transition,
                    eps=pyabc.NoEpsilon(),
@@ -83,14 +81,14 @@ print(h.get_all_populations())
 
 visualize("test6_2", h)
 
-
-acceptor = pyabc.StochasticAcceptor(pdf=pdf, temp_schemes = [pyabc.acceptor.scheme_exponential_decay])
+distance = pyabc.distance.NormalKernel(mean=[0], cov=[noise**2])
+acceptor = pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_exponential_decay])
 
 # PERFORM ABC ANALYSIS
 
 abc = pyabc.ABCSMC(models=model,
                    parameter_priors=prior_uvar,
-                   distance_function=pyabc.NoDistance(),
+                   distance_function=distance,
                    population_size=pop_size,
                    transitions=transition,
                    eps=pyabc.NoEpsilon(),

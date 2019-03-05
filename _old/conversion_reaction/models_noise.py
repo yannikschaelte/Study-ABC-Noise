@@ -12,7 +12,7 @@ from models import *
 limits['noise'] = (0, 0.2)
 
 prior_noise = pyabc.Distribution(**{key: pyabc.RV('uniform', bounds[0], bounds[1])
-                                    for key, bounds in limits_noise.items()})
+                                    for key, bounds in limits.items()})
 
 
 def model_random_noise(p):

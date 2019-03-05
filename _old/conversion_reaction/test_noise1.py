@@ -25,9 +25,9 @@ abc = pyabc.ABCSMC(models=model_random_noise,
                    sampler=sampler,
                    eps=eps)
 
-abc.new(db_path, y_obs)
-h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations, min_acceptance_rate=min_acceptance_rate)
+#abc.new(db_path, y_obs)
+#h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations, min_acceptance_rate=min_acceptance_rate)
 h = pyabc.History(db_path)
 
 # PLOT
-viz_noise("test_noise1", h)
+viz_noise("test_noise1", h, True)

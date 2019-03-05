@@ -55,7 +55,7 @@ def pdf_true_noise(p):
 
 # VISUALIZATION
 
-def for_plot_pdf_true_noise():
+def for_plot_pdf_true_noise(num_integral=False):
     for_plot_pdf_true_file = "for_plot_pdf_true_noise.dat"
     try:
         xs_0, ys_0, xs_1, ys_1, xs_noise, ys_noise = pickle.load(open(for_plot_pdf_true_file, 'rb'))
@@ -68,11 +68,18 @@ def for_plot_pdf_true_noise():
                 {'th0': th0, 'th1': th1, 'noise': noise}),
                 limits['th1'][0], limits['th1'][1],
                 lambda x: limits['noise'][0], lambda x: limits['noise'][1])[0]
-        integral_0 = integrate.quad(marginal_0, limits['th0'][0], limits['th0'][1])[0]
+        if num_integral:
+            integral_0 = 1.0
+        else:
+            integral_0 = integrate.quad(marginal_0, limits['th0'][0], limits['th0'][1])[0]
         xs_0 = np.linspace(limits['th0'][0], limits['th0'][1], n_mesh)
         ys_0 = []
         for x in xs_0:
             ys_0.append(marginal_0(x) / integral_0)
+        if num_integral:
+            sum_ = sum(ys_0) * (limits['th0'][1] - limits['th0'][0]) / (n_mesh - 1)
+            ys_0 = [val / sum_ for val in ys_0]
+        print(ys_0)
 
         # th1
         def marginal_1(th1):
@@ -104,7 +111,8 @@ def for_plot_pdf_true_noise():
 
 def viz_noise(label, history, show_true=True):
     # compute true posterior
-    xs_0, ys_0, xs_1, ys_1, xs_noise, ys_noise = for_plot_pdf_true_noise()
+    if show_true:
+        xs_0, ys_0, xs_1, ys_1, xs_noise, ys_noise = for_plot_pdf_true_noise()
 
     # plot abc posteriors
     for t in range(1, history.max_t + 1):
@@ -114,12 +122,14 @@ def viz_noise(label, history, show_true=True):
             continue
         df, w = history.get_distribution(m=0, t=t)
         axes = pyabc.visualization.plot_kde_matrix(
-            df, w, numx=1000, numy=1000,
-            limits=limits_noise, refval=th_true_noise)
+            df, w, #numx=1000, numy=1000,
+            limits=limits, refval=th_true_noise)
         
-        axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
-        axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
-        axes[2, 2].plot(xs_noise, ys_noise, '-', color='k', alpha=0.75)
+        if show_true:
+            axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
+            axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
+            axes[2, 2].plot(xs_noise, ys_noise, '-', color='k', alpha=0.75)
+
         plt.savefig(filename)
         plt.close()
 

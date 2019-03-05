@@ -24,7 +24,7 @@ def compute_var(par):
 
 distance = pyabc.distance.IndependentNormalKernel(mean=np.zeros(n_timepoints), keys=['th0', 'th1'], var=compute_var)
 
-acceptor = pyabc.StochasticAcceptor(temp_schemes =[pyab.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_decay], pdf_max_method=pyabc.acceptor.pdf_max_take_max_found)
+acceptor = pyabc.StochasticAcceptor(temp_schemes =[pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_decay], pdf_max_method=pyabc.acceptor.pdf_max_take_max_found)
 
 abc = pyabc.ABCSMC(models=model_random_noise,
                    parameter_priors=prior_noise,

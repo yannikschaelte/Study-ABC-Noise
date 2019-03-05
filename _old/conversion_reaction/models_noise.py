@@ -9,9 +9,7 @@ import os
 from models import *
 
 
-limits_noise = copy.deepcopy(limits)
-limits_noise['noise'] = (0, 0.5)
-limits = limits_noise
+limits['noise'] = (0, 0.2)
 
 prior_noise = pyabc.Distribution(**{key: pyabc.RV('uniform', bounds[0], bounds[1])
                                     for key, bounds in limits_noise.items()})
@@ -23,10 +21,6 @@ def model_random_noise(p):
     """
     y = x(p)[1, :] + p['noise'] * noise_model(1, n_timepoints)
     return {'y': y.flatten()}
-
-
-def distance_l2(x, y):
-    return np.power( (x['y'] - y['y']), 2).sum()
 
 
 th_true_noise = {'th0': th0_true, 'th1': th1_true, 'noise': noise}
@@ -120,7 +114,7 @@ def viz_noise(label, history, show_true=True):
             continue
         df, w = history.get_distribution(m=0, t=t)
         axes = pyabc.visualization.plot_kde_matrix(
-            df, w, #numx=1000, numy=1000,
+            df, w, numx=1000, numy=1000,
             limits=limits_noise, refval=th_true_noise)
         
         axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)

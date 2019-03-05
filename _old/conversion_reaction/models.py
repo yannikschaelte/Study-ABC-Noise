@@ -28,7 +28,7 @@ prior = pyabc.Distribution(**{key: pyabc.RV('uniform', bounds[0], bounds[1])
 # MODEL
 
 # timepoints
-n_timepoints = 15
+n_timepoints = 10
 timepoints = np.linspace(0, 30, n_timepoints)
 
 # initial concentrations (normalized to 1) 

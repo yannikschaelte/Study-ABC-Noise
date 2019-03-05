@@ -19,10 +19,10 @@ db_path = "sqlite:///db_noise2.db"
 
 
 def compute_var(par):
-    return np.ones(2) * par['noise']**2
+    return np.ones(10) * par['noise']**2
 
 
-distance = pyabc.distance.IndependentNormalKernel(mean=np.zeros(n_timepoints), keys=['th0', 'th1'], var=compute_var)
+distance = pyabc.distance.IndependentNormalKernel(mean=np.zeros(n_timepoints), var=compute_var, pdf_max=1.0)
 
 acceptor = pyabc.StochasticAcceptor(temp_schemes =[pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_decay], pdf_max_method=pyabc.acceptor.pdf_max_take_max_found)
 

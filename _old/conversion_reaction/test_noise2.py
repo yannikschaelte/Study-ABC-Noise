@@ -33,7 +33,7 @@ abc = pyabc.ABCSMC(models=model_random_noise,
                    transitions=transition,
                    sampler=sampler,
                    acceptor=acceptor,
-                   eps=eps)
+                   eps=pyabc.NoEpsilon())
 
 
 abc.new(db_path, y_obs)

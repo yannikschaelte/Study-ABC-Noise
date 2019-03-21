@@ -19,10 +19,10 @@ db_path = "sqlite:///db_noise2.db"
 
 
 def compute_var(par):
-    return np.ones(10) * par['noise']**2
+    return np.ones(n_timepoints) * par['noise']**2
 
 
-distance = pyabc.distance.IndependentNormalKernel(mean=np.zeros(n_timepoints), var=compute_var, pdf_max=1.0)
+distance = pyabc.distance.IndependentNormalKernel(mean=np.zeros(n_timepoints), var=compute_var, pdf_max=36.86)
 
 acceptor = pyabc.StochasticAcceptor(temp_schemes =[pyabc.acceptor.scheme_acceptance_rate, pyabc.acceptor.scheme_decay], pdf_max_method=pyabc.acceptor.pdf_max_take_max_found)
 
@@ -41,4 +41,4 @@ h = abc.run(minimum_epsilon=0, max_nr_populations=max_nr_populations, min_accept
 h = pyabc.History(db_path)
 
 # PLOT
-viz_noise("test_noise2", h, True)
+viz_noise("test_noise2", h, False)

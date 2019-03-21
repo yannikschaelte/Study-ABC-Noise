@@ -9,7 +9,7 @@ import os
 from models import *
 
 
-limits['noise'] = (0, 0.2)
+limits['noise'] = (0.01, 0.2)
 
 prior_noise = pyabc.Distribution(**{key: pyabc.RV('uniform', bounds[0], bounds[1])
                                     for key, bounds in limits.items()})
@@ -115,7 +115,7 @@ def viz_noise(label, history, show_true=True):
         xs_0, ys_0, xs_1, ys_1, xs_noise, ys_noise = for_plot_pdf_true_noise()
 
     # plot abc posteriors
-    for t in range(1, history.max_t + 1):
+    for t in range(0, history.max_t + 1):
         filename = label + "_kde_2d_" + str(t) + ".png"
         print(filename)
         if os.path.isfile(filename):

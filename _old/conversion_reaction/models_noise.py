@@ -126,9 +126,9 @@ def viz_noise(label, history, show_true=True):
             limits=limits, refval=th_true_noise)
         
         if show_true:
-            axes[0, 0].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
+            axes[2, 2].plot(xs_0, ys_0, '-', color='k', alpha=0.75)
             axes[1, 1].plot(xs_1, ys_1, '-', color='k', alpha=0.75)
-            axes[2, 2].plot(xs_noise, ys_noise, '-', color='k', alpha=0.75)
+            axes[0, 0].plot(xs_noise, ys_noise, '-', color='k', alpha=0.75)
 
         plt.savefig(filename)
         plt.close()

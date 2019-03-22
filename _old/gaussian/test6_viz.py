@@ -3,40 +3,25 @@ import pyabc
 import numpy as np
 import matplotlib
 
+from models import *
 
-h = pyabc.History("sqlite:///db6.db")
-h.id = 2
-s2 = np.asarray(h.get_all_populations()['samples'][1:])
-
-s1 = np.zeros_like(s2)
-s3 = np.zeros_like(s2)
-s4 = np.zeros_like(s2)
-s5 = np.zeros_like(s2)
-
-h.id = 1
-s1[0] = h.get_all_populations()['samples'][1]
-
-h.id = 3
-tmp = np.asarray(h.get_all_populations()['samples'][1:])
-s3[:len(tmp)] = tmp
-
-h.id = 4
-tmp = np.asarray(h.get_all_populations()['samples'][1:])
-s4[:len(tmp)] = tmp
+histories = []
+labels = []
+for j  in range(1, 5):
+    h = pyabc.History("sqlite:///db6.db")
+    h.id = j
+    histories.append(h)
+labels.extend(["Rejection ABC-SMC", "Decay ABC-SMC", "Daly ABC-SMC", "Exp-Decay ABC-SMC"])
 
 h = pyabc.History("sqlite:///db7.db")
 h.id = 1
-tmp = np.asarray(h.get_all_populations()['samples'][1:])
-s5[:len(tmp)] = tmp
+histories.append(h)
+labels.append("Adaptive ABC-SMC")
 
-l = len(s2)
-print(s1, s2, s3, s4, s5)
-for j in range(l):
-    plt.bar(np.arange(5),(s1[j], s2[j], s3[j], s4[j], s5[j]),
-            bottom=(sum(s1[k] for k in range(j)), sum(s2[k] for k in range(j)), sum(s3[k] for k in range(j)), sum(s4[k] for k in range(j)), sum(s5[k] for k in range(j))))
-plt.xticks(np.arange(5),("Rejection ABC", "Decay ABC-SMC", "Daly ABC-SMC", "Exponential Decay ABC-SMC", "Adaptive ABC-SMC"),rotation='vertical')
-plt.title("Total required samples")
-plt.ylabel("Samples")
-plt.xlabel("Method")
-plt.gcf().tight_layout()
-plt.savefig("test6_bar")
+
+pyabc.visualization.plot_histogram_1d(histories[1], x='th0', bins=30)
+plt.savefig("hist.png")
+pyabc.visualization.plot_sample_numbers(histories, labels, rotation=45)
+plt.savefig("samples.png")
+pyabc.visualization.plot_epsilons(histories, labels, scale='log10')
+plt.savefig("epsilons.png")

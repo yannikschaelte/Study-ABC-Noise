@@ -6,9 +6,9 @@ from models import *
 
 n_tests = 15
 histories = []
-for idb in [5,5,5]:
+for idb in [5, 6, 7]:
     for i in range(int(n_tests / 3)):
-        history = pyabc.History("sqlite:///db6_0.02_15.db")
+        history = pyabc.History("sqlite:///db" + str(idb) + "_0.02_15.db")
         history.id = i + 1
         histories.append(history)    
 

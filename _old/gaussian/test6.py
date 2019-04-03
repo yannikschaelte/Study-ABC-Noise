@@ -37,7 +37,7 @@ h = abc.run(minimum_epsilon=1, max_nr_populations=1)
 print(h.get_all_populations())
 # PLOT
 
-visualize("test6_0", h)
+#visualize("test6_0", h)
 
 distance = pyabc.distance.NormalKernel(mean=[0], cov=[noise**2])
 acceptor = pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_decay])
@@ -58,7 +58,7 @@ h = abc.run(minimum_epsilon=1, max_nr_populations=max_nr_populations)
 print(h.get_all_populations())
 # PLOT
 
-visualize("test6_1", h)
+#visualize("test6_1", h)
 
 distance = pyabc.distance.NormalKernel(mean=[0], cov=[noise**2])
 acceptor = pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_daly])
@@ -79,7 +79,7 @@ h = abc.run(minimum_epsilon=1, max_nr_populations=max_nr_populations)
 print(h.get_all_populations())
 # PLOT
 
-visualize("test6_2", h)
+#visualize("test6_2", h)
 
 distance = pyabc.distance.NormalKernel(mean=[0], cov=[noise**2])
 acceptor = pyabc.StochasticAcceptor(temp_schemes = [pyabc.acceptor.scheme_exponential_decay])
@@ -100,5 +100,4 @@ h = abc.run(minimum_epsilon=1, max_nr_populations=max_nr_populations)
 print(h.get_all_populations())
 # PLOT
 
-visualize("test6_3", h)
-
+#visualize("test6_3", h)

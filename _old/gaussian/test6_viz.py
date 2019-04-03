@@ -17,6 +17,14 @@ h = pyabc.History("sqlite:///db7.db")
 h.id = 1
 histories.append(h)
 labels.append("Adaptive ABC-SMC")
+h.id = 2
+histories.append(h)
+labels.append("Adaptive+Decay ABC-SMC")
+
+h = pyabc.History("sqlite:///db8.db")
+histories.append(h)
+labels.append("ESS ABC-SMC")
+
 
 
 pyabc.visualization.plot_histogram_1d(histories[1], x='th0', bins=30)

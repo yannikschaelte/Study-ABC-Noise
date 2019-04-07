@@ -9,6 +9,10 @@ class Gaussian1DModel(Model):
         self.prior_ub = prior_ub
         self.noise_std = noise_std
         self.noise_model = np.random.randn
+    
+    @property
+    def p_true(self):
+        return {'p0': 2.5}
 
     def get_prior(self):
         return pyabc.Distribution(
@@ -24,3 +28,6 @@ class Gaussian1DModel(Model):
 
     def call_noisy(self, p):
         return {'y0': p['p0'] + self.noise_std * self.noise_model()}
+
+    def generate_data(self):
+        return call_noisy(self.p_true)

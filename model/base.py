@@ -6,6 +6,10 @@ class Model(ABC):
     def __init__(self):
         pass
 
+    @property
+    def p_true(self):
+        return None
+
     def get_prior(self):
         raise NotImplementedError()
 

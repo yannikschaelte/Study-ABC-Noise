@@ -1,8 +1,9 @@
 from settings import n_rep, n_acc, n_pop
+from models import Gaussian1DModel
 import pyabc
 
 # generate models
-models = []
+models = [Gaussian1DModel()]
 
 # run
 

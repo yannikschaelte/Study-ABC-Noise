@@ -6,21 +6,20 @@ class Model(ABC):
     def __init__(self):
         pass
 
-    @property
-    def p_true(self):
+    def get_p_true(self):
         return None
 
     def get_prior(self):
         raise NotImplementedError()
 
-    def get_distance_fun(self):
+    def get_transitions(self):
+        return pyabc.MultivariateNormalTransition()
+
+    def get_distance(self):
         return pyabc.PNormDistance(p=2)
 
-    def get_eps_fun(self):
+    def get_eps(self):
         return pyabc.MedianEpsilon()
-    
-    def get_transition_fun(self):
-        return pyabc.MultivariateNormalTransition()
 
     def get_pop_size(self):
         return 1000

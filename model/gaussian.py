@@ -9,7 +9,7 @@ class Gaussian1DModel(Model):
         self.prior_ub = prior_ub
         self.noise_std = noise_std
         self.noise_model = np.random.randn
-    
+ 
     @property
     def p_true(self):
         return {'p0': 2.5}

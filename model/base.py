@@ -4,7 +4,10 @@ import pyabc
 class Model(ABC):
 
     def __init__(self):
-        pass
+        self.pop_size = 1000
+        self.n_pop = 20
+        self.eps_min = 0.0
+        self.min_acc_rate = 0.0
 
     def get_p_true(self):
         return None
@@ -20,15 +23,6 @@ class Model(ABC):
 
     def get_eps(self):
         return pyabc.MedianEpsilon()
-
-    def get_pop_size(self):
-        return 1000
-
-    def get_n_pop(self):
-        return 20
-
-    def get_eps_min(self):
-        return 0.0
 
     def get_id(self):
         raise NotImplementedError()

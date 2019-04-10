@@ -40,6 +40,9 @@ class ConversionReactionModel(Model):
             + self.noise_std * self.noise_model(1, len(self.ts))
         return {'y': y.flatten()}
 
+    def get_id(self):
+        return f"{self.n_t}_{self.noise_std}"
+
 def x(p, x0, ts):
     """
     States via analytic solution of ODE.

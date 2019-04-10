@@ -24,19 +24,23 @@ y_obs = model.call_noisy(model.p_true)
 
 # run with deterministic model and deterministic acceptor
 # run with noisy model or stochastic acceptor
-for m, d, a in zip([model.call, model.call_noisy, model.call],
-                   [model.get_distance(), model.get_distance(),
-                    model.get_kernel()],
+for m, a in zip([model.call, model.call_noisy, model.call],
                    [pyabc.UniformAcceptor(), pyabc.UniformAcceptor(),
                     pyabc.StochasticAcceptor(
                         temp_schemes=[pyabc.acceptor.scheme_acceptance_rate,
                                       pyabc.acceptor.scheme_decay])]):
+    if isinstance(a, pyabc.acceptor.StochasticAcceptor):
+        d = model.get_kernel()
+        eps = pyabc.NoEpsilon()
+    else:
+        d = model.get_distance()
+        eps = model.get_eps()
     abc = pyabc.ABCSMC(models = m,
         parameter_priors = model.get_prior(),
         distance_function = d,
         population_size = model.pop_size,
         transitions = model.get_transition(),
-        eps = model.get_eps(),
+        eps = eps,
         acceptor = a,
         sampler = create_sampler())
     abc.new(db_file, y_obs, gt_par=model.p_true)

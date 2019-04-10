@@ -10,26 +10,36 @@ or a stochastic acceptor.
 """
 
 import pyabc
-import datetime
+import sys
+sys.path.insert(0, '..')
+from model import ConversionReactionModel
+from util import create_sampler, get_timestamp
 
-from ..model import ConversionReactionModel
-from ..settings import create_sampler
 
-time = datetime.now().strftime("%Y%m%d_%H%M%S")
-db_file = "sqlite:///db_" + time + ".db"
-
+db_file = "sqlite:///db_" + get_timestamp() + ".db"
 model = ConversionReactionModel()
+
+# create data
 y_obs = model.call_noisy(model.p_true)
 
-abc = pyabc.ABCSMC(model = model.call,
-                   parameter_priors = model.get_prior(),
-                   distance_function = model.get_distance(),
-                   population_size = model.get_pop_size(),
-                   transitions = model.get_transition(),
-                   eps = model.get_eps(),
-                   acceptor = pyabc.UniformAcceptor(),
-                   sampler = create_sampler())
-abc.new(db_file, y_obs, gt_par=model.p_true)
-abc.run(minimum_epsilon=model.eps_min,
-        max_nr_populations=model.n_pop,
-        min_acceptance_rate=model.min_acc_rate)
+# run with deterministic model and deterministic acceptor
+# run with noisy model or stochastic acceptor
+for m, d, a in zip([model.call, model.call_noisy, model.call],
+                   [model.get_distance(), model.get_distance(),
+                    model.get_kernel()],
+                   [pyabc.UniformAcceptor(), pyabc.UniformAcceptor(),
+                    pyabc.StochasticAcceptor(
+                        temp_schemes=[pyabc.acceptor.scheme_acceptance_rate,
+                                      pyabc.acceptor.scheme_decay])]):
+    abc = pyabc.ABCSMC(models = m,
+        parameter_priors = model.get_prior(),
+        distance_function = d,
+        population_size = model.pop_size,
+        transitions = model.get_transition(),
+        eps = model.get_eps(),
+        acceptor = a,
+        sampler = create_sampler())
+    abc.new(db_file, y_obs, gt_par=model.p_true)
+    abc.run(minimum_epsilon=model.eps_min,
+            max_nr_populations=model.n_pop,
+            min_acceptance_rate= model.min_acc_rate)

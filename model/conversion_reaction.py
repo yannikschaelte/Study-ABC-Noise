@@ -1,5 +1,6 @@
 from .base import Model
 import numpy as np
+import pyabc
 
 
 class ConversionReactionModel(Model):
@@ -10,7 +11,8 @@ class ConversionReactionModel(Model):
         self.noise_std = 0.02
         self.noise_model = np.random.randn
         self.p_true = {'p0': 0.06, 'p1': 0.08}
-        self.ts = np.linspace(0, 30, n_t)
+        self.n_t = 10 
+        self.ts = np.linspace(0, 30, self.n_t)
         self.x0 = np.array([1., 0.])
 
     def get_prior(self):
@@ -22,6 +24,12 @@ class ConversionReactionModel(Model):
         def l2(x, y):
             return np.sum(np.power( (x['y'] - y['y']) / self.noise_std, 2))
         return l2
+    
+    def get_kernel(self):
+        kernel = pyabc.distance.IndependentNormalKernel(
+            mean=np.zeros(self.n_t),
+            var=self.noise_std**2 * np.ones(self.n_t))
+        return kernel
 
     def call(self, p):
         y = x(p, self.x0, self.ts)[1, :]
@@ -46,3 +54,4 @@ def x(p, x0, ts):
         A = 1 / (- p0 - p1) * np.array([[- p1 - p0 * e, - p1 + p1 * e],
                                         [- p0 + p0 * e, - p0 - p1 * e]])
         sol[:, ix] = np.dot(A, x0).flatten()
+    return sol

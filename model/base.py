@@ -1,5 +1,5 @@
 import pyabc
-
+from abc import ABC
 
 class Model(ABC):
 
@@ -15,11 +15,20 @@ class Model(ABC):
     def get_prior(self):
         raise NotImplementedError()
 
-    def get_transitions(self):
+    def get_transition(self):
         return pyabc.MultivariateNormalTransition()
 
     def get_distance(self):
+        """
+        Distance to use for deterministic acceptance.
+        """
         return pyabc.PNormDistance(p=2)
+
+    def get_kernel(self):
+        """
+        Kernel to use as for stochastic acceptance.
+        """
+        raise NotImplementedError()
 
     def get_eps(self):
         return pyabc.MedianEpsilon()

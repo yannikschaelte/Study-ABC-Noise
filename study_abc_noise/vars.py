@@ -110,7 +110,7 @@ class Task(ABC):
                   i_rep: int = 0):
         acceptor = analysis_vars.get_acceptor()
         transition = analysis_vars.get_transition()
-        min_eps = analysis_vars.eps_min
+        eps_min = analysis_vars.eps_min
         if isinstance(acceptor, pyabc.StochasticAcceptor):
             eps = pyabc.NoEpsilon()
             model = model_vars.get_model()

@@ -21,7 +21,7 @@ n_rep = 10
 # create model vars
 
 list_model_vars = []
-#list_model_vars.append(Gaussian1DModelVars())
+list_model_vars.append(Gaussian1DModelVars())
 for n_t in [10]:
     model = ConversionReactionModelVars()
     model.n_t = n_t
@@ -31,9 +31,9 @@ for n_t in [10]:
 # create analysis vars
 
 list_analysis_vars = []
-#list_analysis_vars.append(
-#    AnalysisVars(
-#        get_acceptor=lambda: pyabc.UniformAcceptor(), id_="uniform_acceptor"))
+list_analysis_vars.append(
+    AnalysisVars(
+        get_acceptor=lambda: pyabc.UniformAcceptor(), id_="uniform_acceptor"))
 list_temp_schemes = [
     ([pyabc.acceptor.scheme_acceptance_rate], 'acc'),
     ([pyabc.acceptor.scheme_daly], 'daly'),
@@ -47,7 +47,7 @@ list_temp_schemes = [
       pyabc.acceptor.scheme_decay], 'acc+ess+dec'),
 ]
 for temp_schemes, descr in list_temp_schemes:
-    # note: need to bind input
+    # note: need to bind input to lambda function, otherwise python silly
     get_acceptor = lambda temp_schemes=temp_schemes: \
         pyabc.StochasticAcceptor(temp_schemes=temp_schemes)
     analysis_vars = AnalysisVars(
@@ -64,7 +64,6 @@ tasks = []
 for model_vars in list_model_vars:
     for analysis_vars in list_analysis_vars:
         for i_rep in range(n_rep):
-            print(analysis_vars.id, analysis_vars.get_acceptor().temp_schemes)
             task = Task.from_vars(analysis_vars, model_vars, i_rep)
             tasks.append(task)
 

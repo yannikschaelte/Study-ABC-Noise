@@ -22,7 +22,7 @@ n_rep = 10
 
 list_model_vars = []
 list_model_vars.append(Gaussian1DModelVars())
-for n_t in [10]:
+for n_t in [4, 7, 10, 13, 16]:
     model = ConversionReactionModelVars()
     model.n_t = n_t
     model.ts = np.linspace(0, 30, n_t)

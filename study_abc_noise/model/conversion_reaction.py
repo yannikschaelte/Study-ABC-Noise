@@ -26,7 +26,7 @@ class ConversionReactionModelVars(ModelVars):
         def l2(x, y):
             return np.sum(np.power( (x['y'] - y['y']) / self.noise_std, 2))
         return l2
-    
+
     def get_kernel(self):
         kernel = pyabc.distance.IndependentNormalKernel(
             mean=np.zeros(self.n_t),

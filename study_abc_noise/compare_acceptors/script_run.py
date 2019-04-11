@@ -8,10 +8,12 @@ acceptance rate, iteration, target epsilon variance).
 """
 
 
-from study-abc-noise.model import Gaussian1DModelVars, ConversionReactionVars
-from ..vars import ModelVars, AnalysisVars, Task
+from study_abc_noise.model import (
+    Gaussian1DModelVars, ConversionReactionModelVars)
+from study_abc_noise.vars import (
+    ModelVars, AnalysisVars, Task)
 import pyabc
-
+import numpy as np
 
 n_rep = 10
 
@@ -19,9 +21,9 @@ n_rep = 10
 # create model vars
 
 list_model_vars = []
-list_model_vars.append(Gaussian1DModel())
+list_model_vars.append(Gaussian1DModelVars())
 for n_t in [10]:
-    model = ConversionReactionModel()
+    model = ConversionReactionModelVars()
     model.n_t = n_t
     model.ts = np.linspace(0, 30, n_t)
     list_model_vars.append(model)
@@ -29,7 +31,9 @@ for n_t in [10]:
 # create analysis vars
 
 list_analysis_vars = []
-list_analysis_vars.append(pyabc.UniformAcceptor())
+list_analysis_vars.append(
+    AnalysisVars(
+        acceptor=pyabc.UniformAcceptor(), id_="uniform_acceptor"))
 list_temp_schemes = [
     ([pyabc.acceptor.scheme_acceptance_rate], 'acc'),
     ([pyabc.acceptor.scheme_daly], 'daly'),
@@ -37,7 +41,7 @@ list_temp_schemes = [
     ([pyabc.acceptor.scheme_exponential_decay], 'exp_decay'),
     ([pyabc.acceptor.scheme_ess], 'ess'),
     ([pyabc.acceptor.scheme_acceptance_rate,
-      pyabc.acceptor.decay], 'acc+dec'),
+      pyabc.acceptor.scheme_decay], 'acc+dec'),
     ([pyabc.acceptor.scheme_acceptance_rate,
       pyabc.acceptor.scheme_ess,
       pyabc.acceptor.scheme_decay], 'acc+ess+dec'),

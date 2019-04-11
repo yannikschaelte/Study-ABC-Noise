@@ -15,11 +15,3 @@ def create_sampler():
 
 def get_timestamp():
     return datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-
-
-class Setting(dict):
-
-    def __init__():
-        self.acceptor = None
-        self.
-        super().__init__(**kwargs)

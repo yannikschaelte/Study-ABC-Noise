@@ -1,3 +1,2 @@
-from .base import Model
-from .gaussian import Gaussian1DModel
-from .conversion_reaction import ConversionReactionModel
+from .gaussian import Gaussian1DModelVars
+from .conversion_reaction import ConversionReactionModelVars

@@ -2,6 +2,7 @@ import pyabc
 from abc import ABC
 import os
 import cloudpickle as pickle
+from .util import create_sampler
 
 
 class AnalysisVars(ABC):
@@ -13,7 +14,7 @@ class AnalysisVars(ABC):
             eps=None,
             n_acc: int = 1000,
             n_pop: int = 20,
-            eps_min: flat = 0.0,
+            eps_min: float = 0.0,
             id_ = None):
         if acceptor is None:
             acceptor = pyabc.UniformAcceptor()
@@ -36,9 +37,9 @@ class ModelVars(ABC):
 
     def __init__(
             self,
+            p_true: dict,
             n_acc: int = None,
-            n_pop: int = None,
-            p_true: dict):
+            n_pop: int = None):
         self.n_acc = n_acc
         self.n_pop = n_pop
         self.p_true = p_true
@@ -128,13 +129,13 @@ class Task(ABC):
             else model_vars.n_pop
         eps_min = analysis_vars.eps_min
         p_true = model_vars.p_true
-        y_obs = get_data(model_vars, i_rep)
+        y_obs = Task.get_data(model_vars, i_rep)
         analysis_id = analysis_vars.id
         model_id = model_vars.get_id()
 
         return Task(
             acceptor=acceptor, transition=transition, eps=eps,
-            distance=distance, model=model, prior=prior,
+            distance=distance, model=model, prior=prior, sampler=sampler,
             n_acc=n_acc, n_pop=n_pop, eps_min=eps_min, p_true=p_true,
             y_obs=y_obs,
             analysis_id=analysis_id, model_id=model_id,
@@ -143,20 +144,21 @@ class Task(ABC):
     @staticmethod
     def get_data(model_vars, i_rep):
         data_id = f"{model_vars.get_id()}_{i_rep}"
-        os.mkdir("data")
+        if not os.path.exists("data"):
+            os.mkdir("data")
         filename = "data/" + data_id + ".dat"
         if os.path.isfile(filename):
             with open(filename, 'rb') as f:
-                return pickle.load(f)
-        y_obs = self.model_vars.generate_data()
+                y_obs = pickle.load(f)
+                return y_obs
+        y_obs = model_vars.generate_data()
         with open(filename, 'wb') as f:
             pickle.dump(y_obs, f)
         return y_obs
 
     def execute(self):
-        y_obs = self.get_data()
         result_id = f"{self.model_id}_{self.analysis_id}_{self.i_rep}"
-        db_file = f"db_{result_id}.db"
+        db_file = f"sqlite:///db_{result_id}.db"
         
         abc = pyabc.ABCSMC(
             models = self.model,
@@ -168,4 +170,4 @@ class Task(ABC):
             acceptor = self.acceptor,
             sampler = self.sampler)
         abc.new(db_file, self.y_obs, gt_par=self.p_true)
-        abc.run(minimum_epsilon=self.eps_min)
+        abc.run(minimum_epsilon=self.eps_min, max_nr_populations=self.n_pop)

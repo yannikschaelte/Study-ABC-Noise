@@ -110,10 +110,12 @@ class Task(ABC):
                   i_rep: int = 0):
         acceptor = analysis_vars.get_acceptor()
         transition = analysis_vars.get_transition()
+        min_eps = analysis_vars.eps_min
         if isinstance(acceptor, pyabc.StochasticAcceptor):
             eps = pyabc.NoEpsilon()
             model = model_vars.get_model()
             distance = model_vars.get_kernel()
+            eps_min = 1.0
         else:
             eps = analysis_vars.get_eps()
             model = model_vars.get_model_noisy()
@@ -124,7 +126,6 @@ class Task(ABC):
             else model_vars.n_acc
         n_pop = analysis_vars.n_pop if model_vars.n_pop is None \
             else model_vars.n_pop
-        eps_min = analysis_vars.eps_min
         p_true = model_vars.p_true
         y_obs = Task.get_data(model_vars, i_rep)
         analysis_id = analysis_vars.id
@@ -156,6 +157,8 @@ class Task(ABC):
     def execute(self):
         result_id = f"{self.model_id}_{self.analysis_id}_{self.i_rep}"
         db_file = f"sqlite:///db_{result_id}.db"
+
+        print("Result id: ", result_id)
 
         abc = pyabc.ABCSMC(
             models = self.model,

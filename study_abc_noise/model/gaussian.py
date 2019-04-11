@@ -6,7 +6,7 @@ import pyabc
 class Gaussian1DModelVars(ModelVars):
 
     def __init__(self, prior_lb=0, prior_ub=5, noise_std=0.05):
-        super().__init__(p_true = {'p0': 2.5})
+        super().__init__(n_pop=10, p_true = {'p0': 2.5})
         self.prior_lb = prior_lb
         self.prior_ub = prior_ub
         self.noise_std = noise_std

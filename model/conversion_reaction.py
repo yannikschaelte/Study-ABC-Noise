@@ -1,19 +1,21 @@
-from .base import Model
+from ..vars import ModelVars
 import numpy as np
 import pyabc
 
 
-class ConversionReactionModel(Model):
+class ConversionReactionModelVars(ModelVars):
 
     def __init__(self):
-        super().__init__()
+        super().__init__(p_true = {'p0': 0.06, 'p1': 0.08})
         self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4)}
         self.noise_std = 0.02
         self.noise_model = np.random.randn
-        self.p_true = {'p0': 0.06, 'p1': 0.08}
         self.n_t = 10 
         self.ts = np.linspace(0, 30, self.n_t)
         self.x0 = np.array([1., 0.])
+
+    def get_id(self):
+        return f"cr_{self.n_t}_{self.noise_std}"
 
     def get_prior(self):
         return pyabc.Distribution(
@@ -31,17 +33,22 @@ class ConversionReactionModel(Model):
             var=self.noise_std**2 * np.ones(self.n_t))
         return kernel
 
-    def call(self, p):
-        y = x(p, self.x0, self.ts)[1, :]
-        return {'y': y.flatten()}
+    def get_model(self):
+        def model(p):
+            y = x(p, self.x0, self.ts)[1, :]
+            return {'y': y.flatten()}
+        return model
     
-    def call_noisy(self, p):
-        y = x(p, self.x0, self.ts)[1, :] \
-            + self.noise_std * self.noise_model(1, len(self.ts))
-        return {'y': y.flatten()}
+    def get_model_noisy(self):
+        def model_noisy(p):
+            y = x(p, self.x0, self.ts)[1, :] \
+                + self.noise_std * self.noise_model(1, len(self.ts))
+            return {'y': y.flatten()}
+        return model_noisy
 
-    def get_id(self):
-        return f"{self.n_t}_{self.noise_std}"
+    def generate_data(self):
+        y = self.get_model_noisy()(self.p_true)
+        return y
 
 def x(p, x0, ts):
     """

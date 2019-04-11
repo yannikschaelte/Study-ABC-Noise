@@ -9,25 +9,22 @@ class AnalysisVars(ABC):
 
     def __init__(
             self,
-            acceptor,
-            transition=None,
-            eps=None,
+            get_acceptor,
+            get_transition=None,
+            get_eps=None,
             n_acc: int = 1000,
             n_pop: int = 20,
             eps_min: float = 0.0,
             id_ = None):
-        if acceptor is None:
-            acceptor = pyabc.UniformAcceptor()
-        self.acceptor = acceptor
-        if transition is None:
-            transition = pyabc.MultivariateNormalTransition()
-        self.transition = transition
-        if eps is None:
-            if isinstance(self.acceptor, pyabc.StochasticAcceptor):
-                eps = pyabc.NoEpsilon()
-            else:
-                eps = pyabc.MedianEpsilon()
-        self.eps = eps
+        if get_acceptor is None:
+            get_acceptor = lambda: pyabc.UniformAcceptor()
+        self.get_acceptor = get_acceptor
+        if get_transition is None:
+            get_transition = lambda: pyabc.MultivariateNormalTransition()
+        self.get_transition = get_transition
+        if get_eps is None:
+            get_eps = lambda: pyabc.MedianEpsilon()
+        self.get_eps = get_eps
         self.n_acc = n_acc
         self.n_pop = n_pop
         self.eps_min = eps_min
@@ -111,14 +108,14 @@ class Task(ABC):
     def from_vars(analysis_vars: AnalysisVars,
                   model_vars: ModelVars,
                   i_rep: int = 0):
-        acceptor = analysis_vars.acceptor
-        transition = analysis_vars.transition
+        acceptor = analysis_vars.get_acceptor()
+        transition = analysis_vars.get_transition()
         if isinstance(acceptor, pyabc.StochasticAcceptor):
             eps = pyabc.NoEpsilon()
             model = model_vars.get_model()
             distance = model_vars.get_kernel()
         else:
-            eps = analysis_vars.eps
+            eps = analysis_vars.get_eps()
             model = model_vars.get_model_noisy()
             distance = model_vars.get_distance()
         prior = model_vars.get_prior()
@@ -159,7 +156,7 @@ class Task(ABC):
     def execute(self):
         result_id = f"{self.model_id}_{self.analysis_id}_{self.i_rep}"
         db_file = f"sqlite:///db_{result_id}.db"
-        
+
         abc = pyabc.ABCSMC(
             models = self.model,
             parameter_priors = self.prior,

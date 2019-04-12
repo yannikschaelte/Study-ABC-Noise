@@ -141,7 +141,7 @@ class Task(ABC):
 
     @staticmethod
     def get_data(model_vars, i_rep):
-        data_id = f"{model_vars.get_id()}_{i_rep}"
+        data_id = f"{model_vars.get_id()}__{i_rep}"
         if not os.path.exists("data"):
             os.mkdir("data")
         filename = "data/" + data_id + ".dat"
@@ -155,10 +155,13 @@ class Task(ABC):
         return y_obs
 
     def execute(self):
-        result_id = f"{self.model_id}_{self.analysis_id}_{self.i_rep}"
-        db_file = f"sqlite:///db_{result_id}.db"
+        result_id = f"{self.model_id}__{self.analysis_id}__{self.i_rep}"
+        db_file = f"db_{result_id}.db"
 
         print("Result id: ", result_id)
+        if os.path.isfile(db_file):
+            print("Skipping since exists already.")
+            return
 
         abc = pyabc.ABCSMC(
             models = self.model,
@@ -169,5 +172,5 @@ class Task(ABC):
             eps = self.eps,
             acceptor = self.acceptor,
             sampler = self.sampler)
-        abc.new(db_file, self.y_obs, gt_par=self.p_true)
+        abc.new("sqlite:///" + db_file, self.y_obs, gt_par=self.p_true)
         abc.run(minimum_epsilon=self.eps_min, max_nr_populations=self.n_pop)

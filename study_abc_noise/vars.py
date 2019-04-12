@@ -164,7 +164,7 @@ class Task(ABC):
             models = self.model,
             parameter_priors = self.prior,
             distance_function = self.distance,
-            population_size = self.n_pop,
+            population_size = self.n_acc,
             transitions = self.transition,
             eps = self.eps,
             acceptor = self.acceptor,

@@ -33,7 +33,7 @@ gt_par = h.get_population(t=-1).get_list()[0].parameter
 
 pyabc.visualization.plot_sample_numbers(histories, labels)
 plt.savefig("samples.png")
-pyabc.visualization.plot_epsilons(histories, labels)
+pyabc.visualization.plot_epsilons(histories, labels, scale="log10")
 plt.savefig("epsilons.png")
 for i in range(len(histories)):
     pyabc.visualization.plot_histogram_matrix(histories[i])

@@ -1,6 +1,7 @@
 from ..vars import ModelVars
 import numpy as np
 import pyabc
+import matplotlib.pyplot as plt
 
 
 class NonIdAbleModelVars(ModelVars):
@@ -53,6 +54,39 @@ class NonIdAbleModelVars(ModelVars):
         y = self.get_model_noisy()(self.p_true)
         return y
 
+    def viz_x(self, ax=None):
+        if ax is None:
+            _, ax = plt.subplots()
+        ts = self.get_ts()
+        xs = x(self.p_true, self.x0, ts)
+        ax.plot(ts, xs, 'x-', color='C2', label="Species A")
+        ax.set_xlabel("Time [au]")
+        ax.set_ylabel("Concentration [au]")
+        ax.legend()
+        return ax
+
+    def viz_y(self, y, label="", ax=None):
+        if ax is None:
+            _, ax = plt.subplots()
+        ax.plot(self.get_ts(), y['y'], 'x-', color='C2', label="Species A")
+        ax.set_xlabel("Time [au]")
+        ax.set_ylabel("Concentration [au]")
+        ax.legend()
+        return ax
+
+    def viz_data_and_sim(self, y, label="", ax=None):
+        if ax is None:
+            _, ax = plt.subplots()
+        ts = self.get_ts()
+        y_true = self.get_model()(self.p_true)
+        ax.plot(ts, y_true['y'], 'x-', color='C0', label="Observable")
+        ax.plot(ts, y['y'], 'x-', color='C2', label="Measured data")
+        ax.set_xlabel("Time [au]")
+        ax.set_ylabel("Concentration [au]")
+        ax.legend()
+        return ax
+
+
 def x(p, x0, ts):
     """
     States via analytic solution of ODE.
@@ -61,7 +95,7 @@ def x(p, x0, ts):
     p0 = p['p0']
     p1 = p['p1']
     n_t = len(ts)
-    sol = np.zeros((1, n_t))
+    sol = np.zeros((n_t))
     for ix, t in enumerate(ts):
         sol[ix] = np.exp( (p0 - p1) * t ) * x0
     return sol

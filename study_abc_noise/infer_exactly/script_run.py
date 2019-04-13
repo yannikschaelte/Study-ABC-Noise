@@ -11,39 +11,36 @@ or a stochastic acceptor.
 
 import pyabc
 import sys
-sys.path.insert(0, '..')
-from model import ConversionReactionModel
-from util import create_sampler, get_timestamp
+from study_abc_noise.model import ConversionReactionModelVars
+from study_abc_noise.util import create_sampler, get_timestamp
+from study_abc_noise.vars import AnalysisVars, Task
 
 
-db_file = "sqlite:///db_" + get_timestamp() + ".db"
-model = ConversionReactionModel()
+mv = ConversionReactionModelVars()
 
-# create data
-y_obs = model.call_noisy(model.p_true)
+# create analysis settings
+list_analysis_vars = []
+for acceptor, id_ in [
+        (pyabc.UniformAcceptor(), "deterministic"),
+        (pyabc.UniformAcceptor(), "noisy model"),
+        (pyabc.StochasticAcceptor(
+            temp_schemes=[
+                pyabc.acceptor.scheme_acceptance_rate,
+                pyabc.acceptor.scheme_decay]), "stochastic_acceptor")]:
+    list_analysis_vars.append(
+        AnalysisVars(
+            get_acceptor=lambda acceptor=acceptor: acceptor, id_=id_))
 
-# run with deterministic model and deterministic acceptor
-# run with noisy model or stochastic acceptor
-for m, a in zip([model.call, model.call_noisy, model.call],
-                   [pyabc.UniformAcceptor(), pyabc.UniformAcceptor(),
-                    pyabc.StochasticAcceptor(
-                        temp_schemes=[pyabc.acceptor.scheme_acceptance_rate,
-                                      pyabc.acceptor.scheme_decay])]):
-    if isinstance(a, pyabc.acceptor.StochasticAcceptor):
-        d = model.get_kernel()
-        eps = pyabc.NoEpsilon()
-    else:
-        d = model.get_distance()
-        eps = model.get_eps()
-    abc = pyabc.ABCSMC(models = m,
-        parameter_priors = model.get_prior(),
-        distance_function = d,
-        population_size = model.pop_size,
-        transitions = model.get_transition(),
-        eps = eps,
-        acceptor = a,
-        sampler = create_sampler())
-    abc.new(db_file, y_obs, gt_par=model.p_true)
-    abc.run(minimum_epsilon=model.eps_min,
-            max_nr_populations=model.n_pop,
-            min_acceptance_rate= model.min_acc_rate)
+# create tasks
+tasks = []
+for analysis_vars in list_analysis_vars:
+    tasks.append(Task.from_vars(analysis_vars, mv, 0))
+# overwrite deterministic setting
+tasks[0].model = mv.get_model()
+tasks[0].eps = pyabc.MedianEpsilon()
+tasks[0].distance = mv.get_distance()
+tasks[0].eps_min = 0.0
+
+# run
+for task in tasks:
+    task.execute()

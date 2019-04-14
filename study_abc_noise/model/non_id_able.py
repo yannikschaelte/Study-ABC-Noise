@@ -91,7 +91,7 @@ class NonIdAblePrioredModelVars(NonIdAbleModelVars):
 
     def get_prior(self):
         return pyabc.Distribution(
-            **{key: pyabc.RV('normal', 0.6, 0.2)
+            **{key: pyabc.RV('norm', 0.6, 0.2)
                for key in self.limits})
 
 

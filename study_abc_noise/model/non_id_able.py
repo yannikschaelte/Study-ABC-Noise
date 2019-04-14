@@ -9,7 +9,7 @@ class NonIdAbleModelVars(ModelVars):
     def __init__(self):
         super().__init__(p_true = {'p0': 0.4, 'p1': 0.5})
         self.limits = {'p0': (0, 1), 'p1': (0, 1)}
-        self.noise_std = 0.02
+        self.noise_std = 0.05
         self.noise_model = np.random.randn
         self.n_t = 10
         self.t_max = 30

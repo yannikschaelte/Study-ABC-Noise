@@ -11,7 +11,7 @@ class NonIdAbleModelVars(ModelVars):
         self.limits = {'p0': (0, 1), 'p1': (0, 1)}
         self.noise_std = 0.02
         self.noise_model = np.random.randn
-        self.n_t = 20
+        self.n_t = 10
         self.t_max = 30
         self.x0 = 1.0
 
@@ -19,7 +19,7 @@ class NonIdAbleModelVars(ModelVars):
         return np.linspace(0, self.t_max, self.n_t)
 
     def get_id(self):
-        return f"cr_{self.n_t}_{self.noise_std}"
+        return f"nia_{self.n_t}_{self.noise_std}"
 
     def get_prior(self):
         return pyabc.Distribution(

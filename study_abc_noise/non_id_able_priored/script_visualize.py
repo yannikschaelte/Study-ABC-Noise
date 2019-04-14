@@ -28,7 +28,7 @@ plt.savefig("samples.png")
 pyabc.visualization.plot_epsilons(histories, labels, scale="log10")
 plt.savefig("epsilons.png")
 for h, label in zip(histories, labels):
-    pyabc.visualization.plot_histogram_matrix(h)
+    pyabc.visualization.plot_histogram_matrix(h, bins=100)
     plt.savefig("hist_" + label + ".png")
     df, w = h.get_distribution()
     pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par) #, limits=mv.limits)

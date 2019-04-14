@@ -22,7 +22,7 @@ mv = ConversionReactionModelVars()
 list_analysis_vars = []
 for acceptor, id_ in [
         (pyabc.UniformAcceptor(), "deterministic"),
-        (pyabc.UniformAcceptor(), "noisy model"),
+        (pyabc.UniformAcceptor(), "noisy_model"),
         (pyabc.StochasticAcceptor(
             temp_schemes=[
                 pyabc.acceptor.scheme_acceptance_rate,
@@ -37,8 +37,6 @@ for analysis_vars in list_analysis_vars:
     tasks.append(Task.from_vars(analysis_vars, mv, 0))
 # overwrite deterministic setting
 tasks[0].model = mv.get_model()
-tasks[0].eps = pyabc.MedianEpsilon()
-tasks[0].distance = mv.get_distance()
 tasks[0].eps_min = 0.0
 
 # run

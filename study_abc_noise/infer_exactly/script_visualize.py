@@ -4,28 +4,16 @@ import matplotlib.pyplot as plt
 
 
 db_files = [f for f in os.listdir('.') if os.path.isfile(f) and "db_" in f]
-if not db_files:
-    raise ValueError("No database found.")
-db_file = "sqlite:///" + db_files[-1]
-print(f"Using db file {db_file}")
-
+print(f"Using db files {db_files}")
 
 histories = []
 labels = []
-h = pyabc.History(db_file)
-h.id = 1
-histories.append(h)
-labels.append("Deterministic model + uniform acceptor")
-
-h = pyabc.History(db_file)
-h.id = 2
-histories.append(h)
-labels.append("Noisy model + uniform acceptor")
-
-h = pyabc.History(db_file)
-h.id = 3
-histories.append(h)
-labels.append("Deterministic model + stochastic acceptor")
+for db_file in db_files:
+    id_ = db_file.split('__')[1]
+    h = pyabc.History(db_file)
+    h.id = 1
+    histories.append(h)
+    labels.append(id_)
 
 
 gt_par = h.get_population(t=-1).get_list()[0].parameter

@@ -89,6 +89,9 @@ class NonIdAbleModelVars(ModelVars):
 
 class NonIdAblePrioredModelVars(NonIdAbleModelVars):
 
+    def get_id(self):
+        return f"niap_{self.n_t}_{self.noise_std}"
+
     def get_prior(self):
         return pyabc.Distribution(
             **{key: pyabc.RV('norm', 0.6, 0.2)

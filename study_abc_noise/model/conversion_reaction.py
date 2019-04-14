@@ -34,7 +34,8 @@ class ConversionReactionModelVars(ModelVars):
     def get_kernel(self):
         kernel = pyabc.distance.IndependentNormalKernel(
             mean=np.zeros(self.n_t),
-            var=self.noise_std**2 * np.ones(self.n_t))
+            var=self.noise_std**2 * np.ones(self.n_t),
+            pdf_max=self.pdf_max)
         return kernel
 
     def get_model(self):
@@ -86,6 +87,38 @@ class ConversionReactionModelVars(ModelVars):
         ax.set_ylabel("Concentration [au]")
         ax.legend()
         return ax
+
+
+class ConversionReactionUVarModelVars(ConversionReactionModelVars):
+
+    def __init__(self):
+        super().__init__(p_true = {'p0': 0.06, 'p1': 0.08, 'std': 0.02})
+        self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4), 'std': (0.01, 0.2)}
+        # used in distance, just for normalization
+        self.noise_std = self.p_true['std']
+        self.noise_model = np.random.randn
+        self.n_t = 10
+        self.t_max = 30
+        self.x0 = np.array([1., 0.])
+
+    def get_id(self):
+        return f"cr_uvar_{self.n_t}_{self.noise_std}"
+
+    def get_model_noisy(self):
+        def model_noisy(p):
+            y = x(p, self.x0, self.get_ts())[1, :] \
+                + p['std'] * self.noise_model(1, self.n_t)
+            return {'y': y.flatten()}
+        return model_noisy
+
+    def get_kernel(self):
+        def compute_var(p):
+            return np.ones(self.n_t) * p['std']**2
+        kernel = pyabc.distance.IndependentNormalKernel(
+            mean=np.zeros(self.n_t),
+            var=compute_var,
+            pdf_max=self.pdf_max)
+        return kernel
 
 
 def x(p, x0, ts):

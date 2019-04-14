@@ -1,6 +1,10 @@
 import pyabc
 import os
 import matplotlib.pyplot as plt
+from study_abc_noise.model import ConversionReactionModelVars
+
+
+mv = ConversionReactionModelVars()
 
 
 db_files = [f for f in os.listdir('.') if os.path.isfile(f) and "db_" in f]
@@ -10,7 +14,7 @@ histories = []
 labels = []
 for db_file in db_files:
     id_ = db_file.split('__')[1]
-    h = pyabc.History(db_file)
+    h = pyabc.History("sqlite:///" + db_file)
     h.id = 1
     histories.append(h)
     labels.append(id_)
@@ -27,5 +31,5 @@ for i in range(len(histories)):
     pyabc.visualization.plot_histogram_matrix(histories[i])
     plt.savefig("hist_" + str(i + 1) + ".png")
     df, w = histories[i].get_distribution()
-    pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par)
+    pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par)  #, limits=mv.limits)
     plt.savefig("kde_" + str(i + 1) + ".png")

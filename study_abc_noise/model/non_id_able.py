@@ -9,7 +9,7 @@ class NonIdAbleModelVars(ModelVars):
     def __init__(self):
         super().__init__(p_true = {'p0': 0.4, 'p1': 0.5})
         self.limits = {'p0': (0, 1), 'p1': (0, 1)}
-        self.noise_std = 0.05
+        self.noise_std = 0.1
         self.noise_model = np.random.randn
         self.n_t = 10
         self.t_max = 30
@@ -25,7 +25,7 @@ class NonIdAbleModelVars(ModelVars):
         return pyabc.Distribution(
             **{key: pyabc.RV('uniform', bounds[0], bounds[1])
                for key, bounds in self.limits.items()})
-    
+
     def get_distance(self):
         def l2(x, y):
             return np.sum(np.power( (x['y'] - y['y']) / self.noise_std, 2))
@@ -85,6 +85,14 @@ class NonIdAbleModelVars(ModelVars):
         ax.set_ylabel("Concentration [au]")
         ax.legend()
         return ax
+
+
+class NonIdAblePrioredModelVars(NonIdAbleModelVars):
+
+    def get_prior(self):
+        return pyabc.Distribution(
+            **{key: pyabc.RV('normal', 0.6, 0.2)
+               for key in self.limits})
 
 
 def x(p, x0, ts):

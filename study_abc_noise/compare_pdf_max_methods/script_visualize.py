@@ -38,5 +38,9 @@ for h, label in zip(histories, labels):
 # show pdf maxs
 with open("pdf_maxs.dat", 'rb') as f:
     pdf_maxs = pickle.load(f)
-plt.plot(pdf_maxs.keys(), pdf_maxs.values())
+with open("optimal_pdf_max.dat", 'rb') as f:
+    optimal_pdf_max = pickle.load(f)
+_, ax = plt.subplots()
+ax.plot(pdf_maxs.keys(), pdf_maxs.values())
+ax.axhline(optimal_pdf_max)
 plt.savefig("pdf_maxs.png")

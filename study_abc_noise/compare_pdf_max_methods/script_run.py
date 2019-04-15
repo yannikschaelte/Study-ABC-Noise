@@ -22,7 +22,7 @@ n_rep = 10
 mv = ConversionReactionModelVars()
 y_obs = Task.get_data(mv, 0)
 optimal_pdf_max = get_and_store_optimal_kernel_value(mv, y_obs, 0)
-pdf_maxs = [None, None, optimal_pdf_max]
+pdf_maxs = [None, optimal_pdf_max, None]
 pdf_max_methods = [pyabc.acceptor.pdf_max_take_from_kernel,
                    pyabc.acceptor.pdf_max_take_from_kernel,
                    pyabc.acceptor.pdf_max_take_max_found]

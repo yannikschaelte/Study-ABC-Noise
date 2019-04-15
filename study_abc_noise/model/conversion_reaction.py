@@ -136,3 +136,125 @@ def x(p, x0, ts):
                                         [- p0 + p0 * e, - p0 - p1 * e]])
         sol[:, ix] = np.dot(A, x0).flatten()
     return sol
+
+
+def normal_dty_1d(y_bar, y, sigma):
+    dty = ( 1 / np.sqrt( 2 * np.pi * sigma**2 ) 
+            * np.exp( - ( (y_bar - y) / sigma)**2 / 2) )
+    return dty
+
+
+def normal_dty(y_bar, y, sigma):
+    """
+    Uncorrelated multivariate Gaussian density.
+
+    y_bar: size dim
+        point at which to evaluate the density
+    y, sigma: size dim
+        For N(y, sigma).
+    """
+    dim = len(y_bar)
+    dties = np.zeros(dim)
+    for j in range(dim):
+        dties[j] = normal_dty_1d(y_bar[j], y[j], sigma[j])
+    dty = np.prod(dties)
+    return dty
+
+
+def get_acceptance_probability_integrand_from_prior(model_vars, y_obs, pdf_max):
+    model = model_vars.get_model()
+    y_obs = y_obs['y'].flatten()
+    prior = model_vars.get_prior()
+
+    def acceptance_probability_integrand_from_prior(p):
+        if type(p) is list:
+            p = {key: p[i] for key, i in enumerate(model_vars.p_true)}
+
+        # data
+        y = model(p)['y'].flatten()
+        
+        sigma = model_vars.noise_std * np.ones(model_vars.n_t)
+
+        # acceptance probability
+        likelihood_val = normal_dty(y_obs, y, sigma)
+        acceptance_probability = likelihood_val / pdf_max
+
+        # prior
+        prior_val = prior.pdf(p)
+
+        # integrand
+        integrand = acceptance_probability * prior_val
+
+        return integrand
+
+    return acceptance_probability_integrand_from_prior
+
+
+def get_posterior_unscaled(model_vars, y_obs):
+    model = model_vars.get_model()
+    y_obs = y_obs['y'].flatten()
+    prior = model_vars.get_prior()
+
+    def posterior_unscaled(p):
+        if type(p) is list:
+            p = {key: p[i] for key, i in enumerate(model_vars.p_true)}
+
+        # data
+        y = model(p)['y'].flatten()
+
+        sigma = model_vars.noise_sted * np.ones(model_vars.n_t)
+
+        # likelihood
+        likelihood_val = normal_dty(y_obs, y, sigma)
+
+        # prior
+        prior_val = prior.pdf(p)
+
+        # posterior value
+        unscaled_posterior = likelihood_val * prior_val
+
+        return unscaled_posterior
+
+    return posterior_unscaled
+
+
+def get_and_store_posterior(model_vars, y_obs, i_rep):
+    posterior_unscaled = get_posterior_unscaled(model_vars, y_obs)
+    limits = model_vars.limits
+    posterior_normalization = integrate.dblquad(
+        lambda x, y: posterior_unscaled([x, y]), limits['p0'][0], limits['p0'][1],
+        lambda x: limits['p1'][0], lambda x: limits['p1'][1])[0]
+
+    def posterior(p):
+        return posterior_unscaled / posterior_normalization
+
+    return posterior
+
+
+def get_acceptance_probability_integrand_from_posterior(
+        model_vars, y_obs, pdf_max, posterior):
+    model = model_vars.get_model()
+    y_obs = y_obs['y'].flatten()
+
+    def acceptance_probability_integrand_from_posterior(p):
+        if type(p) is list:
+            p = {key: p[i] for key, i in enumerate(model_vars.p_true)}
+
+        # data
+        y = model(p)['y'].flatten()
+
+        sigma = model_vars.noise_sted * np.ones(model_vars.n_t)
+
+        # acceptance probability
+        likelihood_val = normal_dty(y_obs, y, sigma)
+        acceptance_probability = likelihood_val / pdf_max
+
+        # posterior
+        posterior_val = posterior(p)
+
+        # integrand
+        integrand = acceptance_probability * posterior_val
+
+        return integrand
+
+    return acceptance_probability_integrand_from_posterior

@@ -11,6 +11,9 @@ or a stochastic acceptor.
 
 import pyabc
 import sys
+import cloudpickle as pickle
+import os
+import matplotlib.pyplot as plt
 from study_abc_noise.model import ConversionReactionModelVars
 from study_abc_noise.util import create_sampler, get_timestamp
 from study_abc_noise.vars import AnalysisVars, Task
@@ -51,3 +54,9 @@ for model_vars, analysis_vars in zip(list_model_vars, list_analysis_vars):
 # run
 for task in tasks:
     task.execute()
+
+# save pdf_maxs
+pdf_maxs = tasks[2].acceptor.pdf_maxs
+plt.plot(pdf_maxs.keys(), pdf_max.values())
+plt.savefig("pdf_maxs.png")
+

@@ -57,6 +57,6 @@ for task in tasks:
 
 # save pdf_maxs
 pdf_maxs = tasks[2].acceptor.pdf_maxs
-plt.plot(pdf_maxs.keys(), pdf_max.values())
+plt.plot(pdf_maxs.keys(), pdf_maxs.values())
 plt.savefig("pdf_maxs.png")
 

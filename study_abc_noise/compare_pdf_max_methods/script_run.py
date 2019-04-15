@@ -57,6 +57,5 @@ for task in tasks:
 
 # save pdf_maxs
 pdf_maxs = tasks[2].acceptor.pdf_maxs
-plt.plot(pdf_maxs.keys(), pdf_maxs.values())
-plt.savefig("pdf_maxs.png")
-
+with open("pdf_maxs.dat", 'wb') as f:
+    pickle.dump(pdf_maxs, f)

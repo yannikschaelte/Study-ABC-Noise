@@ -1,6 +1,7 @@
 import pyabc
 import os
 import matplotlib.pyplot as plt
+import cloudpickle as pickle
 from study_abc_noise.model import ConversionReactionModelVars
 
 
@@ -33,3 +34,9 @@ for h, label in zip(histories, labels):
     df, w = h.get_distribution()
     pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par)  #, limits=mv.limits)
     plt.savefig("kde_" + label + ".png")
+
+# show pdf maxs
+with open("pdf_maxs.dat", 'rb') as f:
+    pdf_maxs = pickle.load(f)
+plt.plot(pdf_maxs.keys(), pdf_maxs.values())
+plt.savefig("pdf_maxs.png")

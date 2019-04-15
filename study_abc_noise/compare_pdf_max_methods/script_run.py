@@ -14,28 +14,39 @@ import sys
 from study_abc_noise.model import ConversionReactionModelVars
 from study_abc_noise.util import create_sampler, get_timestamp
 from study_abc_noise.vars import AnalysisVars, Task
+from study_abc_noise.optimize import get_and_store_optimal_kernel_value
 
+
+n_rep = 10
 
 mv = ConversionReactionModelVars()
-
+y_obs = Task.get_data(mv, 0)
+optimal_pdf_max = get_and_store_optimal_kernel_value(mv, y_obs, 0)
+pdf_maxs = [None, None, optimal_pdf_max]
+pdf_max_methods = [pyabc.acceptor.pdf_max_take_from_kernel,
+                   pyabc.acceptor.pdf_max_take_from_kernel,
+                   pyabc.acceptor.pdf_max_take_max_found]
 # create analysis settings
+list_model_vars = []
 list_analysis_vars = []
-for acceptor, id_ in [
-        (pyabc.StochasticAcceptor(
-            temp_schemes=[
-                pyabc.acceptor.scheme_acceptance_rate,
-                pyabc.acceptor.scheme_decay]), "stochastic_acceptor")]:
+ids = ["no_pdf_max_info", "optimal_pdf_max", "adaptive_pdf_max"]
+for pdf_max, pdf_max_method, id_ in zip(pdf_maxs, pdf_max_methods, ids):
+    acceptor = pyabc.StochasticAcceptor(
+        temp_schemes=[
+            pyabc.acceptor.scheme_acceptance_rate,
+            pyabc.acceptor.scheme_decay],
+        pdf_max_method=pdf_max_method)
     list_analysis_vars.append(
         AnalysisVars(
             get_acceptor=lambda acceptor=acceptor: acceptor, id_=id_))
+    mv = ConversionReactionModelVars()
+    mv.pdf_max = pdf_max
+    list_model_vars.append(mv)
 
 # create tasks
 tasks = []
-for analysis_vars in list_analysis_vars:
-    tasks.append(Task.from_vars(analysis_vars, mv, 0))
-# overwrite deterministic setting
-tasks[0].model = mv.get_model()
-tasks[0].eps_min = 0.0
+for model_vars, analysis_vars in zip(list_model_vars, list_analysis_vars):
+    tasks.append(Task.from_vars(analysis_vars, model_vars, 0))
 
 # run
 for task in tasks:

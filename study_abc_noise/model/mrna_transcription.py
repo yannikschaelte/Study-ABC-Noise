@@ -23,7 +23,7 @@ class MRNATranscriptionModelVars(ModelVars):
         self.output = ssa.output.ArrayOutput(
                 np.linspace(0, self.t_max, self.n_t))
         self.x0 = np.array([0])
-        self.noise_success_probability = 0.95
+        self.noise_success_probability = 0.90
 
     def get_id(self):
         return f"mrna_transcription_{self.n_t}_{self.t_max}_" \

@@ -1,10 +1,10 @@
 import pyabc
 import os
 import matplotlib.pyplot as plt
-from study_abc_noise.model import ConversionReactionModelVars
+from study_abc_noise.model import MRNATranscriptionModelVars as ModelVars
 
 
-mv = ConversionReactionModelVars()
+mv = ModelVars()
 
 
 db_files = [f for f in os.listdir('.') if os.path.isfile(f) and "db_" in f]
@@ -31,5 +31,5 @@ for h, label in zip(histories, labels):
     pyabc.visualization.plot_histogram_matrix(h)
     plt.savefig("hist_" + label + ".png")
     df, w = h.get_distribution()
-    pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par)  #, limits=mv.limits)
+    pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par, limits=mv.limits)
     plt.savefig("kde_" + label + ".png")

@@ -36,11 +36,12 @@ class ModelVars(ABC):
             self,
             p_true: dict,
             n_acc: int = None,
-            n_pop: int = None):
+            n_pop: int = None,
+            pdf_max: float = None):
         self.n_acc = n_acc
         self.n_pop = n_pop
         self.p_true = p_true
-        self.pdf_max = None
+        self.pdf_max = pdf_max
 
     def get_id(self):
         raise NotImplementedError()

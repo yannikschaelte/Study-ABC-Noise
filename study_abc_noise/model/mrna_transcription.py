@@ -10,13 +10,15 @@ class MRNATranscriptionModelVars(ModelVars):
 
     def __init__(self):
         super().__init__(
-            p_true = OrderedDict([('translation', 1),
-                                  ('decay', 0.1),]))
+            p_true = OrderedDict([('transcription', 1),
+                                  ('decay', 0.1),]),
+            n_acc=100,
+            pdf_max=1.0)
         self.limits = OrderedDict([('transcription', (0, 3)),
                                    ('decay', (0, 0.2))])
         self.reactants = np.array([[0], [1]])
         self.products = np.array([[1], [0]])
-        self.n_t = 100
+        self.n_t = 10
         self.t_max = 100
         self.output = ssa.output.ArrayOutput(
                 np.linspace(0, self.t_max, self.n_t))
@@ -40,11 +42,16 @@ class MRNATranscriptionModelVars(ModelVars):
     def get_kernel(self):
         kernel = pyabc.distance.BinomialKernel(
             p=self.noise_success_probability,
+            keys=['mrna'],
+            ret_scale=pyabc.distance.RET_SCALE_LOG,
             pdf_max=self.pdf_max)
         return kernel
 
     def get_model(self):
         def model(p):
+            # anything (e.g. pd.DataSeries) -> OrderedDict
+            p = OrderedDict([('transcription', p['transcription']),
+                             ('decay', p['decay'])])
             k = np.array(list(p.values()))  # order should be correct
             ssa_model = ssa.Model(
                 reactants=self.reactants, products=self.products,

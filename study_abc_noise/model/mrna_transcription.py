@@ -34,7 +34,7 @@ class MRNATranscriptionModelVars(ModelVars):
 
     def get_distance(self):
         def l2(x, y):
-            return np.sum(np.power( (x['y'] - y['y']), 2))
+            return np.sum(np.power( (x['mrna'] - y['mrna']), 2))
         return l2
 
     def get_kernel(self):

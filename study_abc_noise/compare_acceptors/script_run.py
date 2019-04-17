@@ -21,8 +21,8 @@ n_rep = 10
 # create model vars
 
 list_model_vars = []
-#list_model_vars.append(Gaussian1DModelVars())
-for n_t in [13, 16]:  # [4, 7, 10, 13, 16]:
+list_model_vars.append(Gaussian1DModelVars())
+for n_t in [4, 7, 10, 13]:
     model = ConversionReactionModelVars()
     model.n_t = n_t
     model.ts = np.linspace(0, 30, n_t)
@@ -39,7 +39,7 @@ list_temp_schemes = [
     ([pyabc.acceptor.scheme_daly], 'daly'),
     ([pyabc.acceptor.scheme_decay], 'decay'),
     ([pyabc.acceptor.scheme_exponential_decay], 'exp_decay'),
-    ([pyabc.acceptor.scheme_ess], 'ess'),
+    #([pyabc.acceptor.scheme_ess], 'ess'),
     ([pyabc.acceptor.scheme_acceptance_rate,
       pyabc.acceptor.scheme_decay], 'acc+dec'),
     ([pyabc.acceptor.scheme_acceptance_rate,
@@ -64,7 +64,7 @@ tasks = []
 for model_vars in list_model_vars:
     for analysis_vars in list_analysis_vars:
         for i_rep in range(n_rep):
-            task = Task.from_vars(analysis_vars, model_vars, i_rep)
+            task = Task.from_vars(analysis_vars, model_vars, i_rep=i_rep)
             tasks.append(task)
 
 # run

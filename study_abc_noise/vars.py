@@ -92,6 +92,7 @@ class Task(ABC):
             y_obs,
             analysis_id,
             model_id,
+            i_data: int = 0,
             i_rep: int = 0):
         self.acceptor = acceptor
         self.transition = transition
@@ -108,11 +109,13 @@ class Task(ABC):
         self.y_obs = y_obs
         self.analysis_id = analysis_id
         self.model_id = model_id
+        self.i_data = i_data
         self.i_rep = i_rep
 
     @staticmethod
     def from_vars(analysis_vars: AnalysisVars,
                   model_vars: ModelVars,
+                  i_data: int = 0,
                   i_rep: int = 0):
         acceptor = analysis_vars.get_acceptor()
         transition = analysis_vars.get_transition()
@@ -134,7 +137,7 @@ class Task(ABC):
             else model_vars.n_pop
         min_acc_rate = analysis_vars.min_acc_rate
         p_true = model_vars.p_true
-        y_obs = Task.get_data(model_vars, i_rep)
+        y_obs = Task.get_data(model_vars, i_data)
         analysis_id = analysis_vars.id
         model_id = model_vars.get_id()
 
@@ -145,11 +148,11 @@ class Task(ABC):
             min_acc_rate=min_acc_rate, p_true=p_true,
             y_obs=y_obs,
             analysis_id=analysis_id, model_id=model_id,
-            i_rep=i_rep)
+            i_data=i_data, i_rep=i_rep)
 
     @staticmethod
-    def get_data(model_vars, i_rep):
-        data_id = f"{model_vars.get_id()}__{i_rep}"
+    def get_data(model_vars, i_data):
+        data_id = f"{model_vars.get_id()}__{i_data}"
         if not os.path.exists("data"):
             os.mkdir("data")
         filename = "data/" + data_id + ".dat"
@@ -163,7 +166,7 @@ class Task(ABC):
         return y_obs
 
     def execute(self):
-        result_id = f"{self.model_id}__{self.analysis_id}__{self.i_rep}"
+        result_id = f"{self.model_id}__{self.analysis_id}__{self.i_data}__{self.i_rep}"
         db_file = f"db_{result_id}.db"
 
         print("Result id: ", result_id)

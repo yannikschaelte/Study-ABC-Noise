@@ -34,7 +34,7 @@ for acceptor, id_ in [
 # create tasks
 tasks = []
 for analysis_vars in list_analysis_vars:
-    tasks.append(Task.from_vars(analysis_vars, mv, 0))
+    tasks.append(Task.from_vars(analysis_vars, mv))
 # overwrite deterministic setting
 tasks[0].model = mv.get_model()
 tasks[0].eps_min = 0.0

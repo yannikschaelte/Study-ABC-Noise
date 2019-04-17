@@ -10,7 +10,7 @@ class MRNATranscriptionModelVars(ModelVars):
 
     def __init__(self):
         super().__init__(
-            p_true = OrderedDict([('transcription', 1),
+            p_true = OrderedDict([('transcription', 10),
                                   ('decay', 0.1),]),
             n_acc=100,
             pdf_max=1.0)
@@ -18,8 +18,8 @@ class MRNATranscriptionModelVars(ModelVars):
                                    ('decay', (0, 0.2))])
         self.reactants = np.array([[0], [1]])
         self.products = np.array([[1], [0]])
-        self.n_t = 10
-        self.t_max = 100
+        self.n_t = 100
+        self.t_max = 120
         self.output = ssa.output.ArrayOutput(
                 np.linspace(0, self.t_max, self.n_t))
         self.x0 = np.array([0])

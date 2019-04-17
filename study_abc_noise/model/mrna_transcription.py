@@ -14,7 +14,7 @@ class MRNATranscriptionModelVars(ModelVars):
                                   ('decay', 0.1),]),
             n_acc=100,
             pdf_max=1.0)
-        self.limits = OrderedDict([('transcription', (0, 3)),
+        self.limits = OrderedDict([('transcription', (0, 30)),
                                    ('decay', (0, 0.2))])
         self.reactants = np.array([[0], [1]])
         self.products = np.array([[1], [0]])

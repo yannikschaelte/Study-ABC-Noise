@@ -8,22 +8,28 @@ from collections import OrderedDict
 
 class MRNATranscriptionModelVars(ModelVars):
 
-    def __init__(self):
+    def __init__(self,
+                 n_acc: int = 1000,
+                 noise_success_probability: float = 0.90,
+                 pdf_max: float = None,
+                 n_t : int = 30,
+                 t_max: int = 90):
         super().__init__(
             p_true = OrderedDict([('transcription', 10),
                                   ('decay', 0.1),]),
-            n_acc=100,
-            pdf_max=1.0)
+            n_acc = n_acc,
+            noise_success_probability = noise_success_probability,
+            pdf_max=pdf_max)
         self.limits = OrderedDict([('transcription', (0, 30)),
                                    ('decay', (0, 0.2))])
         self.reactants = np.array([[0], [1]])
         self.products = np.array([[1], [0]])
-        self.n_t = 30
-        self.t_max = 90
+        self.n_t = n_t
+        self.t_max = t_max
         self.output = ssa.output.ArrayOutput(
                 np.linspace(0, self.t_max, self.n_t))
         self.x0 = np.array([0])
-        self.noise_success_probability = 0.80
+        self.noise_success_probability = noise_success_probability
 
     def get_id(self):
         return f"mrna_transcription_{self.n_t}_{self.t_max}_" \

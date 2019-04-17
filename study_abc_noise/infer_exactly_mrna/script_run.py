@@ -16,7 +16,7 @@ from study_abc_noise.util import create_sampler, get_timestamp
 from study_abc_noise.vars import AnalysisVars, Task
 
 
-mv = ModelVars()
+mv = ModelVars(n_acc=100, noise_success_probability=0.7)
 
 # create analysis settings
 list_analysis_vars = []
@@ -27,11 +27,12 @@ for acceptor, id_ in [
             temp_schemes=[
                 pyabc.acceptor.scheme_acceptance_rate,
                 pyabc.acceptor.scheme_decay],
-            pdf_max_method=pyabc.acceptor.pdf_max_take_max_found),
+        #    pdf_max_method=pyabc.acceptor.pdf_max_take_max_found
+        ),
          "stochastic_acceptor")]:
     list_analysis_vars.append(
         AnalysisVars(
-            get_acceptor=lambda acceptor=acceptor: acceptor, min_acc_rate=0.001, id_=id_))
+            get_acceptor=lambda acceptor=acceptor: acceptor, min_acc_rate=1e-4, id_=id_))
 
 # create tasks
 tasks = []

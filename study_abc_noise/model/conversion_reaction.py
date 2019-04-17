@@ -125,6 +125,8 @@ class ConversionReactionUVarModelVars(ConversionReactionModelVars):
         return kernel
     
     def get_pdf_max(self):
+        if self.pdf_max is not None:
+            return self.pdf_max
         return - 0.5 * self.n_t * np.log(2 * np.pi * self.limits['std'][0]**2)
 
 def x(p, x0, ts):

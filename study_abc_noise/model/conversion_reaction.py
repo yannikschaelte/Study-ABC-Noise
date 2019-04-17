@@ -113,11 +113,12 @@ class ConversionReactionUVarModelVars(ConversionReactionModelVars):
 
     def get_kernel(self):
         def compute_var(p):
-            return np.ones(self.n_t) * p['std']**2
+            return p['std']**2 * np.ones(self.n_t)
         kernel = pyabc.distance.IndependentNormalKernel(
             mean=np.zeros(self.n_t),
             var=compute_var,
             pdf_max=self.pdf_max)
+
         return kernel
 
 

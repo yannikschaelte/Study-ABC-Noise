@@ -16,7 +16,7 @@ from study_abc_noise.util import create_sampler, get_timestamp
 from study_abc_noise.vars import AnalysisVars, Task
 
 
-mv = ModelVars(n_acc=100, n_t=10, noise_success_probability=0.7)
+mv = ModelVars(n_acc=100, n_t=6, noise_success_probability=0.7)
 
 # create analysis settings
 list_analysis_vars = []

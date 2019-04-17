@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 
 class ConversionReactionModelVars(ModelVars):
 
-    def __init__(self):
-        super().__init__(p_true = {'p0': 0.06, 'p1': 0.08})
+    def __init__(self, p_true = None, pdf_max = None):
+        if p_true is None:
+            p_true = {'p0': 0.06, 'p1': 0.08}
+        super().__init__(p_true = p_true, pdf_max = pdf_max)
         self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4)}
         self.noise_std = 0.02
         self.noise_model = np.random.randn
@@ -91,8 +93,9 @@ class ConversionReactionModelVars(ModelVars):
 
 class ConversionReactionUVarModelVars(ConversionReactionModelVars):
 
-    def __init__(self):
-        super().__init__(p_true = {'p0': 0.06, 'p1': 0.08, 'std': 0.02})
+    def __init__(self, pdf_max=None):
+        super().__init__(p_true = {'p0': 0.06, 'p1': 0.08, 'std': 0.02},
+                         pdf_max = pdf_max)
         self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4), 'std': (0.01, 0.2)}
         # used in distance, just for normalization
         self.noise_std = self.p_true['std']
@@ -117,10 +120,12 @@ class ConversionReactionUVarModelVars(ConversionReactionModelVars):
         kernel = pyabc.distance.IndependentNormalKernel(
             mean=np.zeros(self.n_t),
             var=compute_var,
-            pdf_max=self.pdf_max)
+            pdf_max=self.get_pdf_max())
 
         return kernel
-
+    
+    def get_pdf_max(self):
+        return - 0.5 * self.n_t * np.log(2 * np.pi * self.limits['std'][0]**2)
 
 def x(p, x0, ts):
     """

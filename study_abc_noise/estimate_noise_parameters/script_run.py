@@ -10,13 +10,13 @@ from study_abc_noise.vars import AnalysisVars, Task
 import pyabc
 
 
-mv = ModelVars()
+mv = ModelVars(pdf_max=1.0)
 
 uniform_acceptor = pyabc.UniformAcceptor()
 stochastic_acceptor = pyabc.StochasticAcceptor(
     temp_schemes=[pyabc.acceptor.scheme_acceptance_rate,
                   pyabc.acceptor.scheme_decay],
-    pdf_max_method=pyabc.acceptor.pdf_max_take_max_found,
+    #pdf_max_method=pyabc.acceptor.pdf_max_take_max_found,
 )
 av_uniform = AnalysisVars(
     get_acceptor = lambda: uniform_acceptor,

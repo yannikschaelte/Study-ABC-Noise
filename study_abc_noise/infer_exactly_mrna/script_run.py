@@ -31,7 +31,7 @@ for acceptor, id_ in [
          "stochastic_acceptor")]:
     list_analysis_vars.append(
         AnalysisVars(
-            get_acceptor=lambda acceptor=acceptor: acceptor, id_=id_))
+            get_acceptor=lambda acceptor=acceptor: acceptor, min_acc_rate=0.001, id_=id_))
 
 # create tasks
 tasks = []

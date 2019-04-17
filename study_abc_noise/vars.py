@@ -15,6 +15,7 @@ class AnalysisVars(ABC):
             n_acc: int = 1000,
             n_pop: int = 20,
             eps_min: float = 0.0,
+            min_acc_rate: float = 0.0,
             id_ = None):
         if get_acceptor is None:
             get_acceptor = lambda: pyabc.UniformAcceptor()
@@ -28,6 +29,7 @@ class AnalysisVars(ABC):
         self.n_acc = n_acc
         self.n_pop = n_pop
         self.eps_min = eps_min
+        self.min_acc_rate = min_acc_rate
         self.id = id_
 
 class ModelVars(ABC):
@@ -85,6 +87,7 @@ class Task(ABC):
             n_acc,
             n_pop,
             eps_min,
+            min_acc_rate,
             p_true,
             y_obs,
             analysis_id,
@@ -100,6 +103,7 @@ class Task(ABC):
         self.n_acc = n_acc
         self.n_pop = n_pop
         self.eps_min = eps_min
+        self.min_acc_rate = min_acc_rate
         self.p_true = p_true
         self.y_obs = y_obs
         self.analysis_id = analysis_id
@@ -128,6 +132,7 @@ class Task(ABC):
             else model_vars.n_acc
         n_pop = analysis_vars.n_pop if model_vars.n_pop is None \
             else model_vars.n_pop
+        min_acc_rate = analysis_vars.min_acc_rate
         p_true = model_vars.p_true
         y_obs = Task.get_data(model_vars, i_rep)
         analysis_id = analysis_vars.id
@@ -136,7 +141,8 @@ class Task(ABC):
         return Task(
             acceptor=acceptor, transition=transition, eps=eps,
             distance=distance, model=model, prior=prior, sampler=sampler,
-            n_acc=n_acc, n_pop=n_pop, eps_min=eps_min, p_true=p_true,
+            n_acc=n_acc, n_pop=n_pop, eps_min=eps_min,
+            min_acc_rate=min_acc_rate, p_true=p_true,
             y_obs=y_obs,
             analysis_id=analysis_id, model_id=model_id,
             i_rep=i_rep)
@@ -175,4 +181,4 @@ class Task(ABC):
             acceptor = self.acceptor,
             sampler = self.sampler)
         abc.new("sqlite:///" + db_file, self.y_obs, gt_par=self.p_true)
-        abc.run(minimum_epsilon=self.eps_min, max_nr_populations=self.n_pop)
+        abc.run(minimum_epsilon=self.eps_min, min_acceptance_rate=self.min_acc_rate, max_nr_populations=self.n_pop)

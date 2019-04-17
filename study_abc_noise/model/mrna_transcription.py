@@ -18,12 +18,12 @@ class MRNATranscriptionModelVars(ModelVars):
                                    ('decay', (0, 0.2))])
         self.reactants = np.array([[0], [1]])
         self.products = np.array([[1], [0]])
-        self.n_t = 100
-        self.t_max = 120
+        self.n_t = 10
+        self.t_max = 100
         self.output = ssa.output.ArrayOutput(
                 np.linspace(0, self.t_max, self.n_t))
         self.x0 = np.array([0])
-        self.noise_success_probability = 0.90
+        self.noise_success_probability = 0.70
 
     def get_id(self):
         return f"mrna_transcription_{self.n_t}_{self.t_max}_" \

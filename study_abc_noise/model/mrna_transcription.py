@@ -18,7 +18,6 @@ class MRNATranscriptionModelVars(ModelVars):
             p_true = OrderedDict([('transcription', 10),
                                   ('decay', 0.1),]),
             n_acc = n_acc,
-            noise_success_probability = noise_success_probability,
             pdf_max=pdf_max)
         self.limits = OrderedDict([('transcription', (0, 30)),
                                    ('decay', (0, 0.2))])

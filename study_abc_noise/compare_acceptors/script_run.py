@@ -45,6 +45,7 @@ list_temp_schemes = [
     ([pyabc.acceptor.scheme_acceptance_rate,
       pyabc.acceptor.scheme_ess,
       pyabc.acceptor.scheme_decay], 'acc+ess+dec'),
+    ([pyabc.acceptor.temperature_scheme.scheme_friel_pettitt], 'friel_pettitt'),
 ]
 for temp_schemes, descr in list_temp_schemes:
     # note: need to bind input to lambda function, otherwise python silly

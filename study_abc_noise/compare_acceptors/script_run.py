@@ -33,10 +33,13 @@ for n_t in [4, 7, 10, 13]:
 list_analysis_vars = []
 list_analysis_vars.append(
     AnalysisVars(
-        get_acceptor=lambda: pyabc.UniformAcceptor(), id_="uniform_acceptor"))
+        get_acceptor=lambda: pyabc.UniformAcceptor(), id_="uniform_acceptor", n_acc=200, min_acc_rate=1e-4))
+list_analysis_vars.append(
+    AnalysisVars(
+        get_acceptor=lambda: pyabc.StochasticAcceptor(temp_schemes=[pyabc.acceptor.scheme_daly], temp_init=1000), id_="daly", n_acc=200, min_acc_rate=1e-4))
 list_temp_schemes = [
     #([pyabc.acceptor.scheme_acceptance_rate], 'acc'),
-    ([pyabc.acceptor.scheme_daly], 'daly'),
+    ([pyabc.acceptor.scheme_daly], 'daly_init_temp'),
     ([pyabc.acceptor.scheme_decay], 'decay'),
     ([pyabc.acceptor.scheme_exponential_decay], 'exp_decay'),
     #([pyabc.acceptor.scheme_ess], 'ess'),
@@ -57,7 +60,7 @@ for temp_schemes, descr in list_temp_schemes:
 list_analysis_vars.append(AnalysisVars(
     get_acceptor=lambda: pyabc.StochasticAcceptor(temp_schemes=[pyabc.acceptor.scheme_acceptance_rate]),
     n_pop=1,
-    id_=f"stochastic_acceptor_rejection"))
+    id_=f"stochastic_acceptor_rejection", n_acc=200, min_acc_rate=1e-4))
 
 # create tasks
 tasks = []

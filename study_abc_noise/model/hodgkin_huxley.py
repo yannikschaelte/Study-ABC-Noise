@@ -14,8 +14,22 @@ executable = os.path.join(model_folder, "ModelDBFolder", "HH_run")
 
 class HodgkinHuxleyModelVars(ModelVars):
 
-    def __init__(self):
-        self.noise_std = 0.005
+    def __init__(self, p_true = None):
+        if p_true is None:
+            p_true = {'dc': 20, 'membrane_dim': 10}
+        super().__init__(p_true = p_true)
+        self.noise_std = 0.000  # 0.005
+        self.limits = {'dc': (2, 30), 'membrane_dim': (1, 12)}
+
+    def get_prior(self):
+        return pyabc.Distribution(
+            **{key: pyabc.RV('uniform', bounds[0], bounds[1])
+               for key, bounds in self.limits.items()})
+
+    def get_distance(self):
+        def l2(x, y):
+            return np.sum(np.power( (x['K'] - y['K']), 2))
+        return ls
 
     def get_model(self):
         def model(p):
@@ -26,7 +40,7 @@ class HodgkinHuxleyModelVars(ModelVars):
         model = self.get_model()
         def model_noisy(p):
             ret = model(p)
-            ret['Na'] += self.noise_std * np.random.randn(10001)
+            # ret['Na'] += self.noise_std * np.random.randn(10001)
             ret['K'] += self.noise_std * np.random.randn(10001)
             return ret
         return model_noisy

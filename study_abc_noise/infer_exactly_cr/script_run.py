@@ -12,7 +12,6 @@ or a stochastic acceptor.
 import pyabc
 import sys
 from study_abc_noise.model import ConversionReactionModelVars
-from study_abc_noise.util import create_sampler, get_timestamp
 from study_abc_noise.vars import AnalysisVars, Task
 
 
@@ -26,7 +25,8 @@ for acceptor, id_ in [
         (pyabc.StochasticAcceptor(
             temp_schemes=[
                 pyabc.acceptor.scheme_acceptance_rate,
-                pyabc.acceptor.scheme_decay]), "stochastic_acceptor")]:
+                pyabc.acceptor.scheme_exponential_decay]),
+            "stochastic_acceptor")]:
     list_analysis_vars.append(
         AnalysisVars(
             get_acceptor=lambda acceptor=acceptor: acceptor, id_=id_))

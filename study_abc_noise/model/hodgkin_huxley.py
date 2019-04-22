@@ -6,6 +6,7 @@ import subprocess
 from io import BytesIO
 import numpy as np
 import pandas as pd
+import pyabc
 
 
 model_folder = "hodgkin_huxley"
@@ -14,12 +15,16 @@ executable = os.path.join(model_folder, "ModelDBFolder", "HH_run")
 
 class HodgkinHuxleyModelVars(ModelVars):
 
-    def __init__(self, p_true = None):
+    def __init__(self, p_true = None, n_acc=100):
         if p_true is None:
             p_true = {'dc': 20, 'membrane_dim': 10}
-        super().__init__(p_true = p_true)
+        super().__init__(p_true = p_true, n_acc=n_acc)
         self.noise_std = 0.000  # 0.005
         self.limits = {'dc': (2, 30), 'membrane_dim': (1, 12)}
+        self.n_t = 10001
+
+    def get_id(self):
+        return f"hodgkin_huxley_{self.noise_std}"
 
     def get_prior(self):
         return pyabc.Distribution(
@@ -29,7 +34,14 @@ class HodgkinHuxleyModelVars(ModelVars):
     def get_distance(self):
         def l2(x, y):
             return np.sum(np.power( (x['K'] - y['K']), 2))
-        return ls
+        return l2
+
+    def get_kernel(self):
+        kernel = pyabc.distance.IndependentNormalKernel(
+            mean=np.zeros(self.n_t),
+            var=self.noise_std**2 * np.ones(self.n_t),
+            pdf_max=self.pdf_max)
+        return kernel
 
     def get_model(self):
         def model(p):
@@ -41,7 +53,7 @@ class HodgkinHuxleyModelVars(ModelVars):
         def model_noisy(p):
             ret = model(p)
             # ret['Na'] += self.noise_std * np.random.randn(10001)
-            ret['K'] += self.noise_std * np.random.randn(10001)
+            ret['K'] += self.noise_std * np.random.randn(self.n_t)
             return ret
         return model_noisy
 

@@ -70,7 +70,8 @@ class ModelVars(ABC):
         raise NotImplementedError()
 
     def generate_data(self):
-        raise NotImplementedError()
+        y = self.get_model_noisy()(self.p_true)
+        return y
 
 
 class Task(ABC):

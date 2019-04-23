@@ -9,7 +9,7 @@ import pandas as pd
 import pyabc
 
 
-model_folder = "hodgkin_huxley"
+model_folder = ".hodgkin_huxley"
 executable = os.path.join(model_folder, "ModelDBFolder", "HH_run")
 
 

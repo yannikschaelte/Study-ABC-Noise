@@ -8,11 +8,16 @@ import pyabc
 import numpy as np
 
 
-mv = ModelVars()
+list_n_t = np.array([5, 10, 15, 20, 25, 30])
+n_r = 1
 
-# generate data
-y = mv.generate_data()
-y = y['y'].flatten()
+
+for n_t in list_n_t:
+    for i_r in range(n_r):
+        mv = ModelVars(n_t=n_t)
+        # generate data
+        y = mv.generate_data()
+        y = y['y'].flatten()
 
 pdf_max = normal_dty(y, y, mv.noise_std * np.ones(mv.n_t))
 

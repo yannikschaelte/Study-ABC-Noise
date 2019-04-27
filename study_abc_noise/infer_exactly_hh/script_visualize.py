@@ -31,5 +31,5 @@ for h, label in zip(histories, labels):
     pyabc.visualization.plot_histogram_matrix(h)
     plt.savefig("hist_" + label + ".png")
     df, w = h.get_distribution()
-    pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par, limits=mv.limits)
+    pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par)#, limits=mv.limits)
     plt.savefig("kde_" + label + ".png")

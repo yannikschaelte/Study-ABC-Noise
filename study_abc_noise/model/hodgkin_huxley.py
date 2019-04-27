@@ -19,9 +19,13 @@ class HodgkinHuxleyModelVars(ModelVars):
         if p_true is None:
             p_true = {'dc': 20, 'membrane_dim': 10}
         super().__init__(p_true = p_true, n_acc=n_acc)
-        self.noise_std = 0.000  # 0.005
+        self.noise_std = 0.05
         self.limits = {'dc': (2, 30), 'membrane_dim': (1, 12)}
-        self.n_t = 10001
+        self.time_steps = 10001
+        self.n_t = 50
+    
+    def get_obs_times(self):
+        return [int(i) for i in np.linspace(0, self.time_steps - 1, self.n_t)]
 
     def get_id(self):
         return f"hodgkin_huxley_{self.noise_std}"
@@ -45,7 +49,9 @@ class HodgkinHuxleyModelVars(ModelVars):
 
     def get_model(self):
         def model(p):
-            return simulate(**p)
+            val = simulate(**p)
+            ret = {'K': val.reset_index()['K'][self.get_obs_times()]}
+            return ret
         return model
 
     def get_model_noisy(self):

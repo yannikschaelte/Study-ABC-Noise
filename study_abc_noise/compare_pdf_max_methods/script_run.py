@@ -16,14 +16,14 @@ import os
 import matplotlib.pyplot as plt
 from study_abc_noise.model import ConversionReactionModelVars
 from study_abc_noise.util import create_sampler, get_timestamp
-from study_abc_noise.vars import AnalysisVars, Task
+from study_abc_noise.vars import AnalysisVars, Task, get_data
 from study_abc_noise.optimize import get_and_store_optimal_kernel_value
 
 
 n_rep = 10
 
 mv = ConversionReactionModelVars()
-y_obs = Task.get_data(mv, 0)
+y_obs = get_data(mv, 0)
 optimal_pdf_max = get_and_store_optimal_kernel_value(mv, y_obs, 0)
 pdf_maxs = [None, optimal_pdf_max, None]
 pdf_max_methods = [pyabc.acceptor.pdf_max_take_from_kernel,
@@ -37,7 +37,7 @@ for pdf_max, pdf_max_method, id_ in zip(pdf_maxs, pdf_max_methods, ids):
     acceptor = pyabc.StochasticAcceptor(
         temp_schemes=[
             pyabc.acceptor.scheme_acceptance_rate,
-            pyabc.acceptor.scheme_decay],
+            pyabc.acceptor.scheme_exponential_decay],
         pdf_max_method=pdf_max_method)
     list_analysis_vars.append(
         AnalysisVars(

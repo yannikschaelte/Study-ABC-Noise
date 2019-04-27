@@ -1,20 +1,21 @@
 from ..vars import ModelVars
 import numpy as np
+import scipy as sp
 import pyabc
 import matplotlib.pyplot as plt
 
 
 class ConversionReactionModelVars(ModelVars):
 
-    def __init__(self, p_true = None, pdf_max = None):
+    def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30):
         if p_true is None:
             p_true = {'p0': 0.06, 'p1': 0.08}
         super().__init__(p_true = p_true, pdf_max = pdf_max)
         self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4)}
         self.noise_std = 0.02
         self.noise_model = np.random.randn
-        self.n_t = 10
-        self.t_max = 30
+        self.n_t = n_t
+        self.t_max = t_max
         self.x0 = np.array([1., 0.])
 
     def get_ts(self):
@@ -169,14 +170,14 @@ def normal_dty(y_bar, y, sigma):
     return dty
 
 
-def get_acceptance_probability_integrand_from_prior(model_vars, y_obs, pdf_max):
+def get_acceptance_probability_integrand_from_prior(model_vars, y_obs, pdf_max=1.0):
     model = model_vars.get_model()
     y_obs = y_obs['y'].flatten()
     prior = model_vars.get_prior()
 
     def acceptance_probability_integrand_from_prior(p):
-        if type(p) is list:
-            p = {key: p[i] for key, i in enumerate(model_vars.p_true)}
+        if type(p) is not dict:
+            p = {key: p[i] for i, key in enumerate(model_vars.p_true)}
 
         # data
         y = model(p)['y'].flatten()
@@ -204,13 +205,13 @@ def get_posterior_unscaled(model_vars, y_obs):
     prior = model_vars.get_prior()
 
     def posterior_unscaled(p):
-        if type(p) is list:
-            p = {key: p[i] for key, i in enumerate(model_vars.p_true)}
+        if type(p) is not dict:
+            p = {key: p[i] for i, key in enumerate(model_vars.p_true)}
 
         # data
         y = model(p)['y'].flatten()
 
-        sigma = model_vars.noise_sted * np.ones(model_vars.n_t)
+        sigma = model_vars.noise_std * np.ones(model_vars.n_t)
 
         # likelihood
         likelihood_val = normal_dty(y_obs, y, sigma)
@@ -226,39 +227,46 @@ def get_posterior_unscaled(model_vars, y_obs):
     return posterior_unscaled
 
 
-def get_and_store_posterior(model_vars, y_obs, i_rep):
-    posterior_unscaled = get_posterior_unscaled(model_vars, y_obs)
+def get_posterior_normalization(posterior_unscaled, model_vars):
     limits = model_vars.limits
-    posterior_normalization = integrate.dblquad(
-        lambda x, y: posterior_unscaled([x, y]), limits['p0'][0], limits['p0'][1],
+    posterior_normalization = sp.integrate.dblquad(
+        lambda x, y: posterior_unscaled([x, y]),
+        limits['p0'][0], limits['p0'][1],
         lambda x: limits['p1'][0], lambda x: limits['p1'][1])[0]
+    return posterior_normalization
 
-    def posterior(p):
-        return posterior_unscaled / posterior_normalization
 
-    return posterior
+def get_posterior_scaled(model_vars, y_obs):
+    posterior_unscaled = get_posterior_unscaled(model_vars, y_obs)
+    posterior_normalization = get_posterior_normalization(
+        posterior_unscaled, model_vars)
+    
+    def posterior_scaled(p):
+        return posterior_unscaled(p) / posterior_normalization
+
+    return posterior_scaled
 
 
 def get_acceptance_probability_integrand_from_posterior(
-        model_vars, y_obs, pdf_max, posterior):
+        model_vars, y_obs, posterior_scaled, pdf_max=1.0):
     model = model_vars.get_model()
     y_obs = y_obs['y'].flatten()
 
     def acceptance_probability_integrand_from_posterior(p):
-        if type(p) is list:
-            p = {key: p[i] for key, i in enumerate(model_vars.p_true)}
+        if type(p) is not dict:
+            p = {key: p[i] for i, key in enumerate(model_vars.p_true)}
 
         # data
         y = model(p)['y'].flatten()
 
-        sigma = model_vars.noise_sted * np.ones(model_vars.n_t)
+        sigma = model_vars.noise_std * np.ones(model_vars.n_t)
 
         # acceptance probability
         likelihood_val = normal_dty(y_obs, y, sigma)
         acceptance_probability = likelihood_val / pdf_max
 
         # posterior
-        posterior_val = posterior(p)
+        posterior_val = posterior_scaled(p)
 
         # integrand
         integrand = acceptance_probability * posterior_val

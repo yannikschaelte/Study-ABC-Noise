@@ -9,7 +9,7 @@ class AnalysisVars(ABC):
 
     def __init__(
             self,
-            get_acceptor,
+            get_acceptor=None,
             get_transition=None,
             get_eps=None,
             n_acc: int = 1000,
@@ -138,7 +138,7 @@ class Task(ABC):
             else model_vars.n_pop
         min_acc_rate = analysis_vars.min_acc_rate
         p_true = model_vars.p_true
-        y_obs = Task.get_data(model_vars, i_data)
+        y_obs = get_data(model_vars, i_data)
         analysis_id = analysis_vars.id
         model_id = model_vars.get_id()
 
@@ -150,21 +150,6 @@ class Task(ABC):
             y_obs=y_obs,
             analysis_id=analysis_id, model_id=model_id,
             i_data=i_data, i_rep=i_rep)
-
-    @staticmethod
-    def get_data(model_vars, i_data):
-        data_id = f"{model_vars.get_id()}__{i_data}"
-        if not os.path.exists("data"):
-            os.mkdir("data")
-        filename = "data/" + data_id + ".dat"
-        if os.path.isfile(filename):
-            with open(filename, 'rb') as f:
-                y_obs = pickle.load(f)
-                return y_obs
-        y_obs = model_vars.generate_data()
-        with open(filename, 'wb') as f:
-            pickle.dump(y_obs, f)
-        return y_obs
 
     def execute(self):
         result_id = f"{self.model_id}__{self.analysis_id}__{self.i_data}__{self.i_rep}"
@@ -185,4 +170,21 @@ class Task(ABC):
             acceptor = self.acceptor,
             sampler = self.sampler)
         abc.new("sqlite:///" + db_file, self.y_obs, gt_par=self.p_true)
-        abc.run(minimum_epsilon=self.eps_min, min_acceptance_rate=self.min_acc_rate, max_nr_populations=self.n_pop)
+        abc.run(minimum_epsilon=self.eps_min,
+                min_acceptance_rate=self.min_acc_rate,
+                max_nr_populations=self.n_pop)
+
+
+def get_data(model_vars, i_data):
+    data_id = f"{model_vars.get_id()}__{i_data}"
+    if not os.path.exists("data"):
+        os.mkdir("data")
+    filename = "data/" + data_id + ".dat"
+    if os.path.isfile(filename):
+        with open(filename, 'rb') as f:
+            y_obs = pickle.load(f)
+            return y_obs
+    y_obs = model_vars.generate_data()
+    with open(filename, 'wb') as f:
+        pickle.dump(y_obs, f)
+    return y_obs

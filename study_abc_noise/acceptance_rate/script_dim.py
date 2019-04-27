@@ -12,7 +12,7 @@ import scipy as sp
 import cloudpickle as pickle
 
 
-list_n_t = [4, 7, 10, 13, 16, 19, 22]
+list_n_t = [4, 7, 10, 13, 16, 19, 22, 25, 28]
 n_data = 1
 
 list_pdf_max = []

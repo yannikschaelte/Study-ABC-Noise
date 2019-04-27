@@ -1,10 +1,10 @@
 import pyabc
 import os
 import matplotlib.pyplot as plt
-from study_abc_noise.model import ConversionReactionModelVars
+from study_abc_noise.model import HodgkinHuxleyModelVars as ModelVars
 
 
-mv = ConversionReactionModelVars()
+mv = ModelVars()
 
 
 db_files = [f for f in os.listdir('.') if os.path.isfile(f) and "db_" in f]

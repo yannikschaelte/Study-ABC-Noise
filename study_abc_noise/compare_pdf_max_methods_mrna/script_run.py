@@ -21,11 +21,14 @@ from study_abc_noise.optimize import get_and_store_optimal_kernel_value
 
 
 n_rep = 10
+n_t = 10
+n_acc = 100
+noise_success_probability = 0.7
 
-mv = ModelVars()
+mv = ModelVars(n_acc=n_acc, n_t=n_t, noise_success_probability=noise_success_probability)
 y_obs = get_data(mv, 0)
-optimal_pdf_max = get_and_store_optimal_kernel_value(mv, y_obs, 0)
-print(optimal_pdf_max)
+# optimal_pdf_max = get_and_store_optimal_kernel_value(mv, y_obs, 0)
+# print(optimal_pdf_max)
 pdf_maxs = [None, None]
 pdf_max_methods = [pyabc.acceptor.pdf_max_take_max_found,
                 pyabc.acceptor.pdf_max_take_from_kernel]
@@ -42,7 +45,7 @@ for pdf_max, pdf_max_method, id_ in zip(pdf_maxs, pdf_max_methods, ids):
     list_analysis_vars.append(
         AnalysisVars(
             get_acceptor=lambda acceptor=acceptor: acceptor, id_=id_))
-    mv = ConversionReactionModelVars()
+    mv = ModelVars(n_acc=n_acc, n_t=n_t, noise_success_probability=noise_success_probability)
     mv.pdf_max = pdf_max
     list_model_vars.append(mv)
 
@@ -56,6 +59,6 @@ for task in tasks:
     task.execute()
 
 # save pdf_maxs
-pdf_maxs = tasks[2].acceptor.pdf_maxs
+pdf_maxs = tasks[1].acceptor.pdf_maxs
 with open("pdf_maxs.dat", 'wb') as f:
     pickle.dump(pdf_maxs, f)

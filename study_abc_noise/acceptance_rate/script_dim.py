@@ -12,7 +12,7 @@ import scipy as sp
 import cloudpickle as pickle
 
 
-list_n_t = [5, 10, 15, 20, 25, 30]
+list_n_t = [4, 7, 10, 13, 16, 19, 22]
 n_data = 1
 
 list_pdf_max = []
@@ -69,4 +69,4 @@ for n_t in list_n_t:
 with open("dim.dat", 'wb') as f:
     pickle.dump([list_pdf_max, list_pdf_max_min,
                  list_acc_rate_prior, list_acc_rate_prior_min,
-                 list_acc_rate_posterior, list_Acc_rate_posterior_min], f)
+                 list_acc_rate_posterior, list_acc_rate_posterior_min], f)

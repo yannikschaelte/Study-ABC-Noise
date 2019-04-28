@@ -58,10 +58,14 @@ class HodgkinHuxleyModelVars(ModelVars):
         model = self.get_model()
         def model_noisy(p):
             ret = model(p)
-            # ret['Na'] += self.noise_std * np.random.randn(10001)
-            ret['K'] += self.noise_std * np.random.randn(self.n_t)
+            ret = self.add_noise(ret)
             return ret
         return model_noisy
+
+    
+    def add_noise(self, ret):
+        ret['K'] += self.noise_std * np.random.randn(self.n_t)
+        return ret
 
     @staticmethod
     def install_model():

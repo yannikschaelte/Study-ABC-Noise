@@ -41,6 +41,9 @@ with open("pdf_maxs.dat", 'rb') as f:
 with open("optimal_pdf_max.dat", 'rb') as f:
     optimal_pdf_max = pickle.load(f)
 _, ax = plt.subplots()
-ax.plot(pdf_maxs.keys(), pdf_maxs.values())
-ax.axhline(optimal_pdf_max)
+ax.plot(pdf_maxs.keys(), pdf_maxs.values(), label='estimate')
+ax.axhline(optimal_pdf_max, color='C2', label='true value')
+ax.set_ylabel("c estimate")
+ax.set_xlabel("Population index")
+ax.legend()
 plt.savefig("pdf_maxs.png")

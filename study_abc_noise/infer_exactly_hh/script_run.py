@@ -13,7 +13,8 @@ for acceptor, id_ in [
             temp_schemes=[
                 pyabc.acceptor.scheme_acceptance_rate,
                 pyabc.acceptor.scheme_exponential_decay],
-            pdf_max_method=pyabc.acceptor.pdf_max_take_max_found),
+            #pdf_max_method=pyabc.acceptor.pdf_max_take_max_found
+            ),
             "stochastic_acceptor"),
         (pyabc.UniformAcceptor(), "deterministic"),
         (pyabc.UniformAcceptor(), "noisy_model")]:

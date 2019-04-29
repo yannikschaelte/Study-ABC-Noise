@@ -4,7 +4,7 @@ from study_abc_noise.model import HodgkinHuxleyModelVars as ModelVars
 from study_abc_noise.vars import AnalysisVars, Task
 
 
-mv = ModelVars(n_acc=100, n_t=100)
+mv = ModelVars(n_acc=100)
 
 # create analysis settings
 list_analysis_vars = []

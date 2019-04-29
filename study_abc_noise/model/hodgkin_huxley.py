@@ -15,14 +15,14 @@ executable = os.path.join(model_folder, "ModelDBFolder", "HH_run")
 
 class HodgkinHuxleyModelVars(ModelVars):
 
-    def __init__(self, p_true = None, n_acc=100):
+    def __init__(self, p_true: dict = None, n_acc: int = 100, n_t: int = 50):
         if p_true is None:
             p_true = {'dc': 20, 'membrane_dim': 10}
         super().__init__(p_true = p_true, n_acc=n_acc)
         self.noise_std = 0.05
         self.limits = {'dc': (2, 30), 'membrane_dim': (1, 12)}
         self.time_steps = 10001
-        self.n_t = 50
+        self.n_t = n_t
     
     def get_obs_times(self):
         return [int(i) for i in np.linspace(0, self.time_steps - 1, self.n_t)]

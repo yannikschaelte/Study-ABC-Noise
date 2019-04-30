@@ -15,7 +15,7 @@ from study_abc_noise.model import ConversionReactionModelVars
 from study_abc_noise.vars import AnalysisVars, Task
 
 
-mv = ConversionReactionModelVars(n_t=1000)
+mv = ConversionReactionModelVars(n_t=100)
 
 # create analysis settings
 list_analysis_vars = []

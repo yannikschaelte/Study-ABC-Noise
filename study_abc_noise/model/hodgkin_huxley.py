@@ -15,11 +15,12 @@ executable = os.path.join(model_folder, "ModelDBFolder", "HH_run")
 
 class HodgkinHuxleyModelVars(ModelVars):
 
-    def __init__(self, p_true: dict = None, n_acc: int = 100, n_t: int = 50):
+    def __init__(self, p_true: dict = None, n_acc: int = 100, n_t: int = 50,
+                 noise_std: float = 0.05):
         if p_true is None:
             p_true = {'dc': 20, 'membrane_dim': 10}
         super().__init__(p_true = p_true, n_acc=n_acc)
-        self.noise_std = 0.05
+        self.noise_std = noise_std
         self.limits = {'dc': (2, 30), 'membrane_dim': (1, 12)}
         self.time_steps = 10001
         self.n_t = n_t
@@ -44,7 +45,8 @@ class HodgkinHuxleyModelVars(ModelVars):
         kernel = pyabc.distance.IndependentNormalKernel(
             mean=np.zeros(self.n_t),
             var=self.noise_std**2 * np.ones(self.n_t),
-            pdf_max=self.pdf_max)
+            pdf_max=self.pdf_max,
+            keys=['K'])
         return kernel
 
     def get_model(self):
@@ -61,7 +63,6 @@ class HodgkinHuxleyModelVars(ModelVars):
             ret = self.add_noise(ret)
             return ret
         return model_noisy
-
     
     def add_noise(self, ret):
         ret['K'] += self.noise_std * np.random.randn(self.n_t)
@@ -86,7 +87,7 @@ def simulate(model=2, membrane_dim=10, time_steps=1e4, time_step_size=0.01,
              isi=100, dc=20, noise=0, sine_amplitude=0, sine_frequency=0,
              voltage_clamp=0, data_to_print=1, rng_seed=None):
     """
-    Simulate the SDE ion channel model defined in a nexternal fortran
+    Simulate the SDE ion channel model defined in an external fortran
     simulator.
 
     Returns

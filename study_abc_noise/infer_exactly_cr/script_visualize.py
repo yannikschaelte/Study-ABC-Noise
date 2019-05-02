@@ -34,3 +34,6 @@ for h, label in zip(histories, labels):
         df, w = h.get_distribution(t=t)
         pyabc.visualization.plot_kde_matrix(df, w, refval=gt_par, limits=mv.limits)
         plt.savefig(f"kde_{label}_{t}.png")
+        plt.close()
+pyabc.visualization.plot_effective_sample_sizes(histories, labels)
+plt.savefig("ess.png")

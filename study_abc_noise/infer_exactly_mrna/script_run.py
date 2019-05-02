@@ -16,23 +16,28 @@ from study_abc_noise.util import create_sampler, get_timestamp
 from study_abc_noise.vars import AnalysisVars, Task
 
 
-mv = ModelVars(n_acc=100, n_t=10, noise_success_probability=0.7)
+mv = ModelVars(n_acc=100, n_t=50, noise_success_probability=0.7)
+#mv.pdf_max = -155
 
 # create analysis settings
 list_analysis_vars = []
 for acceptor, id_ in [
-        (pyabc.UniformAcceptor(), "deterministic"),
-        (pyabc.UniformAcceptor(), "noisy_model"),
         (pyabc.StochasticAcceptor(
             temp_schemes=[
                 pyabc.acceptor.scheme_acceptance_rate,
-                pyabc.acceptor.scheme_decay],
-        #    pdf_max_method=pyabc.acceptor.pdf_max_take_max_found
-        ),
-         "stochastic_acceptor")]:
+                pyabc.acceptor.scheme_exponential_decay],
+            pdf_max_method=pyabc.acceptor.pdf_max_take_max_found
+        ), "stochastic_acceptor_ada_c"),
+        (pyabc.StochasticAcceptor(
+            temp_schemes=[
+                pyabc.acceptor.scheme_acceptance_rate,
+                pyabc.acceptor.scheme_exponential_decay],
+        ), "stochastic_acceptor"),
+        (pyabc.UniformAcceptor(), "deterministic"),
+        (pyabc.UniformAcceptor(), "noisy_model"),]:
     list_analysis_vars.append(
         AnalysisVars(
-            get_acceptor=lambda acceptor=acceptor: acceptor, min_acc_rate=1e-5, id_=id_))
+            get_acceptor=lambda acceptor=acceptor: acceptor, min_acc_rate=1e-8, id_=id_))
 
 # create tasks
 tasks = []

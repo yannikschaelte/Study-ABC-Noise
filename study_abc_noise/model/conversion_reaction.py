@@ -5,12 +5,16 @@ import pyabc
 import matplotlib.pyplot as plt
 
 
+P0_TRUE = 0.06
+P1_TRUE = 0.08
+
+
 class ConversionReactionModelVars(ModelVars):
 
     def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30,
                  n_pop: int = None):
         if p_true is None:
-            p_true = {'p0': 0.06, 'p1': 0.08}
+            p_true = {'p0': P0_TRUE, 'p1': P1_TRUE}
         super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop)
         self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4)}
         self.noise_std = 0.02
@@ -98,9 +102,10 @@ class ConversionReaction1dModelVars(ConversionReactionModelVars):
     def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30,
                  n_pop: int = 10):
         if p_true is None:
-            p_true = {'p0': 0.06}
+            p_true = {'p0': P0_TRUE}
         super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop)
-        self.limits = {'p0': (0, 0.1)}
+        # just assume a narrow prior
+        self.limits = {'p0': (0.053, 0.066)}
 
 
 class ConversionReactionUVarModelVars(ConversionReactionModelVars):
@@ -247,11 +252,31 @@ def get_posterior_normalization(posterior_unscaled, model_vars):
     return posterior_normalization
 
 
+def get_posterior_normalization_1d(posterior_unscaled, model_vars):
+    limits = model_vars.limits
+    posterior_normalization = sp.integrate.quad(
+        lambda x: posterior_unscaled([x]),
+        limits['p0'][0], limits['p0'][1])[0]
+    print(f"Normalization: {posterior_normalization}")
+    return posterior_normalization
+
+
 def get_posterior_scaled(model_vars, y_obs):
     posterior_unscaled = get_posterior_unscaled(model_vars, y_obs)
     posterior_normalization = get_posterior_normalization(
         posterior_unscaled, model_vars)
     
+    def posterior_scaled(p):
+        return posterior_unscaled(p) / posterior_normalization
+
+    return posterior_scaled
+
+
+def get_posterior_scaled_1d(model_vars, y_obs):
+    posterior_unscaled = get_posterior_unscaled(model_vars, y_obs)
+    posterior_normalization = get_posterior_normalization_1d(
+        posterior_unscaled, model_vars)
+
     def posterior_scaled(p):
         return posterior_unscaled(p) / posterior_normalization
 

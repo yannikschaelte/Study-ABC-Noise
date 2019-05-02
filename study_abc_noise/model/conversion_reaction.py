@@ -7,10 +7,11 @@ import matplotlib.pyplot as plt
 
 class ConversionReactionModelVars(ModelVars):
 
-    def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30):
+    def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30,
+                 n_pop: int = None):
         if p_true is None:
             p_true = {'p0': 0.06, 'p1': 0.08}
-        super().__init__(p_true = p_true, pdf_max = pdf_max)
+        super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop)
         self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4)}
         self.noise_std = 0.02
         self.noise_model = np.random.randn
@@ -92,6 +93,16 @@ class ConversionReactionModelVars(ModelVars):
         return ax
 
 
+class ConversionReaction1dModelVars(ConversionReactionModelVars):
+
+    def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30,
+                 n_pop: int = 10):
+        if p_true is None:
+            p_true = {'p0': 0.06}
+        super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop)
+        self.limits = {'p0': (0, 0.1)}
+
+
 class ConversionReactionUVarModelVars(ConversionReactionModelVars):
 
     def __init__(self, pdf_max=None):
@@ -135,8 +146,8 @@ def x(p, x0, ts):
     States via analytic solution of ODE.
     Returns an array of shape n_x * n_t.
     """
-    p0 = p['p0']
-    p1 = p['p1']
+    p0 = p.get('p0', 0.06)
+    p1 = p.get('p1', 0.08)
     n_t = len(ts)
     sol = np.zeros((2, n_t))
     for ix, t in enumerate(ts):

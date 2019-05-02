@@ -11,7 +11,7 @@ logger.setLevel(logging.DEBUG)
 
 def create_sampler():
     # return pyabc.sampler.SingleCoreSampler()
-    return pyabc.sampler.MulticoreEvalParallelSampler(n_procs=40)
+    return pyabc.sampler.MulticoreEvalParallelSampler(n_procs=20)
 
 
 def get_timestamp():

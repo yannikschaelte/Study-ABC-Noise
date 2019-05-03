@@ -26,7 +26,7 @@ class MRNATranscriptionModelVars(ModelVars):
         self.n_t = n_t
         self.t_max = t_max
         self.output = ssa.output.ArrayOutput(
-                np.linspace(0, self.t_max, self.n_t))
+            np.linspace(0, self.t_max, self.n_t))
         self.x0 = np.array([0])
         self.noise_success_probability = noise_success_probability
 
@@ -76,7 +76,3 @@ class MRNATranscriptionModelVars(ModelVars):
             y['mrna'] = successes
             return y
         return model_noisy
-
-    def generate_data(self):
-        y = self.get_model_noisy()(self.p_true)
-        return y

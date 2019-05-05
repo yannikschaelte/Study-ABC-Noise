@@ -38,10 +38,11 @@ plt.savefig("samples.png")
 pyabc.visualization.plot_epsilons(histories, labels, scale="log10")
 plt.savefig("epsilons.png")
 for h, label in zip(histories, labels):
-    pyabc.visualization.plot_histogram_1d(h, 'p0', xmin=mv.limits['p0'][0], xmax=mv.limits['p0'][1], bins=40)
-    plt.plot(xs, true_vals, color='C4', label="True posterior")
-    plt.legend()
-    plt.savefig("hist_" + label + ".png")
+    for t in range(h.max_t + 1):
+        pyabc.visualization.plot_histogram_1d(h, 'p0', t=t, xmin=mv.limits['p0'][0], xmax=mv.limits['p0'][1], bins=40)
+        plt.plot(xs, true_vals, color='C4', label="True posterior")
+        plt.legend()
+        plt.savefig(f"hist_true_{label}_{t}.png")
     for t in range(h.max_t + 1):
         df, w = h.get_distribution(t=t)
         pyabc.visualization.plot_kde_1d(df, w, 'p0', xmin=mv.limits['p0'][0], xmax=mv.limits['p0'][1])

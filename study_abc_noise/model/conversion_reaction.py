@@ -100,7 +100,7 @@ class ConversionReactionModelVars(ModelVars):
 class ConversionReaction1dModelVars(ConversionReactionModelVars):
 
     def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30,
-                 n_pop: int = 10):
+                 n_pop: int = 15):
         if p_true is None:
             p_true = {'p0': P0_TRUE}
         super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop)

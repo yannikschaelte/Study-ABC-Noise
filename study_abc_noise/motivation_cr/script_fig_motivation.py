@@ -2,6 +2,7 @@ import pyabc
 import os
 import matplotlib.pyplot as plt
 from study_abc_noise.model.conversion_reaction import *
+from study_abc_noise.read_pickle_file import read_pickle_file
 
 mv = ConversionReaction1dModelVars()
 
@@ -15,15 +16,23 @@ labels = ['No noise, l2 distance',
 
 histories = [pyabc.History("sqlite:///" + f) for f in db_files]
 
-pyabc.visualization.plot_epsilons(histories, labels, scale='log10', size=(9, 6))
+# plot epsilons
+ax_epsilons = pyabc.visualization.plot_epsilons(histories, labels, scale='log10', size=(9, 6))
 plt.savefig("fig_epsilons.png")
 
+# find correct values
 y_file = [f for f in os.listdir('data')][0]
 y_obs = read_pickle_file("data/" + y_file)
 posterior_scaled = get_posterior_scaled_1d(mv, y_obs)
-xs = np.linspace(mv.limits['p0'][0], mv.limits['p0'][1]))
+xs = np.linspace(mv.limits['p0'][0], mv.limits['p0'][1], 200)
+true_vals = [posterior_scaled([x]) for x in xs]
 
-for history, label in zip(histories, labels):
-    pyabc.visualization.plot_histogram_1d(
-        history, 'p0', xmin=mv.limits['p0'][0], xmax=mv.limits['p0'][1], size=(3, 2))
-    plt.savefig(f"fig_hist_{label}.png")
+# plot histories
+axes_hist = []
+for i, (history, label) in enumerate(zip(histories, labels)):
+    ax = pyabc.visualization.plot_histogram_1d(
+        history, 'p0', xmin=mv.limits['p0'][0], xmax=mv.limits['p0'][1],
+        size=(3, 2), bins=40)
+    plt.plot(xs, true_vals, color='C4', label="True posterior")
+    axes_hist.append(ax)
+    plt.savefig(f"fig_hist_{i}.png")

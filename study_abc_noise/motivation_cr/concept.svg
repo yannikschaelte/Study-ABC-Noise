@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="334.39612mm"
-   height="162.99551mm"
-   viewBox="0 0 334.39608 162.99551"
+   width="351.35699mm"
+   height="170.3252mm"
+   viewBox="0 0 351.35695 170.3252"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (33fec40, 2019-01-16)"
@@ -976,16 +976,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="524.11953"
-     inkscape:cy="194.14046"
+     inkscape:zoom="0.35"
+     inkscape:cx="258.37482"
+     inkscape:cy="614.62558"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1866"
-     inkscape:window-height="1016"
+     inkscape:window-height="1163"
      inkscape:window-x="54"
-     inkscape:window-y="27"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -997,7 +997,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1005,309 +1005,341 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(52.494721,-265.76086)">
+     transform="translate(69.455594,-260.89657)"
+     style="stroke-linecap:butt;stroke-linejoin:round">
     <g
        id="surface1"
-       transform="matrix(1.064271,0,0,1.064271,-357.28988,197.80207)">
+       transform="matrix(1.064271,0,0,1.064271,-368.40245,197.80207)"
+       style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="g864"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use862"
            y="146.72"
            x="287.13599"
            xlink:href="#glyph0-1"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g868"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use866"
            y="146.72"
            x="294.85699"
            xlink:href="#glyph1-1"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g872"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use870"
            y="146.72"
            x="305.37299"
            xlink:href="#glyph0-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g876"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use874"
            y="146.72"
            x="311.409"
            xlink:href="#glyph2-1"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g880"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use878"
            y="146.72"
            x="315.284"
            xlink:href="#glyph0-1"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g884"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use882"
            y="146.72"
            x="320.237"
            xlink:href="#glyph2-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
     </g>
     <g
        id="surface1-9"
-       transform="matrix(1.064271,0,0,1.064271,-142.94324,197.3124)">
+       transform="matrix(1.064271,0,0,1.064271,-142.94324,197.3124)"
+       style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="g968"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use966"
            y="146.72"
            x="277.11301"
            xlink:href="#glyph0-1-6"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g972"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use970"
            y="146.72"
            x="282.29901"
            xlink:href="#glyph1-1-3"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g976"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use974"
            y="146.72"
            x="286.173"
            xlink:href="#glyph0-2-7"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g984"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use978"
            y="148.214"
            x="290.806"
            xlink:href="#glyph2-1-6"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
         <use
            id="use980"
            y="148.214"
            x="294.77759"
            xlink:href="#glyph2-2-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
         <use
            id="use982"
            y="148.214"
            x="299.17804"
            xlink:href="#glyph2-3"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g988"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use986"
            y="146.72"
            x="302.832"
            xlink:href="#glyph0-3"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g992"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use990"
            y="146.72"
            x="307.26337"
            xlink:href="#glyph0-2-7"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g996"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use994"
            y="146.72"
            x="312.33099"
            xlink:href="#glyph1-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1000"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use998"
            y="146.72"
            x="318.97299"
            xlink:href="#glyph0-4"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1004"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1002"
            y="146.72"
            x="329.49152"
            xlink:href="#glyph0-5"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
     </g>
     <g
        id="surface1-92"
-       transform="matrix(1.064271,0,0,1.064271,-161.69627,261.46351)">
+       transform="matrix(1.064271,0,0,1.064271,-161.69627,261.46351)"
+       style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="g1127"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1125"
            y="143.233"
            x="260.05099"
            xlink:href="#glyph0-1-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1131"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1129"
            y="143.233"
            x="266.08701"
            xlink:href="#glyph1-1-6"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1135"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1133"
            y="143.233"
            x="269.96201"
            xlink:href="#glyph0-2-70"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1143"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1137"
            y="144.72701"
            x="274.595"
            xlink:href="#glyph2-1-1"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
         <use
            id="use1139"
            y="144.72701"
            x="278.56659"
            xlink:href="#glyph2-2-8"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
         <use
            id="use1141"
            y="144.72701"
            x="282.96704"
            xlink:href="#glyph2-3-7"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1147"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1145"
            y="143.233"
            x="286.621"
            xlink:href="#glyph3-1"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1151"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1149"
            y="143.233"
            x="289.388"
            xlink:href="#glyph0-3-9"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1155"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1153"
            y="143.233"
            x="294.63132"
            xlink:href="#glyph0-4-3"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1159"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1157"
            y="143.233"
            x="299.06268"
            xlink:href="#glyph0-5-6"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1163"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1161"
            y="143.233"
            x="304.01099"
            xlink:href="#glyph1-2-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <path
          id="path1165"
@@ -1317,413 +1349,453 @@
          inkscape:connector-curvature="0" />
       <g
          id="g1169"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1167"
            y="156.80701"
            x="281.81299"
            xlink:href="#glyph0-6"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1173"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1171"
            y="149.97301"
            x="311.849"
            xlink:href="#glyph0-7"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1177"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1175"
            y="149.97301"
            x="322.36752"
            xlink:href="#glyph0-8"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1183"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1179"
            y="149.97301"
            x="330.25299"
            xlink:href="#glyph1-1-6"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
         <use
            id="use1181"
            y="149.97301"
            x="334.12744"
            xlink:href="#glyph1-3"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1187"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1185"
            y="149.97301"
            x="339.10901"
            xlink:href="#glyph0-4-3"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1193"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1189"
            y="149.97301"
            x="343.53699"
            xlink:href="#glyph1-4"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
         <use
            id="use1191"
            y="149.97301"
            x="348.51831"
            xlink:href="#glyph1-2-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
     </g>
     <g
        id="surface1-94"
        transform="matrix(1.064271,0,0,1.064271,-143.03369,138.07726)"
        inkscape:transform-center-x="-34.208701"
-       inkscape:transform-center-y="63.856254">
+       inkscape:transform-center-y="63.856254"
+       style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="g1327"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1325"
            y="146.72"
            x="277.02802"
            xlink:href="#glyph0-1-23"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1331"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1329"
            y="146.72"
            x="282.21301"
            xlink:href="#glyph1-1-36"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1335"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1333"
            y="146.72"
            x="286.08801"
            xlink:href="#glyph0-2-75"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1343"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1337"
            y="148.214"
            x="290.72101"
            xlink:href="#glyph2-1-9"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
         <use
            id="use1339"
            y="148.214"
            x="294.69257"
            xlink:href="#glyph2-2-3"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
         <use
            id="use1341"
            y="148.214"
            x="299.09305"
            xlink:href="#glyph2-3-1"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1347"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1345"
            y="146.72"
            x="302.74701"
            xlink:href="#glyph0-3-92"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1351"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1349"
            y="146.72"
            x="307.17838"
            xlink:href="#glyph0-4-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1355"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1353"
            y="146.72"
            x="312.41599"
            xlink:href="#glyph1-2-1"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1359"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1357"
            y="146.72"
            x="319.05801"
            xlink:href="#glyph0-5-8"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1363"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1361"
            y="146.72"
            x="329.57651"
            xlink:href="#glyph0-6-9"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
     </g>
     <g
        id="surface1-6"
-       transform="matrix(1.064271,0,0,1.064271,-295.34366,197.80207)">
+       transform="matrix(1.064271,0,0,1.064271,-295.34366,197.80207)"
+       style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="g1461"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1459"
            y="146.72"
            x="281.60901"
            xlink:href="#glyph0-1-8"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1465"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1463"
            y="146.72"
            x="289.61801"
            xlink:href="#glyph1-1-61"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1469"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1467"
            y="146.72"
            x="300.13501"
            xlink:href="#glyph0-2-4"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1473"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1471"
            y="146.72"
            x="306.17099"
            xlink:href="#glyph2-1-2"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1477"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1475"
            y="146.72"
            x="310.04501"
            xlink:href="#glyph0-3-5"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1481"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1479"
            y="146.72"
            x="318.043"
            xlink:href="#glyph1-2-0"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1485"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1483"
            y="146.72"
            x="320.811"
            xlink:href="#glyph0-4-0"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1489"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1487"
            y="146.72"
            x="325.76401"
            xlink:href="#glyph2-2-0"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
     </g>
     <g
        id="surface1-4"
-       transform="matrix(1.064271,0,0,1.064271,-221.79444,197.80207)">
+       transform="matrix(1.064271,0,0,1.064271,-221.79444,197.80207)"
+       style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="g1583"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1581"
            y="146.72"
            x="277.10199"
            xlink:href="#glyph0-1-5"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1587"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1585"
            y="146.72"
            x="284.94"
            xlink:href="#glyph1-1-5"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1591"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1589"
            y="146.72"
            x="295.457"
            xlink:href="#glyph0-2-47"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1595"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1593"
            y="146.72"
            x="301.49301"
            xlink:href="#glyph2-1-7"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1599"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1597"
            y="146.72"
            x="305.367"
            xlink:href="#glyph0-3-6"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1603"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1601"
            y="146.72"
            x="312.88101"
            xlink:href="#glyph1-2-25"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1607"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1605"
            y="146.72"
            x="315.64801"
            xlink:href="#glyph0-4-5"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1611"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1609"
            y="146.72"
            x="320.89133"
            xlink:href="#glyph0-5-69"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1615"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1613"
            y="146.72"
            x="325.32269"
            xlink:href="#glyph0-6-3"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
       <g
          id="g1619"
-         style="fill:#000000;fill-opacity:1">
+         style="fill:#000000;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round">
         <use
            id="use1617"
            y="146.72"
            x="330.272"
            xlink:href="#glyph2-2-4"
            width="100%"
-           height="100%" />
+           height="100%"
+           style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
     </g>
     <g
        id="figure_1"
-       transform="matrix(0.30496666,0,0,0.30496666,216.02859,265.76086)"
+       transform="matrix(0.30496666,0,0,0.30496666,216.02859,260.89657)"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="patch_1"
@@ -2151,7 +2223,7 @@
     </g>
     <g
        id="figure_1-3"
-       transform="matrix(0.30496666,0,0,0.30496666,216.02859,320.36025)"
+       transform="matrix(0.30496666,0,0,0.30496666,216.02859,321.1747)"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="patch_1-0"
@@ -2579,7 +2651,7 @@
     </g>
     <g
        id="figure_1-1"
-       transform="matrix(0.30496666,0,0,0.30496666,216.02859,384.84117)"
+       transform="matrix(0.30496666,0,0,0.30496666,216.02859,387.30657)"
        style="stroke-linecap:butt;stroke-linejoin:round">
       <g
          id="patch_1-7"
@@ -3008,72 +3080,72 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
-       x="-52.762405"
-       y="336.57843"
+       x="-63.874916"
+       y="338.69513"
        id="text2374"><tspan
          sodipodi:role="line"
          id="tspan2372"
          style="font-size:4.93888903px;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
-         x="-52.762405"
-         y="336.57843">sample parameters</tspan></text>
+         x="-63.874916"
+         y="338.69513">sample parameters</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
        x="14.895301"
-       y="337.0571"
+       y="339.1738"
        id="text2378"><tspan
          sodipodi:role="line"
          id="tspan2376"
          style="font-size:4.93888903px;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
          x="14.895301"
-         y="337.0571">simulate model</tspan></text>
+         y="339.1738">simulate model</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
        x="84.820923"
-       y="337.0571"
+       y="339.1738"
        id="text2382"><tspan
          sodipodi:role="line"
          id="tspan2380"
          style="font-size:4.93888903px;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
          x="84.820923"
-         y="337.0571">simulate noise</tspan></text>
+         y="339.1738">simulate noise</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
        x="166.54607"
-       y="278.20645"
+       y="280.32315"
        id="text2386"><tspan
          sodipodi:role="line"
          id="tspan2384"
          style="font-size:4.93888903px;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
          x="166.54607"
-         y="278.20645">A1: Uniform kernel</tspan></text>
+         y="280.32315">A1: Uniform kernel</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
        x="172.44958"
-       y="336.79282"
+       y="338.90952"
        id="text2390"><tspan
          sodipodi:role="line"
          id="tspan2388"
          style="font-size:4.93888903px;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
          x="172.44958"
-         y="336.79282">A2: Noisy model</tspan></text>
+         y="338.90952">A2: Noisy model</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
        x="165.10878"
-       y="397.7226"
+       y="400.89764"
        id="text2394"><tspan
          sodipodi:role="line"
          id="tspan2392"
          style="font-size:4.93888903px;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round"
          x="165.10878"
-         y="397.7226">A3: Modified kernel</tspan></text>
+         y="400.89764">A3: Modified kernel</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
-       d="M -10.312581,350.70221 H 1.0267014"
+       d="M -10.769559,346.64575 H -0.03163176"
        id="path2400"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
@@ -3081,25 +3153,73 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3796"
-       d="M 56.891616,350.70221 H 68.230905"
+       d="M 59.008284,346.64575 H 69.078043"
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3800)" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4598)"
-       d="m 134.67936,350.70221 h 11.33935"
+       d="m 135.19779,346.64575 h 12.00753"
        id="path4594"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4598-4)"
-       d="m 57.11837,359.78325 53.67268,43.84524"
+       d="m 57.615417,364.89935 54.120573,42.13093"
        id="path4594-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4598-6)"
-       d="M 55.984441,341.6404 147.07677,294.39338"
+       d="M 57.615417,328.99683 147.07677,290.80261"
        id="path4594-1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
+    <rect
+       style="fill:none;stroke:#c7c7ca;stroke-width:1.005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1475"
+       width="101.83062"
+       height="35.902523"
+       x="114.19797"
+       y="394.81674"
+       ry="3.0238094" />
+    <rect
+       style="fill:none;stroke:#c7c7ca;stroke-width:1.005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1475-3"
+       width="66.283791"
+       height="35.902527"
+       x="149.7448"
+       y="328.68488"
+       ry="3.0238094" />
+    <rect
+       style="fill:none;stroke:#c7c7ca;stroke-width:1.005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1475-3-6"
+       width="66.283791"
+       height="35.902527"
+       x="149.7448"
+       y="268.40674"
+       ry="3.0238094" />
+    <rect
+       style="fill:none;stroke:#c7c7ca;stroke-width:1.005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1475-3-7"
+       width="57.196648"
+       height="35.902496"
+       x="-68.953094"
+       y="328.68488"
+       ry="3.0238094" />
+    <rect
+       style="fill:none;stroke:#c7c7ca;stroke-width:1.005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1475-3-5"
+       width="55.325733"
+       height="35.902527"
+       x="2.2896852"
+       y="328.68488"
+       ry="3.0238094" />
+    <rect
+       style="fill:none;stroke:#c7c7ca;stroke-width:1.005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1475-3-3"
+       width="62.274738"
+       height="35.902527"
+       x="71.819336"
+       y="328.68488"
+       ry="3.0238094" />
   </g>
 </svg>

@@ -12,10 +12,10 @@ P1_TRUE = 0.08
 class ConversionReactionModelVars(ModelVars):
 
     def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30,
-                 n_pop: int = None):
+                 n_pop: int = None, n_acc: int = None):
         if p_true is None:
             p_true = {'p0': P0_TRUE, 'p1': P1_TRUE}
-        super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop)
+        super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop, n_acc = n_acc)
         self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4)}
         self.noise_std = 0.02
         self.noise_model = np.random.randn
@@ -99,11 +99,12 @@ class ConversionReactionModelVars(ModelVars):
 
 class ConversionReaction1dModelVars(ConversionReactionModelVars):
 
-    def __init__(self, p_true = None, pdf_max = None, n_t: int = 10, t_max: float = 30,
+    def __init__(self, n_acc = 10000, p_true = None, pdf_max = None,
+                 n_t: int = 10, t_max: float = 30,
                  n_pop: int = 15):
         if p_true is None:
             p_true = {'p0': P0_TRUE}
-        super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop)
+        super().__init__(p_true = p_true, pdf_max = pdf_max, n_pop = n_pop, n_acc = n_acc)
         # just assume a narrow prior
         self.limits = {'p0': (0.053, 0.066)}
 

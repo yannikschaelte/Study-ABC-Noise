@@ -26,7 +26,6 @@ colors_h = ['C1', 'C2', 'C3']
 # plot epsilons
 pyabc.visualization.plot_epsilons(histories, labels, scale='log10', size=(9, 6), colors=colors_h, ax=ax_epsilons)
 
-
 # find correct values
 y_file = [f for f in os.listdir('data')][0]
 y_obs = read_pickle_file("data/" + y_file)
@@ -48,7 +47,15 @@ axes_h[0].set_ylabel("Density")
 lines = [Line2D([0], [0], color=color_truth)]
 axes_h[0].legend(lines, ["True posterior"])
 
+# add identifiers
+plt.figtext(0.0, 0.97, "A", size=16, weight='bold')
+plt.figtext(0.0, 0.48, "B", size=16, weight='bold')
+
+# finalize layout
 plt.gcf().set_size_inches((9, 6))
 plt.gcf().tight_layout()
-plt.savefig("motivation.png")
+
+# save
+plt.savefig("motivation.png", format='png')
+plt.savefig("motivation.eps", format='eps')
 

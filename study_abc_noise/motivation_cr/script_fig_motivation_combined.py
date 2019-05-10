@@ -7,7 +7,7 @@ from study_abc_noise.read_pickle_file import read_pickle_file
 
 mv = ConversionReaction1dModelVars()
 
-dir_ = 'results_20190506_t15/'
+dir_ = 'results_20190510_t15/'
 db_files = [dir_ + f for f in ['db_cr_10_0.02__deterministic__0__0.db',
                                'db_cr_10_0.02__deterministic_l1__0__0.db',
                                'db_cr_10_0.02__noisy_model__0__0.db']]

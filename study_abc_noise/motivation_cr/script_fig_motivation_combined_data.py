@@ -18,9 +18,9 @@ labels = ['No noise, l2 distance',
 histories = [pyabc.History("sqlite:///" + f) for f in db_files]
 
 
-ax_epsilons = plt.subplot2grid((2, 3), (1, 0), colspan=2)
-ax_data = plt.subplot2grid((2, 3), (1, 2))
-axes_h = [plt.subplot2grid((2, 3), (0, i)) for i in [0, 1, 2]]
+ax_epsilons = plt.subplot2grid((2, 3), (0, 0), colspan=2)
+ax_data = plt.subplot2grid((2, 3), (0, 2))
+axes_h = [plt.subplot2grid((2, 3), (1, i)) for i in [0, 1, 2]]
 color_truth = 'C0'
 colors_h = ['C1', 'C2', 'C3']
 
@@ -61,7 +61,8 @@ axes_h[0].legend(lines, ["True posterior"])
 
 # add identifiers
 plt.figtext(0.0, 0.97, "A", size=16, weight='bold')
-plt.figtext(0.0, 0.48, "B", size=16, weight='bold')
+plt.figtext(0.67, 0.97, "B", size=16, weight='bold')
+plt.figtext(0.0, 0.48, "C", size=16, weight='bold')
 
 # finalize layout
 plt.gcf().set_size_inches((9, 6))

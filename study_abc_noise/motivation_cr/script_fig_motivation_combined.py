@@ -18,8 +18,8 @@ labels = ['No noise, l2 distance',
 histories = [pyabc.History("sqlite:///" + f) for f in db_files]
 
 
-ax_epsilons = plt.subplot2grid((2, 3), (0, 0), colspan=3)
-axes_h = [plt.subplot2grid((2, 3), (1, i)) for i in [0, 1, 2]]
+ax_epsilons = plt.subplot2grid((2, 3), (1, 0), colspan=3)
+axes_h = [plt.subplot2grid((2, 3), (0, i)) for i in [0, 1, 2]]
 color_truth = 'C0'
 colors_h = ['C1', 'C2', 'C3']
 
@@ -40,7 +40,8 @@ for i, (history, label, color) in enumerate(zip(histories, labels, colors_h)):
         size=(3, 2), bins=40, ax=axes_h[i], color=color)
     axes_h[i].plot(xs, true_vals, color=color_truth, label="True posterior")
     axes_h[i].set_title(label)
-    axes_h[i].set_xlabel("Parameter $\\theta_0$")
+    axes_h[i].set_xlabel("")
+axes_h[1].set_xlabel("Parameter $\\theta$")
 
 axes_h[0].set_ylabel("Density")
 # create legend for hists
@@ -58,4 +59,5 @@ plt.gcf().tight_layout()
 # save
 plt.savefig("motivation.png", format='png')
 plt.savefig("motivation.eps", format='eps')
+plt.savefig("motivation.svg", format='svg')
 

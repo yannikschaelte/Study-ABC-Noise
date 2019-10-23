@@ -121,13 +121,14 @@ class Task(ABC):
         acceptor = analysis_vars.get_acceptor()
         transition = analysis_vars.get_transition()
         eps_min = analysis_vars.eps_min
+        eps = analysis_vars.get_eps()
         if isinstance(acceptor, pyabc.StochasticAcceptor):
-            eps = pyabc.NoEpsilon()
+            if not isinstance(eps, pyabc.Temperature):
+                eps = pyabc.Temperature()
             model = model_vars.get_model()
             distance = model_vars.get_kernel()
             eps_min = 1.0
         else:
-            eps = analysis_vars.get_eps()
             model = model_vars.get_model_noisy()
             distance = model_vars.get_distance()
         prior = model_vars.get_prior()

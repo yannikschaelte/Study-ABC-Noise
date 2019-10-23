@@ -22,11 +22,7 @@ list_analysis_vars = []
 for acceptor, id_ in [
         (pyabc.UniformAcceptor(), "deterministic"),
         (pyabc.UniformAcceptor(), "noisy_model"),
-        (pyabc.StochasticAcceptor(
-            temp_schemes=[
-                pyabc.acceptor.scheme_acceptance_rate,
-                pyabc.acceptor.scheme_exponential_decay]),
-            "stochastic_acceptor")]:
+        (pyabc.StochasticAcceptor(), "stochastic_acceptor")]:
     list_analysis_vars.append(
         AnalysisVars(
             get_acceptor=lambda acceptor=acceptor: acceptor, id_=id_))

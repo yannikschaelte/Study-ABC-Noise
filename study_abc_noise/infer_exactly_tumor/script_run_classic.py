@@ -17,13 +17,14 @@ limits = dict(log_division_rate=(-3, -1),
 prior = pyabc.Distribution(**{key: pyabc.RV("uniform", a, b - a)
                               for key, (a,b) in limits.items()})
 
-acceptor = pyabc.StochasticAcceptor()
-temperature = pyabc.Temperature()
-kernel = pyabc.IndependentNormalKernel(keys=keys, var=noise_vector**2)
+#acceptor = pyabc.StochasticAcceptor()
+#temperature = pyabc.Temperature()
+#kernel = pyabc.IndependentNormalKernel(keys=keys, var=noise_vector**2)
 
-sampler = pyabc.RedisEvalParallelSampler(host="icb-mona", port=8775)
+sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8776)
 
-abc = pyabc.ABCSMC(tumor2d.log_model, prior, tumor2d.distance, sampler=sampler)
+abc = pyabc.ABCSMC(tumor2d.log_model, prior, tumor2d.distance, sampler=sampler,
+                   population_size=500)
 db_path="sqlite:///tumor2d_incorrect.db"
 abc.new(db_path, noisy_data)
 abc.run()

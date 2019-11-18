@@ -1,6 +1,14 @@
 import pyabc
 import tumor2d
 import pickle
+import logging
+
+df_logger = logging.getLogger('Distance')
+df_logger.setLevel(logging.DEBUG)
+df_logger = logging.getLogger('Acceptor')
+df_logger.setLevel(logging.DEBUG)
+df_logger = logging.getLogger('Epsilon')
+df_logger.setLevel(logging.DEBUG)
 
 noisy_data = pickle.load(open("noisy_data.dat", "rb"))
 noise_vector = pickle.load(open("noise_vector.dat", "rb"))
@@ -21,10 +29,10 @@ acceptor = pyabc.StochasticAcceptor()
 temperature = pyabc.Temperature()
 kernel = pyabc.IndependentNormalKernel(keys=keys, var=noise_vector**2)
 
-sampler = pyabc.RedisEvalParallelSampler(host="icb-mona", port=8775)
+sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8775)
 
 abc = pyabc.ABCSMC(tumor2d.log_model, prior, kernel, sampler=sampler,
-                   acceptor=acceptor, eps=temperature)
+                   acceptor=acceptor, eps=temperature, population_size=500)
 db_path="sqlite:///tumor2d_stoch_acc.db"
 abc.new(db_path, noisy_data)
 abc.run()

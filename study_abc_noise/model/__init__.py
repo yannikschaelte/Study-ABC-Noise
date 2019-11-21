@@ -5,3 +5,4 @@ from .conversion_reaction import (ConversionReactionModelVars,
 from .non_id_able import NonIdAbleModelVars, NonIdAblePrioredModelVars
 from .mrna_transcription import MRNATranscriptionModelVars
 from .hodgkin_huxley import HodgkinHuxleyModelVars
+from .dimerization import DimerizationModelVars

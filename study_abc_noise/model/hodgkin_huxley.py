@@ -6,6 +6,7 @@ import subprocess
 from io import BytesIO
 import numpy as np
 import pandas as pd
+import copy
 import pyabc
 
 
@@ -16,7 +17,7 @@ executable = os.path.join(model_folder, "ModelDBFolder", "HH_run")
 class HodgkinHuxleyModelVars(ModelVars):
 
     def __init__(self, p_true: dict = None, n_acc: int = 100, n_t: int = 50,
-                 noise_std: float = 0.05):
+                 noise_std: float = 0.05, basedir='.'):
         if p_true is None:
             p_true = {'dc': 20, 'membrane_dim': 10}
         super().__init__(p_true = p_true, n_acc=n_acc)
@@ -24,6 +25,7 @@ class HodgkinHuxleyModelVars(ModelVars):
         self.limits = {'dc': (2, 30), 'membrane_dim': (1, 12)}
         self.time_steps = 10001
         self.n_t = n_t
+        self.executable = os.path.join(basedir, model_folder, "ModelDBFolder", "HH_run")
     
     def get_obs_times(self):
         return [int(i) for i in np.linspace(0, self.time_steps - 1, self.n_t)]
@@ -43,7 +45,6 @@ class HodgkinHuxleyModelVars(ModelVars):
 
     def get_kernel(self):
         kernel = pyabc.distance.IndependentNormalKernel(
-            mean=np.zeros(self.n_t),
             var=self.noise_std**2 * np.ones(self.n_t),
             pdf_max=self.pdf_max,
             keys=['K'])
@@ -51,7 +52,7 @@ class HodgkinHuxleyModelVars(ModelVars):
 
     def get_model(self):
         def model(p):
-            val = simulate(**p)
+            val = simulate(**p, executable=self.executable)
             ret = {'K': val.reset_index()['K'][self.get_obs_times()]}
             return ret
         return model
@@ -64,9 +65,10 @@ class HodgkinHuxleyModelVars(ModelVars):
             return ret
         return model_noisy
     
-    def add_noise(self, ret):
-        ret['K'] += self.noise_std * np.random.randn(self.n_t)
-        return ret
+    def add_noise_to_data(self, y):
+        noisy_y = copy.deepcopy(y)
+        noisy_y['K'] += self.noise_std * np.random.randn(self.n_t)
+        return noisy_y
 
     @staticmethod
     def install_model():
@@ -85,7 +87,7 @@ class HodgkinHuxleyModelVars(ModelVars):
 
 def simulate(model=2, membrane_dim=10, time_steps=1e4, time_step_size=0.01,
              isi=100, dc=20, noise=0, sine_amplitude=0, sine_frequency=0,
-             voltage_clamp=0, data_to_print=1, rng_seed=None):
+             voltage_clamp=0, data_to_print=1, rng_seed=None, executable=executable):
     """
     Simulate the SDE ion channel model defined in an external fortran
     simulator.

@@ -41,7 +41,6 @@ class ConversionReactionModelVars(ModelVars):
 
     def get_kernel(self):
         kernel = pyabc.distance.IndependentNormalKernel(
-            mean=np.zeros(self.n_t),
             var=self.noise_std**2 * np.ones(self.n_t),
             pdf_max=self.pdf_max)
         return kernel
@@ -111,10 +110,10 @@ class ConversionReaction1dModelVars(ConversionReactionModelVars):
 
 class ConversionReactionUVarModelVars(ConversionReactionModelVars):
 
-    def __init__(self, pdf_max=None):
+    def __init__(self, n_acc=1000, pdf_max=None):
         super().__init__(p_true = {'p0': 0.06, 'p1': 0.08, 'std': 0.02},
-                         pdf_max = pdf_max)
-        self.limits = {'p0': (0, 0.4), 'p1': (0, 0.4), 'std': (0.01, 0.2)}
+                         pdf_max = pdf_max, n_acc=n_acc)
+        self.limits = {'p0': (0, 0.15), 'p1': (0, 0.15), 'std': (0.01, 0.05)}
         # used in distance, just for normalization
         self.noise_std = self.p_true['std']
         self.noise_model = np.random.randn
@@ -136,10 +135,9 @@ class ConversionReactionUVarModelVars(ConversionReactionModelVars):
         def compute_var(p):
             return p['std']**2 * np.ones(self.n_t)
         kernel = pyabc.distance.IndependentNormalKernel(
-            mean=np.zeros(self.n_t),
             var=compute_var,
-            pdf_max=self.get_pdf_max())
-
+            pdf_max=self.get_pdf_max()
+        )
         return kernel
     
     def get_pdf_max(self):

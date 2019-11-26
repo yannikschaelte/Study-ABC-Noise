@@ -61,7 +61,7 @@ class HodgkinHuxleyModelVars(ModelVars):
         model = self.get_model()
         def model_noisy(p):
             ret = model(p)
-            ret = self.add_noise(ret)
+            ret = self.add_noise_to_data(ret)
             return ret
         return model_noisy
     

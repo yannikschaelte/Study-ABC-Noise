@@ -14,6 +14,12 @@ limits = dict(log_division_rate=(-3, -1),
               log_ecm_degradation_rate=(-5, 0),
               log_ecm_division_threshold=(-5, 0))
 
+def model(p):
+    sim = tumor2d.log_model(p)
+    for key in keys[1:]:
+        sim[key] = sim[key][:600]
+    return sim
+
 prior = pyabc.Distribution(**{key: pyabc.RV("uniform", a, b - a)
                               for key, (a,b) in limits.items()})
 
@@ -24,7 +30,7 @@ kernel = pyabc.IndependentNormalKernel(keys=keys, var=noise_vector**2)
 sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8775)
 #sampler = pyabc.sampler.MulticoreEvalParallelSampler(daemon=False)
 
-abc = pyabc.ABCSMC(tumor2d.log_model, prior, kernel, sampler=sampler,
+abc = pyabc.ABCSMC(model, prior, kernel, sampler=sampler,
                    acceptor=acceptor, eps=temperature, population_size=500)
 db_path="sqlite:///tumor2d_stoch_acc_v3.db"
 abc.new(db_path, noisy_data)

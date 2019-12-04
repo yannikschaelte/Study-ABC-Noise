@@ -22,11 +22,17 @@ _, _, data_var = tumor2d.load_default()
 for key in keys[1:]:
     data_var[key] = data_var[key][:600]
 
+def model(p):
+    sim = tumor2d.log_model(p)
+    for key in keys[1:]:
+        sim[key] = sim[key][:600]
+    return sim
+
 distance = tumor2d.Tumor2DDistance(data_var)
 
 sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8776)
 
-abc = pyabc.ABCSMC(tumor2d.log_model, prior, distance, sampler=sampler,
+abc = pyabc.ABCSMC(model, prior, distance, sampler=sampler,
                    population_size=500)
 db_path="sqlite:///tumor2d_incorrect_v3.db"
 abc.new(db_path, noisy_data)

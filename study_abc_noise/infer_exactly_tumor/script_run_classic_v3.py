@@ -30,7 +30,7 @@ def model(p):
 
 distance = tumor2d.Tumor2DDistance(data_var)
 
-sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8776)
+sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8777)
 
 abc = pyabc.ABCSMC(model, prior, distance, sampler=sampler,
                    population_size=500)

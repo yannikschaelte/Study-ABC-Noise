@@ -25,6 +25,6 @@ sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8776)
 
 abc = pyabc.ABCSMC(tumor2d.log_model, prior, tumor2d.distance, sampler=sampler,
                    population_size=500)
-db_path="sqlite:///tumor2d_incorrect.db"
+db_path="sqlite:///tumor2d_incorrect_v2.db"
 abc.new(db_path, noisy_data)
 abc.run()

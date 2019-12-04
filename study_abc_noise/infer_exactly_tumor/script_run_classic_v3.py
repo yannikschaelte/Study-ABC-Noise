@@ -2,6 +2,15 @@ import pyabc
 import tumor2d
 import pickle
 
+# for debugging
+import logging
+df_logger = logging.getLogger('Distance')
+df_logger.setLevel(logging.DEBUG)
+df_logger = logging.getLogger('Acceptor')
+df_logger.setLevel(logging.DEBUG)
+df_logger = logging.getLogger('Epsilon')
+df_logger.setLevel(logging.DEBUG)
+
 noisy_data = pickle.load(open("noisy_data_v3.dat", "rb"))
 noise_vector = pickle.load(open("noise_vector_v3.dat", "rb"))
 keys = ['growth_curve', 'extra_cellular_matrix_profile', 'proliferation_profile']  

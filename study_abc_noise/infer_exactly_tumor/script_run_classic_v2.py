@@ -21,7 +21,7 @@ prior = pyabc.Distribution(**{key: pyabc.RV("uniform", a, b - a)
 #temperature = pyabc.Temperature()
 #kernel = pyabc.IndependentNormalKernel(keys=keys, var=noise_vector**2)
 
-sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8776)
+sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8777)
 
 abc = pyabc.ABCSMC(tumor2d.log_model, prior, tumor2d.distance, sampler=sampler,
                    population_size=500)

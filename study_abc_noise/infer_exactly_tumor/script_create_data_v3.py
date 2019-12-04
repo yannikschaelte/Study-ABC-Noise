@@ -5,7 +5,7 @@ import pickle
 
 exact_data = tumor2d.simulate()
 keys = ['growth_curve', 'extra_cellular_matrix_profile', 'proliferation_profile']
-noise = {'growth_curve': 30, 'extra_cellular_matrix_profile': 0.1, 'proliferation_profile': 0.02}
+noise = {'growth_curve': 30, 'extra_cellular_matrix_profile': 0.2, 'proliferation_profile': 0.03}
 noise_vector = []
 
 # cut off superfluous radii

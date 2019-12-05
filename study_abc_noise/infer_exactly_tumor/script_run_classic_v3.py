@@ -29,12 +29,14 @@ prior = pyabc.Distribution(**{key: pyabc.RV("uniform", a, b - a)
 
 _, _, data_var = tumor2d.load_default()
 for key in keys[1:]:
-    data_var[key] = data_var[key][:600]
+    data_var[keys[1]] = data_var[keys[1]][:640]
+    data_var[keys[2]] = data_var[keys[2]][:345]
 
 def model(p):
     sim = tumor2d.log_model(p)
     for key in keys[1:]:
-        sim[key] = sim[key][:600]
+        sim[keys[1]] = sim[keys[1]][:640]
+        sim[keys[2]] = sim[keys[2]][:345]
     return sim
 
 distance = tumor2d.Tumor2DDistance(data_var)

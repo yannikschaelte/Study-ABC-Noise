@@ -25,15 +25,15 @@ limits = dict(log_division_rate=(-3, -1),
 
 def model(p):
     sim = tumor2d.log_model(p)
-    for key in keys[1:]:
-        sim[key] = sim[key][:600]
+    sim[keys[1]] = sim[keys[1]][:640]
+    sim[keys[2]] = sim[keys[2]][:345]
     return sim
 
 prior = pyabc.Distribution(**{key: pyabc.RV("uniform", a, b - a)
                               for key, (a,b) in limits.items()})
 
 acceptor = pyabc.StochasticAcceptor()
-temperature = pyabc.Temperature()
+temperature = pyabc.Temperature(schemes=[pyabc.AcceptanceRateScheme(), pyabc.ExpDecayFixedRatioScheme(alpha=0.6)])
 kernel = pyabc.IndependentNormalKernel(keys=keys, var=noise_vector**2)
 
 sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8775)

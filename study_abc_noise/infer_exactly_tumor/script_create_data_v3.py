@@ -5,12 +5,12 @@ import pickle
 
 exact_data = tumor2d.simulate()
 keys = ['growth_curve', 'extra_cellular_matrix_profile', 'proliferation_profile']
-noise = {'growth_curve': 30, 'extra_cellular_matrix_profile': 0.2, 'proliferation_profile': 0.03}
+noise = {'growth_curve': 40, 'extra_cellular_matrix_profile': 0.15, 'proliferation_profile': 0.02}
 noise_vector = []
 
 # cut off superfluous radii
-for key in keys[1:]:
-    exact_data[key] = exact_data[key][:600]
+exact_data[keys[1]] = exact_data[keys[1]][:640]
+exact_data[keys[2]] = exact_data[keys[2]][:345]
 
 noisy_data = {}
 

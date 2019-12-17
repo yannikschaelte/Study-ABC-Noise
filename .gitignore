@@ -1,4 +1,6 @@
-gillespie/*.db
 __pycache__/
 *.egg-info
 *.ipynb_checkpoints*
+*.db
+*.hodgkin_huxley*
+*amici_models*

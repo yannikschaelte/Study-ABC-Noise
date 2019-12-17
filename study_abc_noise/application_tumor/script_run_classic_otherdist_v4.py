@@ -1,6 +1,7 @@
 import pyabc
 import tumor2d
 import pickle
+import numpy as np
 
 # for debugging
 import logging
@@ -13,6 +14,7 @@ df_logger.setLevel(logging.DEBUG)
 
 noisy_data = pickle.load(open("noisy_data_v4.dat", "rb"))
 noise_vector = pickle.load(open("noise_vector_v4.dat", "rb"))
+noise = {'growth_curve': 40, 'extra_cellular_matrix_profile': 0.15, 'proliferation_profile': 0.02}
 keys = ['growth_curve', 'extra_cellular_matrix_profile', 'proliferation_profile']  
 
 limits = dict(log_division_rate=(-3, -1),
@@ -37,12 +39,18 @@ def model(p):
     sim[keys[2]] = sim[keys[2]][:345][::10]
     return sim
 
-distance = tumor2d.Tumor2DDistance(data_var)
+#distance = tumor2d.Tumor2DDistance(data_var)
+
+def distance(x, x0):
+    dist = 0.0
+    for key in keys:
+        dist += np.sum((x[key] - x0[key])**2 / noise[key]**2)
+    return dist
 
 sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8778)
 
 abc = pyabc.ABCSMC(model, prior, distance, sampler=sampler,
                    population_size=500)
-db_path="sqlite:///tumor2d_incorrect_v4.db"
+db_path="sqlite:///tumor2d_incorrect_otherdist_v4.db"
 abc.new(db_path, noisy_data)
 abc.run()

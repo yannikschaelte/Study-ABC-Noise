@@ -50,7 +50,7 @@ class ConversionReactionModelVars(ModelVars):
             y = x(p, self.x0, self.get_ts())[1, :]
             return {'y': y.flatten()}
         return model
-    
+
     def get_model_noisy(self):
         def model_noisy(p):
             y = x(p, self.x0, self.get_ts())[1, :] \
@@ -94,6 +94,37 @@ class ConversionReactionModelVars(ModelVars):
         ax.set_ylabel("Concentration [au]")
         ax.legend()
         return ax
+
+
+class ConversionReactionLaplaceModelVars(ConversionReactionModelVars):
+
+    def get_distance(self):
+        def l1(x, y):
+            return np.sum(np.abs( (x['y'] - y['y']) / self.noise_std))
+        return l2
+
+    def get_kernel(self):
+        kernel = pyabc.distance.IndependentLaplaceKernel(
+            scale=self.noise_std * np.ones(self.n_t),
+            pdf_max=self.pdf_max)
+        return kernel
+
+    def get_model(self):
+        def model(p):
+            y = x(p, self.x0, self.get_ts())[1, :]
+            return {'y': y.flatten()}
+        return model
+    
+    def get_model_noisy(self):
+        def model_noisy(p):
+            y = x(p, self.x0, self.get_ts())[1, :] \
+                + np.random.laplace(0, self.noise_std, self.n_t)
+            return {'y': y.flatten()}
+        return model_noisy
+
+    def generate_data(self):
+        y = self.get_model_noisy()(self.p_true)
+        return y
 
 
 class ConversionReaction1dModelVars(ConversionReactionModelVars):

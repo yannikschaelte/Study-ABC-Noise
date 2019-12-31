@@ -14,7 +14,8 @@ class MRNATranscriptionModelVars(ModelVars):
                  noise_success_probability: float = 0.90,
                  pdf_max: float = None,
                  n_t : int = 30,
-                 t_max: int = 90):
+                 t_max: int = 90,
+                 noise_model='binom'):
         super().__init__(
             p_true = OrderedDict([('transcription', 10),
                                   ('decay', 0.1),]),
@@ -30,6 +31,7 @@ class MRNATranscriptionModelVars(ModelVars):
             np.linspace(0, self.t_max, self.n_t))
         self.x0 = np.array([0])
         self.noise_success_probability = noise_success_probability
+        self.noise_model = noise_model
 
     def get_id(self):
         return f"mrna_transcription_{self.n_t}_{self.t_max}_" \
@@ -46,11 +48,16 @@ class MRNATranscriptionModelVars(ModelVars):
         return l2
 
     def get_kernel(self):
-        kernel = pyabc.distance.BinomialKernel(
-            p=self.noise_success_probability,
-            keys=['mrna'],
-            ret_scale=pyabc.distance.SCALE_LOG,
-            pdf_max=self.pdf_max)
+        if self.noise_model == 'binom':
+            kernel = pyabc.distance.BinomialKernel(
+                p=self.noise_success_probability,
+                keys=['mrna'],
+                ret_scale=pyabc.distance.SCALE_LOG,
+                pdf_max=self.pdf_max)
+        elif self.noise_model == 'poisson':
+            kernel = pyabc.distane.PoissonKernel(
+                keys=['mrna'],
+                ret_scale=pyabc.distance.SCALE_LOG)
         return kernel
 
     def get_model(self):
@@ -70,17 +77,25 @@ class MRNATranscriptionModelVars(ModelVars):
 
     def add_noise_to_data(self, y):
         successes = copy.deepcopy(y)
-        successes['mrna'] = np.random.binomial(
-            n=y['mrna'].flatten().astype(dtype=int),
-            p=self.noise_success_probability)
+        if self.noise_model == 'binom':
+            successes['mrna'] = np.random.binomial(
+                n=y['mrna'].flatten().astype(dtype=int),
+                p=self.noise_success_probability)
+        elif self.noise_model == 'poisson':
+            successes['mrna'] = np.random.poisson(
+                lam=y['mrna'].flatten().astype(dtype=int))
         return successes
 
     def get_model_noisy(self):
         def model_noisy(p):
             y = self.get_model()(p)
-            successes = np.random.binomial(
-                n=y['mrna'].flatten().astype(dtype=int),
-                p=self.noise_success_probability)
+            if self.noise_model == 'binom':
+                successes = np.random.binomial(
+                    n=y['mrna'].flatten().astype(dtype=int),
+                    p=self.noise_success_probability)
+            elif self.noise_model == 'poisson':
+                successes = np.random.poisson(
+                    lam=y['mrna'].flatten().astype(dtype=int))
             y['mrna'] = successes
             return y
         return model_noisy

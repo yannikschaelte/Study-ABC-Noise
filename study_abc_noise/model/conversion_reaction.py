@@ -101,7 +101,7 @@ class ConversionReactionLaplaceModelVars(ConversionReactionModelVars):
     def get_distance(self):
         def l1(x, y):
             return np.sum(np.abs( (x['y'] - y['y']) / self.noise_std))
-        return l2
+        return l1
 
     def get_kernel(self):
         kernel = pyabc.distance.IndependentLaplaceKernel(

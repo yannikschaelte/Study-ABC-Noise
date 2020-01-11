@@ -1,6 +1,5 @@
 import pyabc
 import os
-import pickle
 import matplotlib.pyplot as plt
 from study_abc_noise.model.conversion_reaction import *
 from study_abc_noise.read_pickle_file import read_pickle_file
@@ -8,20 +7,23 @@ from study_abc_noise.read_pickle_file import read_pickle_file
 
 mv = ConversionReaction1dModelVars()
 
-_, y_obs = pickle.load(open("data.dat", 'rb'))
+files = [f for f in os.listdir('data')]
+print(files)
+y_file = files[0]
+y_obs = read_pickle_file("data/" + y_file)
 print(y_obs)
 posterior_scaled = get_posterior_scaled_1d(mv, y_obs)
 
 xs = np.linspace(mv.limits['p0'][0], mv.limits['p0'][1], 200)
 true_vals = [posterior_scaled([x]) for x in xs]
 
-db_files = [f for f in os.listdir('.') if os.path.isfile(f) and ".db" in f]
+db_files = [f for f in os.listdir('.') if os.path.isfile(f) and "db_" in f]
 print(f"Using db files {db_files}")
 
 histories = []
 labels = []
 for db_file in db_files:
-    id_ = db_file[2:-3]
+    id_ = db_file.split('__')[1]
     h = pyabc.History("sqlite:///" + db_file)
     h.id = 1
     histories.append(h)

@@ -48,6 +48,8 @@ In the base directory, there are notably the folders `pyabc` and `study_abc_nois
 # Running the code
 
 
+We tried to make the code as easily usable and thus the analysis as reproducible as possible, however due to the computational demands of ABC and some of the application examples, some things require a system-specific setup.
+
 Many of the code blocks should run out of the box. For some, however absolute paths were necessary, which will need to be adapted.
 
 For the sampling process we used two samplers: A `pyabc.sampler.MulticoreEvalParallelSampler` and a `pyabc.sampler.RedisEvalParallelSampler`. The former should run out of the box and can exploit parallelism on a single machine. The latter however, which can exploit cluster infrastructure via a redis server, needs a specific setup depending on the cluster infrastructure. See [here](https://pyabc.rtfd.io/en/latest/sampler.html) for further information.

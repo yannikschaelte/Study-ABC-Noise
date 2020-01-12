@@ -1,0 +1,325 @@
+pdf_norm=5.8942e+00 for t=0.
+Proposed temperatures for 0: [4.3957100798708].
+Encountered pd=5.9010e+00 > c=5.8942e+00, thus weight=1.0016e+00.
+Encountered pd=5.8982e+00 > c=5.8942e+00, thus weight=1.0009e+00.
+Encountered pd=5.8976e+00 > c=5.8942e+00, thus weight=1.0008e+00.
+Encountered pd=5.8981e+00 > c=5.8942e+00, thus weight=1.0009e+00.
+Encountered pd=5.8987e+00 > c=5.8942e+00, thus weight=1.0010e+00.
+Encountered pd=5.8964e+00 > c=5.8942e+00, thus weight=1.0005e+00.
+Encountered pd=5.8968e+00 > c=5.8942e+00, thus weight=1.0006e+00.
+Encountered pd=5.8986e+00 > c=5.8942e+00, thus weight=1.0010e+00.
+Encountered pd=5.8990e+00 > c=5.8942e+00, thus weight=1.0011e+00.
+Encountered pd=5.8960e+00 > c=5.8942e+00, thus weight=1.0004e+00.
+Encountered pd=5.9006e+00 > c=5.8942e+00, thus weight=1.0014e+00.
+Encountered pd=5.8988e+00 > c=5.8942e+00, thus weight=1.0011e+00.
+pdf_norm=5.9010e+00 for t=1.
+Proposed temperatures for 1: [3.30336063967205, 2.1978550399354].
+Encountered pd=5.9020e+00 > c=5.9010e+00, thus weight=1.0004e+00.
+pdf_norm=5.9020e+00 for t=2.
+Proposed temperatures for 2: [2.7054226367151206, 1.0989275199677].
+pdf_norm=5.9020e+00 for t=3.
+Proposed temperatures for 3: [2.2321626938662726, 0.54946375998385].
+pdf_norm=5.9020e+00 for t=4.
+Proposed temperatures for 4: [2.2322653033901103, 0.5].
+pdf_norm=1.9554e+01 for t=0.
+Proposed temperatures for 0: [10.212006280925705].
+pdf_norm=1.9554e+01 for t=1.
+Proposed temperatures for 1: [6.123676363962525, 5.106003140462852].
+Encountered pd=1.9636e+01 > c=1.9554e+01, thus weight=1.0161e+00.
+pdf_norm=1.9636e+01 for t=2.
+Proposed temperatures for 2: [6.074633177749642, 2.553001570231426].
+pdf_norm=1.9636e+01 for t=3.
+Proposed temperatures for 3: [4.381890808504153, 1.276500785115713].
+Encountered pd=1.9679e+01 > c=1.9636e+01, thus weight=1.0342e+00.
+pdf_norm=1.9679e+01 for t=4.
+Proposed temperatures for 4: [4.26437544405793, 0.6382503925578565].
+pdf_norm=1.9679e+01 for t=5.
+Proposed temperatures for 5: [3.843485003870754, 0.5].
+pdf_norm=4.9802e+01 for t=0.
+Proposed temperatures for 0: [74.91729918040635].
+Encountered pd=5.0234e+01 > c=4.9802e+01, thus weight=1.0058e+00.
+Encountered pd=5.0084e+01 > c=4.9802e+01, thus weight=1.0038e+00.
+Encountered pd=4.9870e+01 > c=4.9802e+01, thus weight=1.0009e+00.
+Encountered pd=5.0222e+01 > c=4.9802e+01, thus weight=1.0056e+00.
+pdf_norm=5.0234e+01 for t=1.
+Proposed temperatures for 1: [64.40332610210717, 37.45864959020317].
+Encountered pd=5.0244e+01 > c=5.0234e+01, thus weight=1.0003e+00.
+Encountered pd=5.0328e+01 > c=5.0234e+01, thus weight=1.0025e+00.
+Encountered pd=5.0314e+01 > c=5.0234e+01, thus weight=1.0021e+00.
+pdf_norm=5.0328e+01 for t=2.
+Proposed temperatures for 2: [50.60669663278261, 18.729324795101586].
+Encountered pd=5.0334e+01 > c=5.0328e+01, thus weight=1.0003e+00.
+Encountered pd=5.0336e+01 > c=5.0328e+01, thus weight=1.0004e+00.
+pdf_norm=5.0336e+01 for t=3.
+Proposed temperatures for 3: [29.165267949054886, 9.364662397550793].
+Encountered pd=5.0344e+01 > c=5.0336e+01, thus weight=1.0008e+00.
+Encountered pd=5.0338e+01 > c=5.0336e+01, thus weight=1.0002e+00.
+pdf_norm=5.0344e+01 for t=4.
+Proposed temperatures for 4: [21.053337868305523, 4.682331198775397].
+Encountered pd=5.0933e+01 > c=5.0344e+01, thus weight=1.1342e+00.
+pdf_norm=5.0933e+01 for t=5.
+Proposed temperatures for 5: [7.6737145675303085, 2.3411655993876983].
+pdf_norm=5.0933e+01 for t=6.
+Proposed temperatures for 6: [5.255954193275938, 1.1705827996938492].
+pdf_norm=5.0933e+01 for t=7.
+Proposed temperatures for 7: [3.856547715472526, 0.5852913998469246].
+pdf_norm=5.0933e+01 for t=8.
+Proposed temperatures for 8: [3.6800144835197575, 0.5].
+pdf_norm=1.6096e+02 for t=0.
+Proposed temperatures for 0: [209.95197393066846].
+Encountered pd=1.6128e+02 > c=1.6096e+02, thus weight=1.0015e+00.
+Encountered pd=1.6112e+02 > c=1.6096e+02, thus weight=1.0008e+00.
+Encountered pd=1.6129e+02 > c=1.6096e+02, thus weight=1.0015e+00.
+pdf_norm=1.6129e+02 for t=1.
+Proposed temperatures for 1: [170.95906007364718, 104.97598696533423].
+Encountered pd=1.6131e+02 > c=1.6129e+02, thus weight=1.0002e+00.
+Encountered pd=1.6130e+02 > c=1.6129e+02, thus weight=1.0001e+00.
+pdf_norm=1.6131e+02 for t=2.
+Proposed temperatures for 2: [142.04605243254704, 52.487993482667115].
+Encountered pd=1.6133e+02 > c=1.6131e+02, thus weight=1.0003e+00.
+pdf_norm=1.6133e+02 for t=3.
+Proposed temperatures for 3: [67.7113554105937, 26.243996741333557].
+Encountered pd=1.6134e+02 > c=1.6133e+02, thus weight=1.0004e+00.
+pdf_norm=1.6134e+02 for t=4.
+Proposed temperatures for 4: [23.762586952560866, 13.121998370666779].
+pdf_norm=1.6134e+02 for t=5.
+Proposed temperatures for 5: [11.215028394806628, 6.560999185333389].
+Encountered pd=1.6134e+02 > c=1.6134e+02, thus weight=1.0001e+00.
+pdf_norm=1.6134e+02 for t=6.
+Proposed temperatures for 6: [5.111339051949634, 3.2804995926666947].
+pdf_norm=1.6134e+02 for t=7.
+Proposed temperatures for 7: [3.686666769941547, 1.6402497963333473].
+Encountered pd=1.6134e+02 > c=1.6134e+02, thus weight=1.0014e+00.
+Encountered pd=1.6134e+02 > c=1.6134e+02, thus weight=1.0009e+00.
+Encountered pd=1.6134e+02 > c=1.6134e+02, thus weight=1.0009e+00.
+pdf_norm=1.6134e+02 for t=8.
+Proposed temperatures for 8: [2.0528598819632218, 0.8201248981666737].
+Encountered pd=1.6134e+02 > c=1.6134e+02, thus weight=1.0002e+00.
+Encountered pd=1.6134e+02 > c=1.6134e+02, thus weight=1.0002e+00.
+pdf_norm=1.6134e+02 for t=9.
+Proposed temperatures for 9: [1.4281075919915338, 0.5].
+pdf_norm=4.6319e+02 for t=0.
+Proposed temperatures for 0: [617.5334046334592].
+Encountered pd=4.6364e+02 > c=4.6319e+02, thus weight=1.0007e+00.
+pdf_norm=4.6364e+02 for t=1.
+Proposed temperatures for 1: [524.8311044168133, 308.7667023167296].
+Encountered pd=4.6393e+02 > c=4.6364e+02, thus weight=1.0009e+00.
+Encountered pd=4.6403e+02 > c=4.6364e+02, thus weight=1.0012e+00.
+Encountered pd=4.6374e+02 > c=4.6364e+02, thus weight=1.0003e+00.
+Encountered pd=4.6386e+02 > c=4.6364e+02, thus weight=1.0007e+00.
+Encountered pd=4.6384e+02 > c=4.6364e+02, thus weight=1.0006e+00.
+Encountered pd=4.6365e+02 > c=4.6364e+02, thus weight=1.0000e+00.
+Encountered pd=4.6407e+02 > c=4.6364e+02, thus weight=1.0014e+00.
+Encountered pd=4.6393e+02 > c=4.6364e+02, thus weight=1.0009e+00.
+Encountered pd=4.6377e+02 > c=4.6364e+02, thus weight=1.0004e+00.
+pdf_norm=4.6407e+02 for t=2.
+Proposed temperatures for 2: [398.1697412368823, 154.3833511583648].
+Encountered pd=4.6409e+02 > c=4.6407e+02, thus weight=1.0002e+00.
+Encountered pd=4.6417e+02 > c=4.6407e+02, thus weight=1.0007e+00.
+pdf_norm=4.6417e+02 for t=3.
+Proposed temperatures for 3: [177.38797511600276, 77.1916755791824].
+Encountered pd=4.6417e+02 > c=4.6417e+02, thus weight=1.0001e+00.
+pdf_norm=4.6417e+02 for t=4.
+Proposed temperatures for 4: [55.32525029617929, 38.5958377895912].
+pdf_norm=4.6417e+02 for t=5.
+Proposed temperatures for 5: [34.18264371885993, 19.2979188947956].
+Encountered pd=4.6418e+02 > c=4.6417e+02, thus weight=1.0001e+00.
+pdf_norm=4.6418e+02 for t=6.
+Proposed temperatures for 6: [21.764232026961956, 9.6489594473978].
+pdf_norm=4.6418e+02 for t=7.
+Proposed temperatures for 7: [12.401393711775597, 4.8244797236989].
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0003e+00.
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0005e+00.
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0007e+00.
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0005e+00.
+pdf_norm=4.6418e+02 for t=8.
+Proposed temperatures for 8: [8.187221328322169, 2.41223986184945].
+pdf_norm=4.6418e+02 for t=9.
+Proposed temperatures for 9: [3.827507404944526, 1.206119930924725].
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0011e+00.
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0021e+00.
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0000e+00.
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0014e+00.
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0011e+00.
+pdf_norm=4.6418e+02 for t=10.
+Proposed temperatures for 10: [2.0221317192589887, 0.6030599654623625].
+Encountered pd=4.6418e+02 > c=4.6418e+02, thus weight=1.0019e+00.
+pdf_norm=4.6418e+02 for t=11.
+Proposed temperatures for 11: [1.5734641516592571, 0.5].
+pdf_norm=1.0372e+03 for t=0.
+Proposed temperatures for 0: [2014.3386765560613].
+Encountered pd=1.0533e+03 > c=1.0372e+03, thus weight=1.0081e+00.
+Encountered pd=1.1426e+03 > c=1.0372e+03, thus weight=1.0537e+00.
+Encountered pd=1.2623e+03 > c=1.0372e+03, thus weight=1.1183e+00.
+pdf_norm=1.2623e+03 for t=1.
+Proposed temperatures for 1: [2076.418976308597, 1007.1693382780306].
+pdf_norm=1.2623e+03 for t=2.
+Proposed temperatures for 2: [1981.9996148539426, 503.5846691390153].
+Encountered pd=1.2904e+03 > c=1.2623e+03, thus weight=1.0573e+00.
+Encountered pd=1.2757e+03 > c=1.2623e+03, thus weight=1.0268e+00.
+pdf_norm=1.2904e+03 for t=3.
+Proposed temperatures for 3: [1825.5321342937282, 251.79233456950766].
+Encountered pd=1.3161e+03 > c=1.2904e+03, thus weight=1.1076e+00.
+Encountered pd=1.3501e+03 > c=1.2904e+03, thus weight=1.2676e+00.
+Encountered pd=1.3106e+03 > c=1.2904e+03, thus weight=1.0837e+00.
+Encountered pd=1.3873e+03 > c=1.2904e+03, thus weight=1.4696e+00.
+Encountered pd=1.3929e+03 > c=1.2904e+03, thus weight=1.5027e+00.
+Encountered pd=1.3555e+03 > c=1.2904e+03, thus weight=1.2954e+00.
+Encountered pd=1.3292e+03 > c=1.2904e+03, thus weight=1.1670e+00.
+Encountered pd=1.3060e+03 > c=1.2904e+03, thus weight=1.0639e+00.
+Encountered pd=1.4100e+03 > c=1.2904e+03, thus weight=1.6081e+00.
+Encountered pd=1.3028e+03 > c=1.2904e+03, thus weight=1.0506e+00.
+Encountered pd=1.3232e+03 > c=1.2904e+03, thus weight=1.1394e+00.
+Encountered pd=1.2986e+03 > c=1.2904e+03, thus weight=1.0331e+00.
+Encountered pd=1.3265e+03 > c=1.2904e+03, thus weight=1.1541e+00.
+Encountered pd=1.2962e+03 > c=1.2904e+03, thus weight=1.0235e+00.
+Encountered pd=1.3916e+03 > c=1.2904e+03, thus weight=1.4946e+00.
+Encountered pd=1.4088e+03 > c=1.2904e+03, thus weight=1.6006e+00.
+Encountered pd=1.3266e+03 > c=1.2904e+03, thus weight=1.1548e+00.
+Encountered pd=1.3141e+03 > c=1.2904e+03, thus weight=1.0990e+00.
+pdf_norm=1.4100e+03 for t=4.
+Proposed temperatures for 4: [1649.0074184840453, 125.89616728475383].
+Encountered pd=1.4423e+03 > c=1.4100e+03, thus weight=1.2931e+00.
+pdf_norm=8.5361e+02 for t=0.
+Proposed temperatures for 0: [1826.9562042303337].
+Encountered pd=9.2166e+02 > c=8.5361e+02, thus weight=1.0380e+00.
+Encountered pd=1.0385e+03 > c=8.5361e+02, thus weight=1.1065e+00.
+pdf_norm=1.0385e+03 for t=1.
+Proposed temperatures for 1: [1811.7275579557718, 913.4781021151668].
+Encountered pd=1.0826e+03 > c=1.0385e+03, thus weight=1.0495e+00.
+pdf_norm=1.0826e+03 for t=2.
+Proposed temperatures for 2: [1773.5987236621804, 456.7390510575834].
+Encountered pd=1.1104e+03 > c=1.0826e+03, thus weight=1.0628e+00.
+Encountered pd=1.0847e+03 > c=1.0826e+03, thus weight=1.0045e+00.
+Encountered pd=1.2700e+03 > c=1.0826e+03, thus weight=1.5071e+00.
+Encountered pd=1.1566e+03 > c=1.0826e+03, thus weight=1.1759e+00.
+Encountered pd=1.1534e+03 > c=1.0826e+03, thus weight=1.1676e+00.
+Encountered pd=1.2438e+03 > c=1.0826e+03, thus weight=1.4232e+00.
+Encountered pd=1.1682e+03 > c=1.0826e+03, thus weight=1.2061e+00.
+Encountered pd=1.1560e+03 > c=1.0826e+03, thus weight=1.1742e+00.
+Encountered pd=1.2109e+03 > c=1.0826e+03, thus weight=1.3241e+00.
+Encountered pd=1.0865e+03 > c=1.0826e+03, thus weight=1.0085e+00.
+Encountered pd=1.1169e+03 > c=1.0826e+03, thus weight=1.0780e+00.
+Encountered pd=1.3241e+03 > c=1.0826e+03, thus weight=1.6967e+00.
+Encountered pd=1.1677e+03 > c=1.0826e+03, thus weight=1.2047e+00.
+Encountered pd=1.1569e+03 > c=1.0826e+03, thus weight=1.1766e+00.
+Encountered pd=1.1519e+03 > c=1.0826e+03, thus weight=1.1637e+00.
+Encountered pd=1.1014e+03 > c=1.0826e+03, thus weight=1.0419e+00.
+Encountered pd=1.1621e+03 > c=1.0826e+03, thus weight=1.1900e+00.
+Encountered pd=1.0878e+03 > c=1.0826e+03, thus weight=1.0114e+00.
+Encountered pd=1.2273e+03 > c=1.0826e+03, thus weight=1.3726e+00.
+Encountered pd=1.0887e+03 > c=1.0826e+03, thus weight=1.0135e+00.
+Encountered pd=1.1541e+03 > c=1.0826e+03, thus weight=1.1693e+00.
+Encountered pd=1.2816e+03 > c=1.0826e+03, thus weight=1.5460e+00.
+Encountered pd=1.2272e+03 > c=1.0826e+03, thus weight=1.3723e+00.
+pdf_norm=1.3241e+03 for t=3.
+Proposed temperatures for 3: [1778.7995197345122, 228.3695255287917].
+Encountered pd=1.3589e+03 > c=1.3241e+03, thus weight=1.1645e+00.
+Encountered pd=1.3306e+03 > c=1.3241e+03, thus weight=1.0291e+00.
+Encountered pd=1.3510e+03 > c=1.3241e+03, thus weight=1.1252e+00.
+Encountered pd=1.3332e+03 > c=1.3241e+03, thus weight=1.0406e+00.
+Encountered pd=1.4104e+03 > c=1.3241e+03, thus weight=1.4594e+00.
+Encountered pd=1.4181e+03 > c=1.3241e+03, thus weight=1.5092e+00.
+Encountered pd=1.3350e+03 > c=1.3241e+03, thus weight=1.0492e+00.
+Encountered pd=1.3285e+03 > c=1.3241e+03, thus weight=1.0195e+00.
+Encountered pd=1.3473e+03 > c=1.3241e+03, thus weight=1.1069e+00.
+Encountered pd=1.3554e+03 > c=1.3241e+03, thus weight=1.1470e+00.
+pdf_norm=1.4181e+03 for t=4.
+Proposed temperatures for 4: [1685.7456320103079, 114.18476276439586].
+Encountered pd=1.4497e+03 > c=1.4181e+03, thus weight=1.3196e+00.
+Encountered pd=1.4254e+03 > c=1.4181e+03, thus weight=1.0659e+00.
+Encountered pd=1.4375e+03 > c=1.4181e+03, thus weight=1.1852e+00.
+Encountered pd=1.4494e+03 > c=1.4181e+03, thus weight=1.3153e+00.
+pdf_norm=6.2304e+00 for t=0.
+Proposed temperatures for 0: [5.168418529083969].
+pdf_norm=6.2304e+00 for t=1.
+Proposed temperatures for 1: [3.890648237152878, 2.5842092645419843].
+pdf_norm=6.2304e+00 for t=2.
+Proposed temperatures for 2: [3.3664505727239726, 1.2921046322709921].
+pdf_norm=6.2304e+00 for t=3.
+Proposed temperatures for 3: [2.928470299849566, 0.6460523161354961].
+pdf_norm=6.2304e+00 for t=4.
+Proposed temperatures for 4: [3.0579851719872093, 0.5].
+pdf_norm=2.0768e+01 for t=0.
+Proposed temperatures for 0: [11.035956147301704].
+pdf_norm=2.0768e+01 for t=1.
+Proposed temperatures for 1: [8.270513853392115, 5.517978073650852].
+pdf_norm=2.0768e+01 for t=2.
+Proposed temperatures for 2: [7.465542891595319, 2.758989036825426].
+pdf_norm=2.0768e+01 for t=3.
+Proposed temperatures for 3: [5.835147003753775, 1.379494518412713].
+pdf_norm=2.0768e+01 for t=4.
+Proposed temperatures for 4: [6.554064728823808, 0.6897472592063565].
+pdf_norm=2.0768e+01 for t=5.
+Proposed temperatures for 5: [6.300520449643725, 0.5].
+pdf_norm=6.2304e+01 for t=0.
+Proposed temperatures for 0: [89.77816613150567].
+pdf_norm=6.2304e+01 for t=1.
+Proposed temperatures for 1: [78.78402990119841, 44.889083065752835].
+pdf_norm=6.2304e+01 for t=2.
+Proposed temperatures for 2: [67.7232775533778, 22.444541532876418].
+pdf_norm=6.2304e+01 for t=3.
+Proposed temperatures for 3: [50.52824941485628, 11.222270766438209].
+pdf_norm=6.2304e+01 for t=4.
+Proposed temperatures for 4: [33.90959379722023, 5.611135383219104].
+pdf_norm=6.2304e+01 for t=5.
+Proposed temperatures for 5: [26.63700206858808, 2.805567691609552].
+pdf_norm=6.2304e+01 for t=6.
+Proposed temperatures for 6: [24.12173789963193, 1.402783845804776].
+init quantile_epsilon initial_epsilon=from_sample, quantile_multiplier=1
+initial epsilon is 0.04773502964812494
+new eps, t=1, eps=0.022028451235702434
+new eps, t=2, eps=0.011170788772502766
+new eps, t=3, eps=0.005965031795561413
+new eps, t=4, eps=0.0034650749315834014
+new eps, t=5, eps=0.0020786509238394607
+new eps, t=6, eps=0.0012952585030121136
+new eps, t=7, eps=0.0007947141742842058
+new eps, t=8, eps=0.0004940663941168834
+new eps, t=9, eps=0.0003119618931054391
+new eps, t=10, eps=0.00019458521801394603
+init quantile_epsilon initial_epsilon=from_sample, quantile_multiplier=1
+initial epsilon is 0.10621011572816799
+new eps, t=1, eps=0.05904783628520482
+new eps, t=2, eps=0.03945872644482622
+new eps, t=3, eps=0.029543431355717062
+new eps, t=4, eps=0.023119576910270254
+new eps, t=5, eps=0.0187842918890746
+new eps, t=6, eps=0.01559194775053331
+new eps, t=7, eps=0.013094146980737922
+new eps, t=8, eps=0.011591647597409882
+new eps, t=9, eps=0.009852757468914432
+new eps, t=10, eps=0.008180366112444055
+new eps, t=11, eps=0.007112751207061659
+init quantile_epsilon initial_epsilon=from_sample, quantile_multiplier=1
+initial epsilon is 0.6745999478654449
+new eps, t=1, eps=0.5200421935391828
+new eps, t=2, eps=0.41174988385549716
+new eps, t=3, eps=0.30331513633432694
+new eps, t=4, eps=0.2055489704335991
+new eps, t=5, eps=0.15619358367780214
+new eps, t=6, eps=0.13118756319489433
+new eps, t=7, eps=0.11571334908911196
+new eps, t=8, eps=0.10378320630905434
+new eps, t=9, eps=0.09472754843570075
+new eps, t=10, eps=0.08720099214521568
+new eps, t=11, eps=0.0806849935765569
+new eps, t=12, eps=0.0746476319865491
+new eps, t=13, eps=0.06951990572957716
+new eps, t=14, eps=0.06535305865831006
+init quantile_epsilon initial_epsilon=from_sample, quantile_multiplier=1
+initial epsilon is 1.9666148700636727
+new eps, t=1, eps=1.6531296018652497
+new eps, t=2, eps=1.2141900737784226
+new eps, t=3, eps=0.8553038594838459
+new eps, t=4, eps=0.5959690646961934
+new eps, t=5, eps=0.5168238570620813
+new eps, t=6, eps=0.47147214662177833
+new eps, t=7, eps=0.44304542114859685
+new eps, t=8, eps=0.42055542439698024
+new eps, t=9, eps=0.40283211660040075
+new eps, t=10, eps=0.3859106483168311
+new eps, t=11, eps=0.37044033985248265
+new eps, t=12, eps=0.3577343378132736
+new eps, t=13, eps=0.34598618731121533
+new eps, t=14, eps=0.33512135079168914

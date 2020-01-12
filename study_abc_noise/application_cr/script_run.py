@@ -11,11 +11,15 @@ or a stochastic acceptor.
 
 import pyabc
 import sys
-from study_abc_noise.model import ConversionReactionModelVars
+from study_abc_noise.model import ConversionReactionModelVars as ModelVars
 from study_abc_noise.vars import AnalysisVars, Task
 
 
-mv = ConversionReactionModelVars(n_t=1000)
+arr_n_t = [3, 10, 30, 100, 300, 1000]
+for n_t in arr_n_t:
+    mv = ModelVars(n_t=n_t)
+        acceptor = pyabc.StochasticAcceptor(
+            
 
 # create analysis settings
 list_analysis_vars = []

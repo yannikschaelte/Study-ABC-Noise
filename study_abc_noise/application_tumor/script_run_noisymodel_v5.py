@@ -50,7 +50,7 @@ def distance(x, x0):
         dist += np.sum((x[key] - x0[key])**2 / noise[key]**2)
     return dist
 
-sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8777)
+sampler = pyabc.sampler.RedisEvalParallelSampler(host="icb-mona", port=8778)
 
 abc = pyabc.ABCSMC(model, prior, distance, sampler=sampler,
                    population_size=500)

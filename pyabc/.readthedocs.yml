@@ -1,0 +1,24 @@
+# .readthedocs.yml
+# readthedocs configuration file
+# see https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# required
+version: 2
+
+# conda setup
+conda:
+  environment: .rtd_conda_env.yml
+
+# python requirements
+python:
+  version: 3.7
+  install:
+    - requirements: .rtd_pip_reqs.txt
+    - method: pip
+      path: .
+
+# what to build
+formats:
+  - epub
+  - pdf
+  - htmlzip

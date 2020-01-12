@@ -1,0 +1,3 @@
+include README.md
+recursive-include pyabc/visserver/static *
+recursive-include pyabc/visserver/templates *

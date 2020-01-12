@@ -10,12 +10,13 @@ def get_optimal_kernel_value(model_vars, y_obs):
     return opt_p, - opt_fval
 
 
-def multistart_on_kernel(model_vars, y_obs):
+def multistart_on_kernel(model_vars, y_obs, kernel):
     keys = model_vars.p_true.keys()
     lb = [model_vars.limits[key][0] for key in keys]
     ub = [model_vars.limits[key][1] for key in keys]
     model = model_vars.get_model()
-    kernel = model_vars.get_kernel()
+    if kernel is None:
+        kernel = model_vars.get_kernel()
 
     def obj_fun(p):
         p = {key: p[i] for i, key in enumerate(keys)}

@@ -9,9 +9,9 @@ class NonIdAbleModelVars(ModelVars):
     def __init__(self):
         super().__init__(p_true = {'p0': 0.4, 'p1': 0.5})
         self.limits = {'p0': (0, 1), 'p1': (0, 1)}
-        self.noise_std = 0.1
+        self.noise_std = 0.2
         self.noise_model = np.random.randn
-        self.n_t = 10
+        self.n_t = 5
         self.t_max = 30
         self.x0 = 1.0
 
@@ -94,7 +94,7 @@ class NonIdAblePrioredModelVars(NonIdAbleModelVars):
 
     def get_prior(self):
         return pyabc.Distribution(
-            **{key: pyabc.RV('norm', 0.6, 0.2)
+            **{key: pyabc.RV('norm', 0.5, 0.4)
                for key in self.limits})
 
 

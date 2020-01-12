@@ -114,7 +114,7 @@ class ConversionReactionLaplaceModelVars(ConversionReactionModelVars):
             y = x(p, self.x0, self.get_ts())[1, :]
             return {'y': y.flatten()}
         return model
-    
+
     def get_model_noisy(self):
         def model_noisy(p):
             y = x(p, self.x0, self.get_ts())[1, :] \

@@ -15065,18 +15065,25 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.64"
-     inkscape:cx="989.54948"
-     inkscape:cy="492.17863"
+     inkscape:zoom="0.45254834"
+     inkscape:cx="824.34209"
+     inkscape:cy="374.00983"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1866"
      inkscape:window-height="1016"
-     inkscape:window-x="54"
+     inkscape:window-x="1974"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
-     showguides="true" />
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="292.54532,124.75015"
+       orientation="0,1"
+       id="guide4376"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
   <metadata
      id="metadata6347">
     <rdf:RDF>
@@ -15307,37 +15314,37 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="-1113.4761"
-       y="-503.74072"
+       y="-505.34851"
        id="text2374-6"><tspan
          sodipodi:role="line"
          id="tspan2372-6"
-         style="font-size:8.89192867px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+         style="font-size:8.89192867px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          x="-1113.4761"
-         y="-503.74072">sample parameters</tspan></text>
+         y="-505.34851">sample parameters</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00000c;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="-1003.6605"
-       y="-504.54608"
+       y="-505.34998"
        id="text2378-4"><tspan
          sodipodi:role="line"
          id="tspan2376-6"
-         style="font-size:8.89192867px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+         style="font-size:8.89192867px;fill:#00000c;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          x="-1003.6605"
-         y="-504.54608">simulate model</tspan></text>
+         y="-505.34998">simulate model</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00000c;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="-904.28845"
-       y="-504.54608"
+       y="-505.34998"
        id="text2382-2"><tspan
          sodipodi:role="line"
          id="tspan2380-8"
-         style="font-size:8.89192867px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+         style="font-size:8.89192867px;fill:#00000c;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          x="-904.28845"
-         y="-504.54608">simulate noise</tspan></text>
+         y="-505.34998">simulate noise</tspan></text>
     <path
        style="fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:1.32990968;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend-0)"
        d="m -1022.3959,-493.16732 h 11.8987"
@@ -15370,14 +15377,14 @@
        sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-       x="-830.6394"
+       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000002;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="-830.63934"
        y="-418.63574"
        id="text2394-1"><tspan
          sodipodi:role="line"
          id="tspan2392-0"
-         style="font-size:8.89192867px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
-         x="-830.6394"
+         style="font-size:8.89192867px;fill:#000002;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         x="-830.63934"
          y="-418.63574">A3: Stochastic acceptor</tspan></text>
     <rect
        style="opacity:0.403;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.33655918;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -15389,13 +15396,13 @@
        ry="4.0213928" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00000c;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="-796.94299"
        y="-505.40796"
        id="text2390-3"><tspan
          sodipodi:role="line"
          id="tspan2388-7"
-         style="font-size:8.89192867px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+         style="font-size:8.89192867px;fill:#00000c;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          x="-796.94299"
          y="-505.40796">A2: Noisy model</tspan></text>
     <rect
@@ -15408,13 +15415,13 @@
        ry="4.0213928" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:6.56827593px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00000c;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="-807.57159"
        y="-586.43073"
        id="text2386-6"><tspan
          sodipodi:role="line"
          id="tspan2384-4"
-         style="font-size:8.89192867px;fill:#00002b;fill-opacity:1;stroke:#000000;stroke-width:0.35187191;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+         style="font-size:8.89192867px;fill:#00000c;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          x="-807.57159"
          y="-586.43073">A1: Uniform kernel</tspan></text>
     <rect

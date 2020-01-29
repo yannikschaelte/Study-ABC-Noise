@@ -33,6 +33,6 @@ print("dist", dist)
 dist2 = 0
 for key in keys:
     dist2 += sum((noisy_data[key] - exact_data[key])**2)
-print("dist2", dist2)
+print("dist l2", dist2)
 expectation = sum(noise_vector**2)
 print(expectation)

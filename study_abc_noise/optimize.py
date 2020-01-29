@@ -10,7 +10,7 @@ def get_optimal_kernel_value(model_vars, y_obs):
     return opt_p, - opt_fval
 
 
-def multistart_on_kernel(model_vars, y_obs, kernel):
+def multistart_on_kernel(model_vars, y_obs, kernel=None):
     keys = model_vars.p_true.keys()
     lb = [model_vars.limits[key][0] for key in keys]
     ub = [model_vars.limits[key][1] for key in keys]

@@ -1,7 +1,7 @@
 # Study-ABC-Noise
 
 
-This repository contains the code for the analysis on how to efficiently account for measurement noise and model error in sequential ABC. It supplements the paper "Efficient Exact Inference for Dynamical Systems using Sequential Approximate Bayesian Computation", Yannik Schälte and Jan HAsenauer, January 2020.
+This repository contains the code for the analysis on how to efficiently account for measurement noise in sequential ABC. It supplements the paper "Efficient Exact Inference for Dynamical Systems with Measurement Noise using Sequential Approximate Bayesian Computation", Yannik Schälte and Jan Hasenauer, January 2020.
 
 
 # Installation
